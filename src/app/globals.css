@@ -1,0 +1,161 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+  --pastel-ginger: rgba(245, 201, 139, 0.12);
+  --pastel-matcha: rgba(197, 224, 162, 0.1);
+  --pastel-rosa: rgba(241, 206, 222, 0.1);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+  background:
+    radial-gradient(60rem 30rem at 8% 12%, var(--pastel-matcha), transparent 70%),
+    radial-gradient(54rem 28rem at 92% 16%, var(--pastel-ginger), transparent 72%),
+    radial-gradient(52rem 30rem at 50% 92%, var(--pastel-rosa), transparent 72%);
+}
+
+/* Premium section reveal: progressive enhancement with view timeline */
+.fade-in-section {
+  opacity: 0;
+  transform: translateY(22px);
+  animation: sectionFade 0.9s ease-out both;
+  animation-timeline: view();
+  animation-range: entry 8% cover 32%;
+}
+
+/* Fallback for browsers without scroll-linked animations */
+@supports not (animation-timeline: view()) {
+  .fade-in-section {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
+}
+
+.title-aura {
+  position: relative;
+}
+
+.title-aura::before {
+  content: "";
+  position: absolute;
+  left: -2rem;
+  top: -1.2rem;
+  width: 14rem;
+  height: 6rem;
+  border-radius: 9999px;
+  background: linear-gradient(135deg, rgba(245, 201, 139, 0.22), rgba(197, 224, 162, 0.16));
+  filter: blur(32px);
+  pointer-events: none;
+  z-index: -1;
+}
+
+@keyframes sectionFade {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Subtle drift float animation for glass bubbles */
+@keyframes driftFloat {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+  }
+  25% {
+    transform: translate(calc(var(--drift-x, 8px) * 0.6), calc(var(--drift-y, -6px) * 0.45)) scale(calc((var(--bubble-scale, 1.03) - 1) * 0.45 + 1));
+  }
+  50% {
+    transform: translate(var(--drift-x, 8px), calc(var(--drift-y, -6px) * -0.8)) scale(var(--bubble-scale, 1.03));
+  }
+  75% {
+    transform: translate(calc(var(--drift-x, 8px) * -0.35), calc(var(--drift-y, -6px) * 0.7)) scale(calc((var(--bubble-scale, 1.03) - 1) * 0.3 + 1));
+  }
+}
+
+.reveal-item {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 800ms ease, transform 800ms ease;
+}
+
+.reveal-item.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.parallax-shell {
+  transform: translate3d(0, var(--parallax-y, 0), 0);
+  will-change: transform;
+}
+
+.float-shell {
+  animation: luxuryFloat 7s ease-in-out infinite;
+}
+
+.media-hover {
+  transition: transform 650ms ease, filter 500ms ease;
+}
+
+.parallax-shell:hover .media-hover {
+  transform: scale(1.015);
+  filter: brightness(1.02);
+}
+
+@keyframes luxuryFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal-item {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .parallax-shell,
+  .float-shell,
+  .media-hover,
+  .parallax-shell:hover .media-hover {
+    animation: none;
+    transform: none;
+    transition: none;
+    filter: none;
+  }
+}
