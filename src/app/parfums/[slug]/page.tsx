@@ -15,7 +15,14 @@ type Lang = "fr" | "en";
 export default function PerfumePage() {
   const params = useParams();
   const slug = params.slug as string;
-  const [lang, setLang] = useState<Lang>("fr");
+  const [lang, setLang] = useState<Lang>(() => {
+    if (typeof window === "undefined") {
+      return "fr";
+    }
+
+    const saved = window.localStorage.getItem("now-lang");
+    return saved === "fr" || saved === "en" ? saved : "fr";
+  });
   const [expandedAccordion, setExpandedAccordion] = useState<string | null>(
     null
   );
@@ -24,15 +31,10 @@ export default function PerfumePage() {
   const [lightboxIndex, setLightboxIndex] = useState(0);
   const [lightboxZoom, setLightboxZoom] = useState(1);
   const [lightboxOffset, setLightboxOffset] = useState({ x: 0, y: 0 });
+  const [comingSoonOpen, setComingSoonOpen] = useState(false);
+  const [comingSoonEmail, setComingSoonEmail] = useState("");
   const lightboxDragRef = useRef<{ startX: number; startY: number; ox: number; oy: number } | null>(null);
   const slideTrackRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const saved = window.localStorage.getItem("now-lang");
-    if (saved === "fr" || saved === "en") {
-      setLang(saved);
-    }
-  }, []);
 
   useEffect(() => {
     window.localStorage.setItem("now-lang", lang);
@@ -43,7 +45,7 @@ export default function PerfumePage() {
   const txt = lang === "fr" ? COPY.fr : COPY.en;
 
   const handleComingSoonClick = () => {
-    window.alert(lang === "fr" ? "Nos parfums arrivent bientot" : "Our perfumes are coming soon");
+    setComingSoonOpen(true);
   };
 
   if (!perfume) {
@@ -102,7 +104,7 @@ export default function PerfumePage() {
       <LanguageSwitcher lang={lang} setLang={setLang} />
 
       {/* HERO SECTION */}
-      <section className={`relative min-h-[calc(100vh-88px)] px-6 md:px-8 py-10 md:py-12 bg-gradient-to-br ${perfume.colors.bg}`}>
+      <section className={`relative min-h-[calc(100vh-88px)] bg-gradient-to-br px-6 py-10 md:px-8 md:py-12 ${perfume.colors.bg}`}>
         <div className="max-w-6xl mx-auto">
           <Link
             href="/parfums"
@@ -112,17 +114,16 @@ export default function PerfumePage() {
             {txt.backToCollection}
           </Link>
 
-          <div className="grid md:grid-cols-[52%_48%] gap-8 md:gap-12 items-center">
+          <div className="grid items-center gap-8 md:grid-cols-[52%_48%] md:gap-12">
             {/* LEFT COLUMN - Image Carousel 4:5 */}
             <div className="flex justify-center md:justify-end">
-              <div className="w-full max-w-[380px] md:max-w-none md:w-full">
+              <div className="w-full max-w-[360px] md:max-w-none md:w-full">
                 {/* Slides */}
-                <div className="relative aspect-[5/4] overflow-hidden rounded-[28px] shadow-2xl bg-white/60 cursor-zoom-in"
+                <div className="relative aspect-[4/5] overflow-hidden rounded-[24px] bg-white/70 shadow-[0_18px_40px_rgba(0,0,0,0.10)] cursor-zoom-in md:aspect-[5/4] md:rounded-[28px] md:shadow-2xl"
                      onClick={() => {
                        const slides = [
                          perfume.bottleImage,
-                         perfume.boxImage,
-                         perfume.drinkImage,
+                         perfume.moodImage,
                        ];
                        const idx = activeSlide;
                        setLightboxIndex(idx);
@@ -133,8 +134,7 @@ export default function PerfumePage() {
                 >
                   {[
                     { src: perfume.bottleImage, label: lang === "fr" ? "Flacon" : "Bottle" },
-                    { src: perfume.boxImage, label: lang === "fr" ? "Coffret" : "Packaging" },
-                    { src: perfume.drinkImage, label: lang === "fr" ? "Inspiration" : "Inspiration" },
+                    { src: perfume.moodImage, label: lang === "fr" ? "Texture" : "Mood" },
                   ].map((slide, i) => (
                     <div
                       key={i}
@@ -148,7 +148,7 @@ export default function PerfumePage() {
                         fill
                         priority={i === 0}
                         sizes="(max-width: 768px) 380px, 52vw"
-                        className={i === 0 ? "object-contain p-6 md:p-8" : i === 2 ? "object-contain p-4 md:p-6" : "object-cover"}
+                        className={i === 0 ? "object-contain p-4 md:p-8" : "object-contain object-center p-2 md:p-3"}
                         placeholderLabel={slide.label}
                       />
                     </div>
@@ -157,7 +157,7 @@ export default function PerfumePage() {
                   <button
                     onClick={(e) => {
                       e.stopPropagation();
-                      setActiveSlide((s) => (s + 2) % 3);
+                      setActiveSlide((s) => (s - 1 + 2) % 2);
                     }}
                     className="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-9 h-9 rounded-full bg-white/75 backdrop-blur-sm border border-black/8 flex items-center justify-center shadow-sm hover:bg-white transition"
                     aria-label="Previous"
@@ -167,7 +167,7 @@ export default function PerfumePage() {
                   <button
                     onClick={(e) => {
                       e.stopPropagation();
-                      setActiveSlide((s) => (s + 1) % 3);
+                      setActiveSlide((s) => (s + 1) % 2);
                     }}
                     className="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-9 h-9 rounded-full bg-white/75 backdrop-blur-sm border border-black/8 flex items-center justify-center shadow-sm hover:bg-white transition"
                     aria-label="Next"
@@ -177,7 +177,7 @@ export default function PerfumePage() {
                 </div>
                 {/* Dots */}
                 <div className="flex justify-center gap-2 mt-3">
-                  {[0, 1, 2].map((i) => (
+                  {[0, 1].map((i) => (
                     <button
                       key={i}
                       onClick={(e) => {
@@ -202,7 +202,7 @@ export default function PerfumePage() {
                 <p className="text-[10px] uppercase tracking-[0.4em] text-black/40 font-medium mb-3">
                   {perfume.sprayMood}
                 </p>
-                <h1 className="text-4xl md:text-5xl lg:text-[3.5rem] font-extralight leading-[1.1] tracking-tight mb-3">
+                <h1 className="text-[clamp(2.25rem,9vw,3.5rem)] font-extralight leading-[1.08] tracking-tight mb-3 md:text-5xl lg:text-[3.5rem]">
                   {perfume.name}
                 </h1>
                 <p className="text-base md:text-lg leading-relaxed text-black/65 font-light italic">
@@ -219,7 +219,7 @@ export default function PerfumePage() {
                 <h3 className="text-[10px] uppercase tracking-[0.4em] text-black/40 font-medium mb-4">
                   {txt.notesLabel}
                 </h3>
-                <div className="flex gap-5">
+                <div className="flex gap-3 md:gap-5">
                   {perfume.keyNotes.map((note) => (
                     <div key={note.label} className="group flex flex-col items-center gap-2 flex-1">
                       <div className="relative h-16 w-16 sm:h-20 sm:w-20 shrink-0 overflow-hidden rounded-full border border-black/10 shadow-[0_2px_12px_rgba(0,0,0,0.07)]">
@@ -228,7 +228,7 @@ export default function PerfumePage() {
                           alt={note.label}
                           fill
                           sizes="(max-width: 640px) 64px, 80px"
-                          className="object-cover scale-125"
+                          className="object-contain p-1"
                           placeholderLabel={note.label}
                         />
                       </div>
@@ -366,9 +366,11 @@ export default function PerfumePage() {
             </button>
             {expandedAccordion === "ingredients" && (
               <div className="px-6 pb-8 space-y-6 border-t border-black/5">
-                <p className="text-black/70 leading-relaxed font-light">
-                  {perfume.ingredients.join(", ")}
-                </p>
+                <div className="overflow-x-auto whitespace-nowrap pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+                  <p className="text-[11px] text-black/70 font-light md:text-sm">
+                    {perfume.ingredients.join(", ")}
+                  </p>
+                </div>
                 <p className="text-sm leading-7 text-black/50 font-light">
                   {lang === "fr"
                     ? "Les listes d'ingrédients sont régulièrement mises à jour. Avant d'utiliser un produit NOW Perfume, veuillez vous référer à la liste d'ingrédients sur son emballage."
@@ -381,7 +383,7 @@ export default function PerfumePage() {
       </section>
 
       {/* CTA SECTION */}
-      <section className="px-6 md:px-8 py-12 md:py-20 bg-white">
+      <section className="bg-white px-6 py-12 pb-16 md:px-8 md:py-20">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-3xl md:text-4xl font-light text-black mb-4 tracking-tight">
             {lang === "fr" ? "Prêt à vivre cette expérience ?" : "Ready for this experience?"}
@@ -401,18 +403,20 @@ export default function PerfumePage() {
             </div>
           </div>
 
-          <div className="mt-8 pt-6 border-t border-black/10 flex items-center justify-between">
+          <div className="mt-10 grid gap-4 border-t border-black/10 pt-6 md:grid-cols-2">
             <Link
               href={`/parfums/${prevPerfume.id}`}
-              className="inline-flex items-center gap-2 text-black/70 hover:text-black transition-colors font-light"
+              className="flex min-h-[88px] flex-col items-start justify-center rounded-[22px] border border-black/10 bg-[#faf8f4] px-5 py-4 text-left text-black/70 transition-colors hover:text-black"
             >
-              ← {txt.prevPerfume}: {prevPerfume.name}
+              <span className="text-[10px] uppercase tracking-[0.22em] text-black/40">{txt.prevPerfume}</span>
+              <span className="mt-2 text-base font-light text-black">{prevPerfume.name}</span>
             </Link>
             <Link
               href={`/parfums/${nextPerfume.id}`}
-              className="inline-flex items-center gap-2 text-black/70 hover:text-black transition-colors font-light"
+              className="flex min-h-[88px] flex-col items-start justify-center rounded-[22px] border border-black/10 bg-[#faf8f4] px-5 py-4 text-left text-black/70 transition-colors hover:text-black md:items-end md:text-right"
             >
-              {txt.nextPerfume}: {nextPerfume.name} →
+              <span className="text-[10px] uppercase tracking-[0.22em] text-black/40">{txt.nextPerfume}</span>
+              <span className="mt-2 text-base font-light text-black">{nextPerfume.name}</span>
             </Link>
           </div>
         </div>
@@ -423,9 +427,57 @@ export default function PerfumePage() {
           <SiteFooter lang={lang} />
         </div>
       </section>
+
+      {comingSoonOpen ? (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/45 p-4"
+          onClick={() => setComingSoonOpen(false)}
+        >
+          <div
+            className="w-full max-w-md rounded-2xl bg-white p-6 shadow-2xl"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <p className="text-xs uppercase tracking-[0.2em] text-black/45">
+              {lang === "fr" ? "Disponible prochainement" : "Coming soon"}
+            </p>
+            <h3 className="mt-2 text-xl font-light text-black">
+              {lang === "fr" ? "Disponible prochainement" : "Coming soon"}
+            </h3>
+            <p className="mt-2 text-sm text-black/70">
+              {lang === "fr"
+                ? "Les parfums NOW Perfume arrivent bientôt. Inscris-toi pour être informé en avant-première."
+                : "NOW Perfume fragrances are launching soon. Sign up to be notified first."}
+            </p>
+            <form
+              className="mt-4"
+              onSubmit={(event) => {
+                event.preventDefault();
+                setComingSoonOpen(false);
+                setComingSoonEmail("");
+              }}
+            >
+              <input
+                type="email"
+                value={comingSoonEmail}
+                onChange={(event) => setComingSoonEmail(event.target.value)}
+                required
+                placeholder={lang === "fr" ? "Votre e-mail" : "Your email"}
+                className="w-full rounded-full border border-black/15 px-4 py-3 text-sm text-black outline-none focus:border-black/35"
+              />
+              <button
+                type="submit"
+                className="mt-3 w-full rounded-full bg-black px-4 py-3 text-sm uppercase tracking-[0.14em] text-white transition hover:bg-black/85"
+              >
+                {lang === "fr" ? "Accéder en avant-première" : "Get early access"}
+              </button>
+            </form>
+          </div>
+        </div>
+      ) : null}
+
       {/* LIGHTBOX */}
       {lightboxSrc && (() => {
-        const slides = [perfume.bottleImage, perfume.boxImage, perfume.drinkImage];
+        const slides = [perfume.bottleImage, perfume.moodImage];
         const goTo = (i: number) => {
           const next = (i + slides.length) % slides.length;
           setLightboxIndex(next);

@@ -31,7 +31,10 @@ export default function LanguageSwitcher({ lang, setLang }: LanguageSwitcherProp
   };
 
   return (
-    <div ref={rootRef} className="fixed bottom-6 left-6 z-30 text-xs">
+    <div
+      ref={rootRef}
+      className="fixed right-4 z-30 text-xs top-[max(5rem,env(safe-area-inset-top))] md:top-auto md:right-auto md:bottom-6 md:left-6"
+    >
       {open ? (
         <div className="mb-2 min-w-[78px] overflow-hidden rounded-2xl border border-black/10 bg-white/95 p-1 shadow-lg backdrop-blur">
           <button

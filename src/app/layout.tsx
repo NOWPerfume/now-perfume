@@ -15,6 +15,9 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "NOW Perfume",
   description: "Expérience parfumée et immersive NOW Perfume",
+  icons: {
+    icon: "/favicon-now.jpg",
+  },
 };
 
 export default function RootLayout({

@@ -15,8 +15,7 @@ export type Perfume = {
   inspiration: string;
   keyNotes: IngredientImage[];
   bottleImage: string;
-  boxImage: string;
-  drinkImage: string;
+  moodImage: string;
   olfactivePyramid: { title: string; notes: string[] }[];
   ingredients: string[];
   legal: string[];
@@ -41,8 +40,7 @@ export const PERFUMES: Record<Lang, Perfume[]> = {
       inspiration:
         "Un shot gingembre–citron vert, intense et électrisant.\nUne impulsion fraîche et vibrante qui réveille les sens, entre énergie brute, clarté lumineuse et sensualité affirmée.",
       bottleImage: "/images/flacon-ginger.jpg",
-      boxImage: "/images/box-ginger.jpg",
-      drinkImage: "/images/drink-ginger.jpg",
+      moodImage: "/images/ginger-aphrodisiac-mood.jpg",
       keyNotes: [
         { label: "Gingembre", image: "/images/note-ginger.jpg" },
         { label: "Citron vert", image: "/images/note-lime.jpg" },
@@ -81,8 +79,7 @@ export const PERFUMES: Record<Lang, Perfume[]> = {
       inspiration:
         "Un smoothie tropical éclatant, solaire et addictif.\nUne explosion fruitée et lumineuse, entre fraîcheur juteuse, douceur florale et énergie positive.",
       bottleImage: "/images/flacon-maracuja.jpg",
-      boxImage: "/images/box-maracuja.jpg",
-      drinkImage: "/images/drink-maracuja.jpg",
+      moodImage: "/images/maracuja-samba-mood.jpg",
       keyNotes: [
         { label: "Fruit de la passion", image: "/images/note-passion-fruit.jpg" },
         { label: "Mangue", image: "/images/note-mango.jpg" },
@@ -123,8 +120,7 @@ export const PERFUMES: Record<Lang, Perfume[]> = {
       inspiration:
         "Un matcha concentré, profond et énergisant.\nUne expérience sensorielle entre fraîcheur végétale, tension boisée et harmonie intérieure.",
       bottleImage: "/images/flacon-matcha.jpg",
-      boxImage: "/images/box-matcha.jpg",
-      drinkImage: "/images/drink-matcha.jpg",
+      moodImage: "/images/matcha-star-mood.jpg",
       keyNotes: [
         { label: "Matcha", image: "/images/note-matcha.jpg" },
         { label: "Figue", image: "/images/note-fig.jpg" },
@@ -162,8 +158,7 @@ export const PERFUMES: Record<Lang, Perfume[]> = {
       inspiration:
         "Un latte chaud, crémeux et réconfortant.\nUne caresse olfactive entre douceur gourmande, chaleur enveloppante et sérénité absolue.",
       bottleImage: "/images/flacon-vanilla.jpg",
-      boxImage: "/images/box-vanilla.jpg",
-      drinkImage: "/images/drink-vanilla.jpg",
+      moodImage: "/images/vanilla-chill-mood.jpg",
       keyNotes: [
         { label: "Vanille", image: "/images/note-vanilla.jpg" },
         { label: "Sésame", image: "/images/note-sesame.jpg" },
@@ -201,8 +196,7 @@ export const PERFUMES: Record<Lang, Perfume[]> = {
       inspiration:
         "Une infusion florale intense et lumineuse.\nUn équilibre délicat entre fraîcheur fruitée, élégance florale et profondeur sensuelle.",
       bottleImage: "/images/flacon-rosa.jpg",
-      boxImage: "/images/box-rosa.jpg",
-      drinkImage: "/images/drink-rosa.jpg",
+      moodImage: "/images/rosa-boom-mood.jpg",
       keyNotes: [
         { label: "Rose", image: "/images/note-rose.jpg" },
         { label: "Litchi", image: "/images/note-lychee.jpg" },
@@ -245,8 +239,7 @@ export const PERFUMES: Record<Lang, Perfume[]> = {
       inspiration:
         "Un shot gingembre–citron vert, intense et électrisant.\nUne impulsion fraîche et vibrante qui réveille les sens, entre énergie brute, clarté lumineuse et sensualité affirmée.",
       bottleImage: "/images/flacon-ginger.jpg",
-      boxImage: "/images/box-ginger.jpg",
-      drinkImage: "/images/drink-ginger.jpg",
+      moodImage: "/images/ginger-aphrodisiac-mood.jpg",
       keyNotes: [
         { label: "Ginger", image: "/images/note-ginger.jpg" },
         { label: "Lime", image: "/images/note-lime.jpg" },
@@ -285,8 +278,7 @@ export const PERFUMES: Record<Lang, Perfume[]> = {
       inspiration:
         "Un smoothie tropical éclatant, solaire et addictif.\nUne explosion fruitée et lumineuse, entre fraîcheur juteuse, douceur florale et énergie positive.",
       bottleImage: "/images/flacon-maracuja.jpg",
-      boxImage: "/images/box-maracuja.jpg",
-      drinkImage: "/images/drink-maracuja.jpg",
+      moodImage: "/images/maracuja-samba-mood.jpg",
       keyNotes: [
         { label: "Passion Fruit", image: "/images/note-passion-fruit.jpg" },
         { label: "Mango", image: "/images/note-mango.jpg" },
@@ -324,8 +316,7 @@ export const PERFUMES: Record<Lang, Perfume[]> = {
       inspiration:
         "Un matcha concentré, profond et énergisant.\nUne expérience sensorielle entre fraîcheur végétale, tension boisée et harmonie intérieure.",
       bottleImage: "/images/flacon-matcha.jpg",
-      boxImage: "/images/box-matcha.jpg",
-      drinkImage: "/images/drink-matcha.jpg",
+      moodImage: "/images/matcha-star-mood.jpg",
       keyNotes: [
         { label: "Matcha", image: "/images/note-matcha.jpg" },
         { label: "Fig", image: "/images/note-fig.jpg" },
@@ -363,8 +354,7 @@ export const PERFUMES: Record<Lang, Perfume[]> = {
       inspiration:
         "Un latte chaud, crémeux et réconfortant.\nUne caresse olfactive entre douceur gourmande, chaleur enveloppante et sérénité absolue.",
       bottleImage: "/images/flacon-vanilla.jpg",
-      boxImage: "/images/box-vanilla.jpg",
-      drinkImage: "/images/drink-vanilla.jpg",
+      moodImage: "/images/vanilla-chill-mood.jpg",
       keyNotes: [
         { label: "Vanilla", image: "/images/note-vanilla.jpg" },
         { label: "Sesame", image: "/images/note-sesame.jpg" },
@@ -402,8 +392,7 @@ export const PERFUMES: Record<Lang, Perfume[]> = {
       inspiration:
         "Une infusion florale intense et lumineuse.\nUn équilibre délicat entre fraîcheur fruitée, élégance florale et profondeur sensuelle.",
       bottleImage: "/images/flacon-rosa.jpg",
-      boxImage: "/images/box-rosa.jpg",
-      drinkImage: "/images/drink-rosa.jpg",
+      moodImage: "/images/rosa-boom-mood.jpg",
       keyNotes: [
         { label: "Rose", image: "/images/note-rose.jpg" },
         { label: "Lychee", image: "/images/note-lychee.jpg" },
@@ -438,11 +427,11 @@ export const COPY = {
     pageTitle: "Parfums",
     intro: "Cinq parfums inspirés de boissons iconiques.",
     notesLabel: "Notes principales",
-    pyramidLabel: "Pyramie olfactive",
+    pyramidLabel: "Pyramide olfactive",
     ingredientsLabel: "Ingrédients légaux",
     legalInfo: "Information légale",
-    addToCartButton: "Disponible prochainement",
-    addToCart: "Disponible prochainement",
+    addToCartButton: "Ajouter au panier",
+    addToCart: "Porter cette énergie",
     close: "Fermer",
     inspiration: "Inspiration",
     backToCollection: "Retour à la collection",
@@ -456,8 +445,8 @@ export const COPY = {
     pyramidLabel: "Olfactive pyramid",
     ingredientsLabel: "Legal ingredients",
     legalInfo: "Legal information",
-    addToCartButton: "Coming soon",
-    addToCart: "Coming soon",
+    addToCartButton: "Add to cart",
+    addToCart: "Wear this energy",
     close: "Close",
     inspiration: "Inspiration",
     backToCollection: "Back to collection",

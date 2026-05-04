@@ -21,9 +21,11 @@ export default function PerfumeDetailDrawer({
   const [expandedAccordion, setExpandedAccordion] = useState<string | null>(
     null
   );
+  const [comingSoonOpen, setComingSoonOpen] = useState(false);
+  const [comingSoonEmail, setComingSoonEmail] = useState("");
   const txt = lang === "fr" ? COPY.fr : COPY.en;
   const handleComingSoonClick = () => {
-    window.alert(lang === "fr" ? "Nos parfums arrivent bientot" : "Our perfumes are coming soon");
+    setComingSoonOpen(true);
   };
 
   if (!perfume || !isOpen) return null;
@@ -228,6 +230,53 @@ export default function PerfumeDetailDrawer({
           </div>
         </div>
       </div>
+
+      {comingSoonOpen ? (
+        <div
+          className="fixed inset-0 z-[60] flex items-center justify-center bg-black/45 p-4"
+          onClick={() => setComingSoonOpen(false)}
+        >
+          <div
+            className="w-full max-w-md rounded-2xl bg-white p-6 shadow-2xl"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <p className="text-xs uppercase tracking-[0.2em] text-black/45">
+              {lang === "fr" ? "Disponible prochainement" : "Coming soon"}
+            </p>
+            <h3 className="mt-2 text-xl font-light text-black">
+              {lang === "fr" ? "Disponible prochainement" : "Coming soon"}
+            </h3>
+            <p className="mt-2 text-sm text-black/70">
+              {lang === "fr"
+                ? "Les parfums NOW Perfume arrivent bientôt. Inscris-toi pour être informé en avant-première."
+                : "NOW Perfume fragrances are launching soon. Sign up to be notified first."}
+            </p>
+            <form
+              className="mt-4"
+              onSubmit={(event) => {
+                event.preventDefault();
+                setComingSoonOpen(false);
+                setComingSoonEmail("");
+              }}
+            >
+              <input
+                type="email"
+                value={comingSoonEmail}
+                onChange={(event) => setComingSoonEmail(event.target.value)}
+                required
+                placeholder={lang === "fr" ? "Votre e-mail" : "Your email"}
+                className="w-full rounded-full border border-black/15 px-4 py-3 text-sm text-black outline-none focus:border-black/35"
+              />
+              <button
+                type="submit"
+                className="mt-3 w-full rounded-full bg-black px-4 py-3 text-sm uppercase tracking-[0.14em] text-white transition hover:bg-black/85"
+              >
+                {lang === "fr" ? "Accéder en avant-première" : "Get early access"}
+              </button>
+            </form>
+          </div>
+        </div>
+      ) : null}
     </>
   );
 }

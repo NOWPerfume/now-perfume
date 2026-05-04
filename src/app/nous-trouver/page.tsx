@@ -5,93 +5,8 @@ import Header from "@/app/components/Header";
 import ImageSlot from "@/app/components/ImageSlot";
 import SiteFooter from "@/app/components/SiteFooter";
 import LanguageSwitcher from "@/app/components/LanguageSwitcher";
-import dynamic from "next/dynamic";
-
-// Dynamically import map components to avoid SSR issues
-const MapContainer = dynamic(() => import('react-leaflet').then(mod => mod.MapContainer), { ssr: false });
-const TileLayer = dynamic(() => import('react-leaflet').then(mod => mod.TileLayer), { ssr: false });
-const Marker = dynamic(() => import('react-leaflet').then(mod => mod.Marker), { ssr: false });
-const Popup = dynamic(() => import('react-leaflet').then(mod => mod.Popup), { ssr: false });
-
-// Import Leaflet CSS
-import 'leaflet/dist/leaflet.css';
 
 type Lang = "fr" | "en";
-
-const VENUE_IMAGES = [
-  "/images/nous-trouver-clubs.jpg",
-  "/images/nous-trouver-studios.jpg",
-  "/images/nous-trouver-hotels.jpg",
-  "/images/nous-trouver-lounges.jpg",
-  "/images/nous-trouver-spas.jpg",
-  "/images/nous-trouver-workspaces.jpg",
-];
-
-const ESTABLISHMENTS = [
-  {
-    id: "r2-training",
-    name: "R2 Training Bastille CrossFit-Hyrox",
-    address: "30-34 Rue du Chemin Vert, 75011 Paris",
-    type: "salle de sport",
-    typeEn: "fitness studio",
-    lat: 48.8587,
-    lng: 2.3718
-  },
-  {
-    id: "lappart-fitness",
-    name: "L'Appart Fitness",
-    address: "13 Rue Daval, 75011 Paris",
-    type: "salle de sport",
-    typeEn: "fitness studio",
-    lat: 48.8537,
-    lng: 2.3708
-  },
-  {
-    id: "bobo-paris",
-    name: "Bobo Paris Bubble Tea",
-    address: "11 Bd Montmartre, 75002 Paris",
-    type: "bar",
-    typeEn: "bar",
-    lat: 48.8713,
-    lng: 2.3412
-  },
-  {
-    id: "charlotte-club",
-    name: "Charlotte Club",
-    address: "10 Rue de Lappe, 75011 Paris",
-    type: "boîte de nuit",
-    typeEn: "nightclub",
-    lat: 48.8532,
-    lng: 2.3713
-  },
-  {
-    id: "mila-club",
-    name: "Mila Club",
-    address: "14 Rue de Lappe, 75011 Paris",
-    type: "boîte de nuit",
-    typeEn: "nightclub",
-    lat: 48.8533,
-    lng: 2.3717
-  },
-  {
-    id: "vip-room",
-    name: "VIP Room",
-    address: "All. du Quai de l'Epi, 83990 Saint-Tropez",
-    type: "boîte de nuit",
-    typeEn: "nightclub",
-    lat: 43.2695,
-    lng: 6.6386
-  },
-  {
-    id: "neptune-monaco",
-    name: "Neptune Monaco Beach",
-    address: "Plage du Larvotto, 98000 Monaco",
-    type: "beach club",
-    typeEn: "beach club",
-    lat: 43.7444,
-    lng: 7.4356
-  }
-];
 
 const CONTENT = {
   fr: {
@@ -125,6 +40,10 @@ const CONTENT = {
       cta: "Nous contacter",
       cta2: "Demander une présentation",
       email: "hello@nowperfume.fr"
+    },
+    partners: {
+      title: "Sélection privée",
+      text: "Les premiers lieux NOW Perfume seront révélés prochainement. Les adresses restent volontairement discrètes jusqu’à leur annonce officielle."
     },
     faq: {
       title: "Questions fréquentes",
@@ -189,6 +108,10 @@ const CONTENT = {
       cta2: "Request a presentation",
       email: "hello@nowperfume.fr"
     },
+    partners: {
+      title: "Private selection",
+      text: "The first NOW Perfume locations will be revealed soon. Addresses remain intentionally private until the official announcement."
+    },
     faq: {
       title: "Frequently asked questions",
       items: [
@@ -219,41 +142,20 @@ const CONTENT = {
 };
 
 export default function NousTrouverPage() {
-  const [lang, setLang] = useState<Lang>("fr");
-  const [showMap, setShowMap] = useState(false);
-  const [selectedEstablishment, setSelectedEstablishment] = useState<typeof ESTABLISHMENTS[0] | null>(null);
-  const content = CONTENT[lang];
-
-  useEffect(() => {
-    const saved = window.localStorage.getItem("now-lang");
-    if (saved === "fr" || saved === "en") {
-      setLang(saved);
+  const [lang, setLang] = useState<Lang>(() => {
+    if (typeof window === "undefined") {
+      return "fr";
     }
-  }, []);
+
+    const saved = window.localStorage.getItem("now-lang");
+    return saved === "fr" || saved === "en" ? saved : "fr";
+  });
+  const [showMap, setShowMap] = useState(false);
+  const content = CONTENT[lang];
 
   useEffect(() => {
     window.localStorage.setItem("now-lang", lang);
   }, [lang]);
-
-  useEffect(() => {
-    import('leaflet').then((L) => {
-      delete (L.Icon.Default.prototype as any)._getIconUrl;
-      L.Icon.Default.mergeOptions({
-        iconRetinaUrl:
-          'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon-2x.png',
-        iconUrl:
-          'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png',
-        shadowUrl:
-          'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
-      });
-    });
-  }, []);
-
-  useEffect(() => {
-    if (showMap && !selectedEstablishment) {
-      setSelectedEstablishment(ESTABLISHMENTS[0]);
-    }
-  }, [showMap, selectedEstablishment]);
 
   const openWhatsApp = () => {
     // NOW Perfume professional WhatsApp number
@@ -265,12 +167,6 @@ export default function NousTrouverPage() {
     window.open(whatsappUrl, '_blank');
   };
 
-  const openInMaps = (establishment: typeof ESTABLISHMENTS[0]) => {
-    const query = encodeURIComponent(`${establishment.name}, ${establishment.address}`);
-    const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${query}`;
-    window.open(mapsUrl, '_blank');
-  };
-
   return (
     <>
       <main className="min-h-screen bg-[#fdfbf8] text-black">
@@ -279,7 +175,7 @@ export default function NousTrouverPage() {
         <LanguageSwitcher lang={lang} setLang={setLang} />
 
         {/* HERO SECTION */}
-        <section className="relative min-h-screen flex items-center justify-center px-6 md:px-8 py-20 md:py-32 bg-white overflow-hidden">
+        <section className="relative flex min-h-[82vh] items-start justify-center overflow-hidden bg-white px-6 pt-24 pb-16 md:min-h-screen md:items-center md:px-8 md:py-32">
           {/* FIND US HERO IMAGE */}
           <ImageSlot
             src="/images/nous-trouver-hero.jpg"
@@ -340,32 +236,38 @@ export default function NousTrouverPage() {
       {/* VENUES SECTION */}
       <section className="relative px-6 md:px-8 py-16 md:py-24 bg-[#fdfbf8] overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(56rem_22rem_at_14%_18%,rgba(245,223,170,0.14),transparent_74%),radial-gradient(60rem_22rem_at_88%_80%,rgba(255,235,185,0.12),transparent_72%),radial-gradient(34rem_20rem_at_44%_12%,rgba(180,217,102,0.10),transparent_74%),radial-gradient(38rem_20rem_at_84%_24%,rgba(232,168,193,0.09),transparent_72%)]" />
-        <div className="absolute -right-16 top-20 h-40 w-40 rounded-full border border-white/28 bg-white/16 shadow-[0_22px_50px_rgba(0,0,0,0.08)] backdrop-blur-[13px]" />
         <div className="max-w-6xl mx-auto relative z-10">
           <h2 className="text-[clamp(28px,3vw,40px)] font-semibold text-black mb-12 text-center tracking-[-0.02em] leading-[1.15]">
             {content.venues.title}
           </h2>
-          <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-            {content.venues.items.slice(0, 6).map((venue, index) => (
-              <div key={index} className="overflow-hidden rounded-[28px] border border-white/50 bg-white/70 shadow-[0_16px_36px_rgba(0,0,0,0.09)] backdrop-blur-[10px] transition-all duration-500 hover:-translate-y-0.5 hover:shadow-[0_24px_44px_rgba(0,0,0,0.12)]">
-                <div className="relative h-56 overflow-hidden">
+          <div className="grid grid-cols-2 gap-4 md:grid-cols-3 md:gap-6">
+            {[
+              { item: content.venues.items[0], img: "/images/nous-trouver-clubs.jpg" },
+              { item: content.venues.items[1], img: "/images/nous-trouver-studios.jpg" },
+              { item: content.venues.items[2], img: "/images/nous-trouver-hotels.jpg" },
+              { item: content.venues.items[3], img: "/images/nous-trouver-lounges.jpg" },
+              { item: content.venues.items[4], img: "/images/nous-trouver-spas.jpg" },
+              { item: content.venues.items[5], img: "/images/nous-trouver-workspaces.jpg" },
+            ].map(({ item, img }, index) => (
+              <div key={index} className="group relative overflow-hidden rounded-[20px] shadow-[0_10px_28px_rgba(0,0,0,0.09)]">
+                <div className="relative aspect-[3/4]">
                   <ImageSlot
-                    src={VENUE_IMAGES[index]}
-                    alt={venue.name}
+                    src={img}
+                    alt={item.name}
                     fill
-                    sizes="(max-width: 768px) 100vw, 33vw"
-                    className="object-cover"
-                    placeholderLabel="Image a ajouter"
+                    sizes="(max-width: 768px) 50vw, 33vw"
+                    className="absolute inset-0 h-full w-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
+                    placeholderLabel={item.name}
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent" />
-                </div>
-                <div className="p-6 text-center">
-                  <h3 className="text-xl font-light text-black mb-3 tracking-tight">
-                    {venue.name}
-                  </h3>
-                  <p className="text-black/70 font-light">
-                    {venue.desc}
-                  </p>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
+                  <div className="absolute bottom-0 left-0 right-0 p-4 md:p-5">
+                    <p className="text-[11px] uppercase tracking-[0.28em] text-white/90 font-semibold">
+                      {item.name}
+                    </p>
+                    <p className="mt-1 text-xs leading-5 text-white/65 font-light hidden md:block">
+                      {item.desc}
+                    </p>
+                  </div>
                 </div>
               </div>
             ))}
@@ -451,159 +353,41 @@ export default function NousTrouverPage() {
         </div>
       </section>
 
-      {/* MAP MODAL */}
-      {showMap && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
-          <div className="relative w-full max-w-7xl h-[80vh] bg-white rounded-2xl shadow-2xl overflow-hidden flex">
-            {/* Modal Header */}
-            <div className="absolute top-0 left-0 right-0 z-10 flex items-center justify-between p-6 bg-white/95 backdrop-blur border-b border-black/10">
-              <h3 className="text-2xl font-light text-black tracking-tight">
-                {lang === "fr" ? "Nos établissements partenaires" : "Our partner establishments"}
-              </h3>
-              <button
-                onClick={() => {
-                  setShowMap(false);
-                  setSelectedEstablishment(null);
-                }}
-                className="text-black/40 hover:text-black/60 transition-colors"
-              >
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              </button>
-            </div>
-
-            {/* Map Container - Left Side */}
-            <div className="flex-1 relative">
-              <div className="h-full pt-20">
-                <MapContainer
-                  center={[46.603354, 1.888334]} // Center of France
-                  zoom={6}
-                  style={{ height: '100%', width: '100%' }}
-                  className="rounded-l-2xl"
-                >
-                  <TileLayer
-                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                    attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                  />
-                  {ESTABLISHMENTS.map((establishment) => (
-                    <Marker
-                      key={establishment.id}
-                      position={[establishment.lat, establishment.lng]}
-                      eventHandlers={{
-                        click: () => setSelectedEstablishment(establishment),
-                      }}
-                    >
-                      <Popup>
-                        <div className="text-center">
-                          <h4 className="font-light text-black">{establishment.name}</h4>
-                          <p className="text-sm text-black/70 mb-2 font-light">{establishment.address}</p>
-                          <span className="inline-block px-2 py-1 bg-black/5 text-black/70 text-xs rounded-full font-light">
-                            {lang === "fr" ? establishment.type : establishment.typeEn}
-                          </span>
-                        </div>
-                      </Popup>
-                    </Marker>
-                  ))}
-                </MapContainer>
-              </div>
-            </div>
-
-            {/* Sidebar - Right Side */}
-            <div className="w-80 bg-white border-l border-black/10 flex flex-col">
-              {/* Sidebar Header */}
-              <div className="p-6 border-b border-black/10 bg-white">
-                <h4 className="text-lg font-light text-black tracking-tight">
-                  {lang === "fr" ? "Détails de l'établissement" : "Establishment details"}
-                </h4>
-              </div>
-
-              {/* Establishment Details */}
-              <div className="flex-1 p-6 overflow-y-auto">
-                {selectedEstablishment ? (
-                  <div className="space-y-4">
-                    <div>
-                      <h5 className="text-xl font-light text-black mb-2 tracking-tight">
-                        {selectedEstablishment.name}
-                      </h5>
-                      <p className="text-black/70 mb-3 font-light">
-                        {selectedEstablishment.address}
-                      </p>
-                      <span className="inline-block px-3 py-1 bg-black text-white text-sm rounded-full font-semibold">
-                        {lang === "fr" ? selectedEstablishment.type : selectedEstablishment.typeEn}
-                      </span>
-                    </div>
-
-                    <div className="space-y-3">
-                      <button
-                        onClick={() => openInMaps(selectedEstablishment)}
-                        className="w-full bg-black text-white px-4 py-3 rounded-lg font-semibold text-sm hover:bg-black/90 transition-colors flex items-center justify-center gap-2"
-                      >
-                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                        </svg>
-                        {lang === "fr" ? "Voir sur Google Maps" : "View on Google Maps"}
-                      </button>
-
-                      <button
-                        onClick={openWhatsApp}
-                        className="w-full border border-black/20 text-black px-4 py-3 rounded-lg font-semibold text-sm hover:bg-black/5 transition-colors flex items-center justify-center gap-2"
-                      >
-                        <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488"/>
-                        </svg>
-                        {lang === "fr" ? "Contacter pour partenariat" : "Contact for partnership"}
-                      </button>
-                    </div>
-                  </div>
-                ) : (
-                  <div className="text-center text-black/50 py-12">
-                    <svg className="w-12 h-12 mx-auto mb-4 text-black/20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                    </svg>
-                    <p className="text-sm font-light">
-                      {lang === "fr" ? "Cliquez sur un marqueur pour voir les détails" : "Click on a marker to see details"}
-                    </p>
-                  </div>
-                )}
-              </div>
-
-              {/* Establishment List */}
-              <div className="border-t border-black/10 p-4 bg-white">
-                <h5 className="text-sm font-light text-black mb-3 tracking-tight">
-                  {lang === "fr" ? "Tous les établissements" : "All establishments"}
-                </h5>
-                <div className="space-y-2 max-h-48 overflow-y-auto">
-                  {ESTABLISHMENTS.map((establishment) => (
-                    <button
-                      key={establishment.id}
-                      onClick={() => setSelectedEstablishment(establishment)}
-                      className={`w-full text-left p-2 rounded-lg transition-colors ${
-                        selectedEstablishment?.id === establishment.id
-                          ? 'bg-black text-white'
-                          : 'hover:bg-black/5 text-black/70'
-                      }`}
-                    >
-                      <div className="text-sm font-light truncate">{establishment.name}</div>
-                      <div className="text-xs opacity-75 truncate font-light">
-                        {lang === "fr" ? establishment.type : establishment.typeEn}
-                      </div>
-                    </button>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
-
       <section className="px-6 md:px-8 pb-8 md:pb-10 bg-[#fdfbf8]">
         <div className="max-w-6xl mx-auto">
           <SiteFooter lang={lang} />
         </div>
       </section>
+
+      {showMap && (
+        <div className="fixed inset-0 z-[60] flex items-center justify-center bg-black/42 p-4 backdrop-blur-sm">
+          <div className="relative w-full max-w-lg overflow-hidden rounded-[28px] border border-white/45 bg-white/92 px-6 py-7 text-center shadow-[0_28px_64px_rgba(0,0,0,0.22)] backdrop-blur-[14px] md:px-8 md:py-8">
+            <button
+              onClick={() => setShowMap(false)}
+              className="absolute right-4 top-4 inline-flex h-9 w-9 items-center justify-center rounded-full border border-black/10 bg-white/80 text-black/48 transition-colors hover:text-black/70"
+              aria-label={lang === "fr" ? "Fermer" : "Close"}
+            >
+              <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+
+            <div className="mx-auto mb-5 flex h-14 w-14 items-center justify-center rounded-full border border-black/10 bg-black/5">
+              <svg className="h-6 w-6 text-black/65" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+              </svg>
+            </div>
+
+            <h3 className="text-[clamp(26px,4vw,34px)] font-light tracking-[-0.02em] text-black">
+              {content.partners.title}
+            </h3>
+            <p className="mt-4 text-sm leading-7 text-black/70 font-light md:text-base md:leading-8">
+              {content.partners.text}
+            </p>
+          </div>
+        </div>
+      )}
       </main>
     </>
   );

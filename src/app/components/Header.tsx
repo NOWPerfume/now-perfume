@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Search, User, ShoppingBag, Menu } from "lucide-react";
+import { Search, ShoppingBag, Menu } from "lucide-react";
 import { PERFUMES } from "@/data/perfumes";
 import PerfumeMegaMenu from "./PerfumeMegaMenu";
 import ImageSlot from "./ImageSlot";
@@ -78,7 +78,7 @@ export default function Header({ lang, solid }: HeaderProps) {
             : "bg-transparent text-black opacity-100 pointer-events-auto"
         }`}
       >
-        <div className="relative flex w-full items-center justify-between px-8 py-4 md:px-16 md:py-5">
+        <div className="relative flex w-full items-center justify-between px-5 py-4 md:px-16 md:py-5">
           {/* LOGO GAUCHE */}
           <Link href="/" className="flex items-center gap-2">
             <div className="bg-transparent border-none">
@@ -88,7 +88,7 @@ export default function Header({ lang, solid }: HeaderProps) {
                 width={120}
                 height={60}
                 priority
-                className="h-auto w-[110px] md:w-[130px] object-contain bg-transparent border-none"
+                className="h-auto w-[104px] md:w-[130px] object-contain bg-transparent border-none"
                 placeholderLabel="Logo a ajouter"
               />
             </div>
@@ -114,23 +114,16 @@ export default function Header({ lang, solid }: HeaderProps) {
           </nav>
 
           {/* ICONES DROITE */}
-          <div className="flex items-center gap-5 md:gap-8">
+          <div className="flex items-center gap-4 md:gap-8">
             <button
               aria-label={lang === "fr" ? "Recherche" : "Search"}
               onClick={() => {
                 setSearchOpen(true);
                 setMobileMenuOpen(false);
               }}
-              className="transition hover:opacity-60"
+              className="hidden transition hover:opacity-60 md:block"
             >
               <Search size={20} strokeWidth={1.8} />
-            </button>
-
-            <button
-              aria-label={lang === "fr" ? "Mon compte" : "My account"}
-              className="transition hover:opacity-60"
-            >
-              <User size={20} strokeWidth={1.8} />
             </button>
 
             <button
@@ -239,20 +232,20 @@ export default function Header({ lang, solid }: HeaderProps) {
 
       {/* Mobile Mega Menu */}
       {mobileMenuOpen && (
-        <div className="fixed top-0 left-0 z-40 w-full h-screen bg-[#f7f5f2]/95 backdrop-blur-md shadow-xl md:hidden overflow-y-auto">
-          <div className="flex items-center justify-between px-6 py-5 border-b border-slate-200">
-            <span className="text-sm uppercase tracking-[0.24em] font-semibold text-slate-900">
+        <div className="fixed top-0 left-0 z-40 h-screen w-full overflow-y-auto bg-[#f7f5f2]/95 backdrop-blur-md shadow-xl md:hidden">
+          <div className="flex items-center justify-between border-b border-black/10 px-6 py-5">
+            <span className="text-sm font-semibold uppercase tracking-[0.24em] text-black">
               {lang === "fr" ? "Menu" : "Menu"}
             </span>
             <button
               onClick={() => setMobileMenuOpen(false)}
-              className="text-sm font-semibold uppercase tracking-[0.24em] text-slate-700 hover:text-slate-900 transition"
+              className="text-sm font-semibold uppercase tracking-[0.24em] text-black/65 transition hover:text-black"
             >
               {lang === "fr" ? "Fermer" : "Close"}
             </button>
           </div>
-          <div className="px-6 pt-6">
-            <div className="flex flex-col gap-3 text-sm font-semibold uppercase tracking-[0.14em] text-slate-800">
+          <div className="px-6 py-10">
+            <div className="flex flex-col gap-5 text-base font-medium uppercase tracking-[0.16em] text-black">
               <Link href="/parfums" onClick={() => setMobileMenuOpen(false)} className="transition hover:opacity-60">
                 {lang === "fr" ? "Parfums" : "Perfumes"}
               </Link>
@@ -263,9 +256,6 @@ export default function Header({ lang, solid }: HeaderProps) {
                 {lang === "fr" ? "La marque" : "The Brand"}
               </Link>
             </div>
-          </div>
-          <div className="px-6 pb-10 pt-6">
-            <PerfumeMegaMenu perfumes={perfumes} lang={lang} isOpen={true} />
           </div>
         </div>
       )}

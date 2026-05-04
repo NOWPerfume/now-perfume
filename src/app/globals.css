@@ -28,6 +28,11 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+html,
+body {
+  overflow-x: clip;
+}
+
 body::before {
   content: "";
   position: fixed;
@@ -157,5 +162,17 @@ body::before {
     transform: none;
     transition: none;
     filter: none;
+  }
+}
+
+@media (max-width: 767px) {
+  .mobile-full-bleed {
+    position: relative;
+    left: 50%;
+    right: 50%;
+    width: 100vw;
+    max-width: none;
+    margin-left: -50vw;
+    margin-right: -50vw;
   }
 }

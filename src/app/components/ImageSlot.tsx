@@ -37,6 +37,14 @@ export default function ImageSlot({
   placeholderLabel = "Image a ajouter",
 }: ImageSlotProps) {
   const [hasError, setHasError] = useState(false);
+  const resolvedFillClassName = (() => {
+    if (!fill) return className;
+    const safeClassName = className ?? "";
+    // Ensure fill images default to centered framing unless a specific object-* class is provided.
+    return /(^|\s)object-[^\s]+/.test(safeClassName)
+      ? safeClassName
+      : `${safeClassName} object-center`.trim();
+  })();
 
   if (hasError) {
     return (
@@ -57,9 +65,9 @@ export default function ImageSlot({
         src={src}
         alt={alt}
         fill
-        sizes={sizes}
+        sizes={sizes ?? "100vw"}
         priority={priority}
-        className={className}
+        className={resolvedFillClassName}
         onError={() => setHasError(true)}
       />
     );

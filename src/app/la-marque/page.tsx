@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Header from "@/app/components/Header";
+import Image from "next/image";
 import ImageSlot from "@/app/components/ImageSlot";
 import SiteFooter from "@/app/components/SiteFooter";
 import LanguageSwitcher from "@/app/components/LanguageSwitcher";
@@ -118,31 +119,36 @@ export default function LaMarquePage() {
       <Header lang={lang} solid={true} />
       <LanguageSwitcher lang={lang} setLang={setLang} />
 
-      <section className="relative min-h-screen overflow-hidden">
-        <ImageSlot
-          src="/images/brand-hero.jpg"
-          alt="NOW Perfume — La marque"
-          fill
-          priority
-          sizes="100vw"
-          className="absolute inset-0 h-full w-full object-cover object-center"
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/5 via-black/10 to-white/90" />
-        <div className="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-white to-transparent" />
+      <section className="relative overflow-hidden px-8 pt-20 pb-14 md:px-12 md:pt-28 md:pb-18 lg:px-20 lg:pt-32 lg:pb-20">
+        {/* Colored halos — NOW Perfume palette */}
+        <div className="pointer-events-none absolute inset-0 overflow-hidden" style={{ zIndex: 0 }}>
+          {/* Ginger yellow — top right */}
+          <div className="absolute rounded-full" style={{ background: "#FFC72C", opacity: 0.28, width: "32rem", height: "32rem", top: "-4rem", right: "-5rem", filter: "blur(48px)" }} />
+          {/* Maracuja orange — top left */}
+          <div className="absolute rounded-full" style={{ background: "#FF6A13", opacity: 0.22, width: "26rem", height: "26rem", top: "-2rem", left: "-5rem", filter: "blur(44px)" }} />
+          {/* Rosa pink — bottom right */}
+          <div className="absolute rounded-full" style={{ background: "#E94B8A", opacity: 0.20, width: "24rem", height: "24rem", bottom: "-2rem", right: "-3rem", filter: "blur(42px)" }} />
+          {/* Matcha green — mid left */}
+          <div className="absolute rounded-full" style={{ background: "#7A9A3A", opacity: 0.20, width: "20rem", height: "20rem", top: "40%", left: "-3rem", filter: "blur(40px)" }} />
+          {/* Vanilla cream — center wash */}
+          <div className="absolute rounded-full" style={{ background: "#F4EDE4", opacity: 0.65, width: "38rem", height: "38rem", top: "5%", left: "18%", filter: "blur(64px)" }} />
+        </div>
 
-        <div className="relative z-10 flex min-h-screen flex-col justify-end px-10 pb-24 md:px-12 md:pb-28 lg:px-16 lg:pb-32">
-          <div data-reveal className="reveal-item">
-            <p className="mb-4 text-[10px] uppercase tracking-[0.6em] text-black/50 font-light">
-              NOW&nbsp;&nbsp;-&nbsp;&nbsp;New Optimistic World
-            </p>
-            <h1 className="text-[clamp(40px,5vw,64px)] font-light leading-[1.1] tracking-[-0.025em] text-black">
-              {t.heroTitle}
-            </h1>
-          </div>
+        <div className="relative z-10 max-w-2xl">
+          <p data-reveal className="reveal-item mb-5 text-[10px] uppercase tracking-[0.55em] text-black/40 font-light">
+            NOW PERFUME&nbsp;&nbsp;—&nbsp;&nbsp;New Optimistic World
+          </p>
+          <h1
+            data-reveal
+            className="reveal-item text-[clamp(42px,5.5vw,72px)] font-light leading-[1.05] tracking-[-0.03em] text-black"
+            style={{ transitionDelay: "60ms" }}
+          >
+            {t.heroTitle}
+          </h1>
           <p
             data-reveal
-            className="reveal-item mt-6 max-w-xl text-lg leading-[1.6] text-black/65 font-light md:text-xl"
-            style={{ transitionDelay: "100ms" }}
+            className="reveal-item mt-8 max-w-lg text-lg leading-[1.7] text-black/58 font-light md:text-xl"
+            style={{ transitionDelay: "120ms" }}
           >
             {t.heroLead}
           </p>
@@ -166,8 +172,8 @@ export default function LaMarquePage() {
             className="reveal-item order-1 lg:order-2 relative"
             style={{ transitionDelay: "80ms" }}
           >
-            <div className="mx-auto w-full max-w-[620px]">
-              <div className="overflow-hidden rounded-[28px] relative aspect-[4/5] max-h-[600px] shadow-[0_10px_30px_rgba(0,0,0,0.06)]">
+            <div className="mobile-full-bleed mx-auto w-full max-w-[620px]">
+              <div className="relative aspect-[4/5] max-h-[600px] overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.06)] md:rounded-[28px]">
               <ImageSlot
                 src="/images/brand-philosophy.jpg"
                 alt="UN ÉTAT D’ESPRIT"
@@ -187,8 +193,8 @@ export default function LaMarquePage() {
             data-reveal
             className="reveal-item order-1 relative"
           >
-            <div className="mx-auto w-full max-w-[620px]">
-              <div className="overflow-hidden rounded-[28px] relative aspect-[4/5] max-h-[600px] shadow-[0_10px_30px_rgba(0,0,0,0.06)]">
+            <div className="mobile-full-bleed mx-auto w-full max-w-[620px]">
+              <div className="relative aspect-[4/5] max-h-[600px] overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.06)] md:rounded-[28px]">
                 <ImageSlot
                   src="/images/brand-natural.jpg"
                   alt="LA MATIÈRE"
@@ -227,8 +233,8 @@ export default function LaMarquePage() {
             data-reveal
             className="reveal-item order-1 lg:order-2 relative"
           >
-            <div className="mx-auto w-full max-w-[620px]">
-              <div className="overflow-hidden rounded-[28px] relative aspect-[4/5] max-h-[600px] shadow-[0_10px_30px_rgba(0,0,0,0.06)]">
+            <div className="mobile-full-bleed mx-auto w-full max-w-[620px]">
+              <div className="relative aspect-[4/5] max-h-[600px] overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.06)] md:rounded-[28px]">
                 <ImageSlot
                   src="/assets/images/brand/brand-machine-wall.jpg"
                   alt="L’instant et le lieu"
