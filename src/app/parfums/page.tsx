@@ -52,7 +52,7 @@ export default function ParfumsPage() {
               fill
               priority
               sizes="100vw"
-              className="h-full w-full object-contain object-center"
+              className="h-full w-full object-cover object-center scale-[1.08] transition-transform duration-700"
               placeholderLabel="Image a ajouter"
             />
           </div>

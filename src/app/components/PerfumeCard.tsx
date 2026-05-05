@@ -23,7 +23,7 @@ export default function PerfumeCard({ perfume, lang }: PerfumeCardProps) {
           alt={`${perfume.name} bottle`}
           fill
           sizes="(max-width: 640px) 42vw, (max-width: 1024px) 22vw, 180px"
-          className="object-contain object-center"
+          className="h-full w-full object-contain object-center p-2 md:p-3"
           placeholderLabel="Image a ajouter"
         />
       </div>
@@ -36,11 +36,11 @@ export default function PerfumeCard({ perfume, lang }: PerfumeCardProps) {
         <p className="mt-1 flex min-h-[1.25rem] items-center justify-center text-[10px] font-medium uppercase tracking-[0.12em] text-black/55 md:h-5 md:text-[11px]">
           {perfume.sprayMood}
         </p>
-        <p className="mt-2 flex min-h-[2.5rem] items-center justify-center px-1 text-[12px] leading-relaxed text-black/72 font-normal md:h-11 md:text-[13px]">
-          {perfume.claim}
-        </p>
-        <div className="mx-auto mt-3 w-24 border-t border-black/15 pt-2.5">
-          <p className="text-[18px] font-medium tracking-[0.02em] text-black">
+        <div className="mx-auto mt-3 w-fit border-t border-black/15 pt-2.5">
+          <p className="whitespace-nowrap text-xs text-black/45 tracking-wide">
+            {perfume.format.replace(" 100 ml", " - 100 ml")}
+          </p>
+          <p className="mt-2 text-[18px] font-medium tracking-[0.02em] text-black">
             {perfume.price}
             <span className="ml-1 align-top text-[10px] tracking-[0.12em] text-black/62">EUR</span>
           </p>

@@ -148,7 +148,7 @@ export default function PerfumePage() {
                         fill
                         priority={i === 0}
                         sizes="(max-width: 768px) 380px, 52vw"
-                        className={i === 0 ? "object-contain p-4 md:p-8" : "object-contain object-center p-2 md:p-3"}
+                        className="object-contain object-center"
                         placeholderLabel={slide.label}
                       />
                     </div>
@@ -219,23 +219,21 @@ export default function PerfumePage() {
                 <h3 className="text-[10px] uppercase tracking-[0.4em] text-black/40 font-medium mb-4">
                   {txt.notesLabel}
                 </h3>
-                <div className="flex gap-3 md:gap-5">
+                <div className="grid grid-cols-3 gap-3">
                   {perfume.keyNotes.map((note) => (
-                    <div key={note.label} className="group flex flex-col items-center gap-2 flex-1">
-                      <div className="relative h-16 w-16 sm:h-20 sm:w-20 shrink-0 overflow-hidden rounded-full border border-black/10 shadow-[0_2px_12px_rgba(0,0,0,0.07)]">
-                        <ImageSlot
+                    <article key={note.label} className="text-center">
+                      <div className="relative mx-auto h-24 w-24 shrink-0 overflow-hidden rounded-full border-0 bg-transparent shadow-none">
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img
                           src={note.image}
                           alt={note.label}
-                          fill
-                          sizes="(max-width: 640px) 64px, 80px"
-                          className="object-contain p-1"
-                          placeholderLabel={note.label}
+                          className="absolute inset-0 h-full w-full object-cover object-center scale-[1.45]"
                         />
                       </div>
-                      <p className="text-center text-[9px] sm:text-[10px] uppercase tracking-[0.22em] text-black/55 font-light leading-tight">
+                      <p className="text-center text-[9px] sm:text-[10px] uppercase tracking-[0.22em] text-black/55 font-light leading-tight pt-2">
                         {note.label}
                       </p>
-                    </div>
+                    </article>
                   ))}
                 </div>
               </div>

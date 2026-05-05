@@ -65,7 +65,7 @@ export default function PerfumeDetailDrawer({
                   alt={`${perfume.name} bottle`}
                   fill
                   sizes="128px"
-                  className="object-contain p-2"
+                  className="h-full w-full object-cover object-center scale-[1.08] transition-transform duration-700 md:scale-[1.14]"
                   placeholderLabel="Image a ajouter"
                 />
               </div>
@@ -123,16 +123,14 @@ export default function PerfumeDetailDrawer({
                   {perfume.keyNotes.map((note) => (
                     <article
                       key={note.label}
-                      className="group rounded-2xl border border-slate-200 bg-white p-3 text-center shadow-sm transition duration-300 hover:-translate-y-0.5 hover:shadow-md"
+                      className="group text-center"
                     >
-                      <div className="relative mx-auto h-14 w-14 overflow-hidden rounded-full border border-slate-100 shadow-[0_6px_14px_rgba(15,23,42,0.16)]">
-                        <ImageSlot
+                      <div className="relative mx-auto h-24 w-24 shrink-0 overflow-hidden rounded-full border-0 bg-transparent shadow-none">
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img
                           src={note.image}
                           alt={note.label}
-                          fill
-                          sizes="56px"
-                          className="object-cover transition duration-500 group-hover:scale-110"
-                          placeholderLabel="Image a ajouter"
+                          className="absolute inset-0 h-full w-full object-cover object-center scale-[1.45]"
                         />
                       </div>
                       <p className="mt-3 text-[10px] font-semibold uppercase tracking-[0.16em] text-slate-700">
