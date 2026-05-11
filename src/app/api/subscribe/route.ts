@@ -1,15 +1,16 @@
 import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
 
-const FALLBACK_EMAIL = "doriel@nowperfume.com";
-
 function isValidEmail(email: string) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
 
 export async function POST(request: NextRequest) {
-  const resend = new Resend(process.env.RESEND_API_KEY);
-  const AUDIENCE_ID = process.env.RESEND_AUDIENCE_ID;
+  const apiKey = process.env.RESEND_API_KEY;
+  if (!apiKey) {
+    console.error("[subscribe] Missing RESEND_API_KEY");
+    return NextResponse.json({ success: false, error: "Missing RESEND_API_KEY" }, { status: 503 });
+  }
 
   let body: unknown;
   try {
@@ -18,52 +19,54 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Invalid request body" }, { status: 400 });
   }
 
-  const { email, source, lang, perfume } = body as {
-    email?: string;
-    source?: string;
-    lang?: string;
-    perfume?: string;
-  };
+  const { email } = body as { email?: string };
 
   if (!email || !isValidEmail(email)) {
     return NextResponse.json({ error: "Invalid email address" }, { status: 400 });
   }
 
   const normalizedEmail = email.trim().toLowerCase();
+  const resend = new Resend(apiKey);
 
-  // Strategy 1: Add to Resend Audience (if RESEND_AUDIENCE_ID is set)
-  if (AUDIENCE_ID) {
-    try {
-      await resend.contacts.create({
-        audienceId: AUDIENCE_ID,
-        email: normalizedEmail,
-        unsubscribed: false,
-      });
-    } catch (err: unknown) {
-      // If contact already exists, that's fine — treat as success
-      const message = err instanceof Error ? err.message : String(err);
-      if (!message.toLowerCase().includes("already exists") && !message.toLowerCase().includes("duplicate")) {
-        console.error("[subscribe] Resend audience error:", err);
-        return NextResponse.json({ error: "Failed to subscribe" }, { status: 500 });
-      }
-    }
-  } else {
-    // Strategy 2: Fallback — send a notification email
-    try {
-      await resend.emails.send({
-        from: "NOW Perfume <onboarding@resend.dev>",
-        to: FALLBACK_EMAIL,
-        subject: `Nouvelle inscription newsletter — ${source ?? "site"}`,
-        html: `<p>Un nouvel email s'est inscrit via <strong>${source ?? "site"}</strong>.</p>
-               <p><strong>Email :</strong> ${normalizedEmail}</p>
-               ${lang ? `<p><strong>Langue :</strong> ${lang}</p>` : ""}
-               ${perfume ? `<p><strong>Parfum :</strong> ${perfume}</p>` : ""}`,
-      });
-    } catch (err) {
-      console.error("[subscribe] Resend fallback email error:", err);
-      return NextResponse.json({ error: "Failed to send notification" }, { status: 500 });
-    }
+  // Auto-discover the first available audience so configuration stays minimal.
+  const { data: audiencesResponse, error: audiencesError } = await resend.audiences.list();
+  if (audiencesError) {
+    console.error("[subscribe] Resend audiences.list error:", audiencesError);
+    return NextResponse.json({ success: false, error: "Unable to list Resend audiences" }, { status: 502 });
   }
 
-  return NextResponse.json({ ok: true });
+  const audienceCandidates =
+    Array.isArray(audiencesResponse)
+      ? audiencesResponse
+      : Array.isArray((audiencesResponse as { data?: unknown })?.data)
+        ? ((audiencesResponse as { data: unknown[] }).data)
+        : [];
+
+  const firstAudience = audienceCandidates[0] as { id?: string } | undefined;
+  const audienceId = firstAudience?.id;
+
+  if (!audienceId) {
+    console.error("[subscribe] Missing RESEND_AUDIENCE_ID");
+    return NextResponse.json({ success: false, error: "Missing RESEND_AUDIENCE_ID" }, { status: 503 });
+  }
+
+  try {
+    await resend.contacts.create({
+      audienceId,
+      email: normalizedEmail,
+      unsubscribed: false,
+    });
+    console.log("Newsletter saved to Resend Audience:", normalizedEmail);
+  } catch (err: unknown) {
+    const message = err instanceof Error ? err.message : String(err);
+    // Contact already exists — treat as success
+    if (message.toLowerCase().includes("already exists") || message.toLowerCase().includes("duplicate")) {
+      console.log("Newsletter contact already exists in Resend Audience:", normalizedEmail);
+      return NextResponse.json({ success: true });
+    }
+    console.error("[subscribe] Resend contacts.create error:", err);
+    return NextResponse.json({ success: false, error: "Failed to subscribe" }, { status: 500 });
+  }
+
+  return NextResponse.json({ success: true });
 }
