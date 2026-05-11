@@ -72,7 +72,7 @@ export default function Header({ lang, solid }: HeaderProps) {
   return (
     <>
       <header
-        className={`fixed top-0 left-0 z-50 w-full relative transition-all duration-700 ${
+        className={`fixed inset-x-0 top-0 z-50 w-screen transition-all duration-700 ${
           solid
             ? "bg-white text-black shadow-sm opacity-100 pointer-events-auto"
             : "bg-transparent text-black opacity-100 pointer-events-auto"

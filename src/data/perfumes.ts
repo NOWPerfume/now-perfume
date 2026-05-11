@@ -233,11 +233,11 @@ export const PERFUMES: Record<Lang, Perfume[]> = {
       name: "Ginger Aphrodisiac",
       format: "Eau de Parfum 100 ml",
       sprayMood: "Spray Desire",
-      claim: "Mood : Séduction & Assurance",
+      claim: "Mood: Seduction & Confidence",
       description:
-        "Un parfum vibrant et audacieux.\nLe piquant du gingembre rencontre la fraîcheur du citron vert, adouci par la profondeur du vétiver. Une signature tonique et sensuelle, comme une impulsion d’énergie maîtrisée.",
+        "A vibrant and bold fragrance.\nThe spicy edge of ginger meets the freshness of lime, softened by the depth of vetiver. An energizing and sensual signature, like a controlled burst of confidence.",
       inspiration:
-        "Un shot gingembre–citron vert, intense et électrisant.\nUne impulsion fraîche et vibrante qui réveille les sens, entre énergie brute, clarté lumineuse et sensualité affirmée.",
+        "An intense, electrifying ginger-lime shot.\nA fresh and vibrant impulse that awakens the senses, balancing raw energy, bright clarity, and confident sensuality.",
       bottleImage: "/images/flacon-ginger.jpg",
       moodImage: "/images/ginger-aphrodisiac-mood.jpg",
       keyNotes: [
@@ -272,11 +272,11 @@ export const PERFUMES: Record<Lang, Perfume[]> = {
       name: "Maracuja Samba",
       format: "Eau de Parfum 100 ml",
       sprayMood: "Spray Happiness",
-      claim: "Mood : Joie & Énergie",
+      claim: "Mood: Joy & Energy",
       description:
-        "Une fragrance solaire et éclatante.\nLe fruit de la passion et la mangue se mêlent à la fraîcheur du basilic pour une composition juteuse, lumineuse et irrésistiblement vivante.",
+        "A radiant, sunlit fragrance.\nPassion fruit and mango blend with the freshness of basil in a juicy, luminous composition that feels irresistibly alive.",
       inspiration:
-        "Un smoothie tropical éclatant, solaire et addictif.\nUne explosion fruitée et lumineuse, entre fraîcheur juteuse, douceur florale et énergie positive.",
+        "A bright, sunny, addictive tropical smoothie.\nA fruity and radiant explosion that balances juicy freshness, floral softness, and positive energy.",
       bottleImage: "/images/flacon-maracuja.jpg",
       moodImage: "/images/maracuja-samba-mood.jpg",
       keyNotes: [
@@ -310,11 +310,11 @@ export const PERFUMES: Record<Lang, Perfume[]> = {
       name: "Matcha Star",
       format: "Eau de Parfum 100 ml",
       sprayMood: "Spray Power",
-      claim: "Mood : Équilibre & Puissance",
+      claim: "Mood: Balance & Power",
       description:
-        "Un parfum vert et structuré.\nLe matcha intense s’accorde à la figue et au cèdre pour une signature à la fois profonde, élégante et parfaitement équilibrée.",
+        "A green, structured fragrance.\nIntense matcha pairs with fig and cedarwood to create a signature that is deep, elegant, and perfectly balanced.",
       inspiration:
-        "Un matcha concentré, profond et énergisant.\nUne expérience sensorielle entre fraîcheur végétale, tension boisée et harmonie intérieure.",
+        "A concentrated, deep, energizing matcha.\nA sensory experience between green freshness, woody tension, and inner harmony.",
       bottleImage: "/images/flacon-matcha.jpg",
       moodImage: "/images/matcha-star-mood.jpg",
       keyNotes: [
@@ -348,11 +348,11 @@ export const PERFUMES: Record<Lang, Perfume[]> = {
       name: "Vanilla Chill",
       format: "Eau de Parfum 100 ml",
       sprayMood: "Spray Cocooning",
-      claim: "Mood : Bien-être & Confort",
+      claim: "Mood: Well-being & Comfort",
       description:
-        "Une fragrance douce et enveloppante.\nLa vanille et le lait de coco s’unissent à la lavande pour créer une sensation de chaleur, de confort et d’apaisement immédiat.",
+        "A soft, enveloping fragrance.\nVanilla and coconut milk blend with lavender to create an immediate feeling of warmth, comfort, and calm.",
       inspiration:
-        "Un latte chaud, crémeux et réconfortant.\nUne caresse olfactive entre douceur gourmande, chaleur enveloppante et sérénité absolue.",
+        "A warm, creamy, comforting latte.\nAn olfactive caress between gourmand softness, enveloping warmth, and absolute serenity.",
       bottleImage: "/images/flacon-vanilla.jpg",
       moodImage: "/images/vanilla-chill-mood.jpg",
       keyNotes: [
@@ -373,7 +373,7 @@ export const PERFUMES: Record<Lang, Perfume[]> = {
         "Coumarin",
         "Limonene",
       ],
-      legal: ["G 125 13102", "*Matière première naturelle", "Formule vegan", "Made in France", "Informations supplémentaires : Orange Sanguine upcyclée HE, Italie* - produit upcyclé de l'industrie du jus"],
+      legal: ["G 125 13102", "*Natural raw material", "Vegan formula", "Made in France", "Additional information: Upcycled Blood Orange HE, Italy* - upcycled ingredient from the juice industry"],
       price: 120,
       colors: {
         bg: "from-amber-100 via-orange-200 to-amber-200",
@@ -386,11 +386,11 @@ export const PERFUMES: Record<Lang, Perfume[]> = {
       name: "Rosa Boom",
       format: "Eau de Parfum 100 ml",
       sprayMood: "Spray Love",
-      claim: "Mood : Amour & Sensualité",
+      claim: "Mood: Love & Sensuality",
       description:
-        "Un parfum floral et vibrant.\nLe litchi juteux rencontre la rose et un fond profond pour une signature à la fois lumineuse, sensuelle et addictive.",
+        "A vibrant floral fragrance.\nJuicy lychee meets rose and a deep base for a signature that is luminous, sensual, and addictive.",
       inspiration:
-        "Une infusion florale intense et lumineuse.\nUn équilibre délicat entre fraîcheur fruitée, élégance florale et profondeur sensuelle.",
+        "An intense, radiant floral infusion.\nA delicate balance between fruity freshness, floral elegance, and sensual depth.",
       bottleImage: "/images/flacon-rosa.jpg",
       moodImage: "/images/rosa-boom-mood.jpg",
       keyNotes: [
@@ -441,7 +441,7 @@ export const COPY = {
   en: {
     pageTitle: "Perfumes",
     intro: "Five fragrances inspired by iconic drinks.",
-    notesLabel: "Key notes",
+    notesLabel: "Main notes",
     pyramidLabel: "Olfactive pyramid",
     ingredientsLabel: "Legal ingredients",
     legalInfo: "Legal information",

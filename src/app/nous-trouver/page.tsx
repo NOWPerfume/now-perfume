@@ -13,6 +13,7 @@ const CONTENT = {
     title: "Nous trouver",
     subtitle: "Découvrez NOW Perfume dans des lieux sélectionnés — clubs, studios de sport, hôtels, lounges, spas, espaces de travail, etc.",
     supporting: "clubs, studios de sport, hôtels, lounges, spas, espaces de travail, etc.",
+    heroExperienceLine: "Une expérience olfactive à vivre sur place.",
     cta1: "Voir les lieux",
     cta2: "Devenir partenaire",
     intro: {
@@ -77,9 +78,10 @@ const CONTENT = {
     }
   },
   en: {
-    title: "Find us",
+    title: "Find Us",
     subtitle: "Discover NOW Perfume in selected locations — clubs, fitness studios, hotels, lounges, spas, workspaces, etc.",
     supporting: "clubs, fitness studios, hotels, lounges, spas, workspaces, etc.",
+    heroExperienceLine: "A fragrance experience to live on-site.",
     cta1: "See locations",
     cta2: "Become a partner",
     intro: {
@@ -190,16 +192,16 @@ export default function NousTrouverPage() {
 
           <div className="relative z-10 max-w-5xl text-center">
             <h1 className="text-[clamp(38px,5vw,64px)] font-light text-black mb-4 tracking-[-0.025em] leading-[1.1]">
-              Nous trouver
+              {content.title}
             </h1>
             <p className="mx-auto max-w-5xl text-[11px] md:text-xs uppercase tracking-[0.34em] text-black/62 font-light leading-relaxed">
-              CLUBS, STUDIOS DE SPORT, HÔTELS, LOUNGES, SPAS, ESPACES DE TRAVAIL
+              {content.supporting.toUpperCase()}
             </p>
             <p className="mx-auto mt-3 max-w-[820px] text-lg md:text-2xl text-black/76 font-light leading-[1.55]">
-              Découvrez NOW Perfume dans des lieux qui transforment l'instant.
+              {content.subtitle}
             </p>
             <p className="mt-2.5 text-sm md:text-[15px] text-black/56 font-light tracking-[0.02em]">
-              Une expérience olfactive à vivre sur place.
+              {content.heroExperienceLine}
             </p>
 
             <div className="mt-7 flex flex-col sm:flex-row gap-4 justify-center">
@@ -207,13 +209,13 @@ export default function NousTrouverPage() {
                 onClick={() => setShowMap(true)}
                 className="bg-black text-white px-8 py-4 rounded-full font-semibold text-sm uppercase tracking-[0.2em] hover:bg-black/90 transition-all duration-500 shadow-lg hover:shadow-xl hover:-translate-y-0.5"
               >
-                Voir les lieux
+                {content.cta1}
               </button>
               <button 
                 onClick={openWhatsApp}
                 className="border border-black/20 text-black px-8 py-4 rounded-full font-semibold text-sm uppercase tracking-[0.2em] hover:bg-black/5 transition-all duration-500 shadow-lg hover:shadow-xl hover:-translate-y-0.5"
               >
-                Devenir partenaire
+                {content.cta2}
               </button>
             </div>
           </div>

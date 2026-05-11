@@ -12,14 +12,7 @@ type Lang = "fr" | "en";
 type SectionId = "hero" | "universe" | "collection" | "spray";
 
 export default function Home() {
-  const [lang, setLang] = useState<Lang>(() => {
-    if (typeof window === "undefined") {
-      return "fr";
-    }
-
-    const saved = window.localStorage.getItem("now-lang");
-    return saved === "fr" || saved === "en" ? saved : "fr";
-  });
+  const [lang, setLang] = useState<Lang>("fr");
   const [activeSection, setActiveSection] = useState<SectionId>("hero");
 
   const scrollRef = useRef<HTMLDivElement | null>(null);
@@ -28,10 +21,6 @@ export default function Home() {
   const universeRef = useRef<HTMLElement | null>(null);
   const collectionRef = useRef<HTMLElement | null>(null);
   const sprayRef = useRef<HTMLElement | null>(null);
-
-  useEffect(() => {
-    window.localStorage.setItem("now-lang", lang);
-  }, [lang]);
 
   useEffect(() => {
     const root = scrollRef.current;
@@ -270,16 +259,19 @@ export default function Home() {
           data-section="hero"
           className="relative fade-in-section flex h-[100dvh] min-h-[100dvh] snap-start items-center justify-center overflow-hidden px-4 pt-16 pb-10 md:snap-always md:py-24"
         >
-          <ImageSlot
-            src="/images/accueil-hero.jpg"
-            alt="NOW Perfume accueil hero"
-            fill
-            priority
-            sizes="100vw"
-            className="absolute inset-0 h-full w-full object-cover object-center"
-            placeholderLabel="Image a ajouter"
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-[#f6f2ea]/18 via-[#f6f2ea]/8 to-[#f6f2ea]/38 md:bg-white/8" />
+          <div className="absolute inset-0 [&>div]:h-full [&>div]:w-full">
+            <div className="relative h-full w-full overflow-hidden">
+              <ImageSlot
+                src="/images/accueil-hero.jpg"
+                alt="NOW Perfume accueil hero"
+                fill
+                priority
+                sizes="(max-width: 768px) 100vw, 1400px"
+                className="object-cover object-center"
+                placeholderLabel="Image a ajouter"
+              />
+            </div>
+          </div>
 
           <div className="relative z-10 flex w-full max-w-5xl flex-col items-center px-4 text-center text-black md:px-6" style={{ paddingTop: "clamp(4rem, 14vh, 8rem)", paddingBottom: "clamp(3rem, 10vh, 6rem)" }}>
             <h1 className="sr-only">{t.heroTitle}</h1>
@@ -320,43 +312,42 @@ export default function Home() {
         <section
           ref={universeRef}
           data-section="universe"
-          className="relative fade-in-section overflow-hidden py-10 md:flex md:h-[100dvh] md:min-h-[100dvh] md:snap-start md:snap-always md:items-center"
+          className="relative fade-in-section flex min-h-0 snap-start items-center justify-center overflow-hidden bg-[radial-gradient(circle_at_12%_18%,rgba(255,220,120,0.12),transparent_42%),radial-gradient(circle_at_88%_74%,rgba(191,223,138,0.11),transparent_48%),linear-gradient(180deg,#fdfbf7_0%,#fbfaf5_100%)] py-12 md:h-[calc(100dvh-88px)] md:min-h-[calc(100dvh-88px)] md:snap-always"
         >
-          {/* HOME SECTION IMAGE */}
-          <ImageSlot
-            src="/images/home-universe-v2.jpg"
-            alt="NOW Perfume universe"
-            fill
-            sizes="100vw"
-            className="absolute inset-0 hidden h-full w-full object-cover object-center md:block"
-            placeholderLabel="Image a ajouter"
-          />
+          <div className="absolute -left-16 top-14 h-64 w-64 rounded-full bg-[#d7e8b3]/18 blur-3xl" />
 
-          <div className="absolute inset-0 hidden bg-white/8 md:block" />
-
-          <div className="relative z-10 flex h-full w-full items-start justify-center px-5 pb-6 pt-4 md:px-16 md:pt-20 md:pb-28">
-            <div className="w-full max-w-3xl text-center text-black md:rounded-[24px] md:border md:border-white/35 md:bg-white/28 md:p-8 md:shadow-[0_18px_42px_rgba(0,0,0,0.10)] md:backdrop-blur-[14px]">
-            <div className="mobile-full-bleed relative mb-6 aspect-[16/11] w-full overflow-hidden md:hidden">
-              <ImageSlot
-                src="/images/home-universe-v2.jpg"
-                alt="NOW Perfume universe"
-                fill
-                sizes="100vw"
-                className="h-full w-full object-contain object-center"
-                placeholderLabel="Image a ajouter"
-              />
+          <div className="relative z-10 mx-auto grid w-full max-w-[1400px] grid-cols-1 items-center gap-6 px-5 py-0 md:grid-cols-12 md:gap-16 md:px-12 md:py-12 lg:gap-20">
+            <div className="order-1 md:col-span-8">
+              <div className="mobile-full-bleed parallax-shell relative h-[34vh] min-h-[260px] w-full md:h-[78vh]" data-parallax>
+                <div className="float-shell relative h-full w-full [&>div]:h-full [&>div]:w-full">
+                  <div className="relative overflow-hidden rounded-[18px]">
+                    <ImageSlot
+                      src="/images/home-universe-v2.jpg"
+                      alt="NOW Perfume universe"
+                      fill
+                      sizes="(max-width: 768px) 100vw, 1400px"
+                      className="media-hover object-contain object-center"
+                      placeholderLabel="Image a ajouter"
+                    />
+                  </div>
+                </div>
+              </div>
             </div>
-            <p className="mb-4 text-xs uppercase tracking-[0.5em] text-black/50 font-light">
-              {t.universeKicker}
-            </p>
 
-              <h2 className="title-aura text-[clamp(32px,3vw,48px)] font-semibold leading-[1.15] tracking-[-0.02em]">
-                {t.universeTitle}
-              </h2>
+            <div className="order-2 flex flex-col justify-center md:col-span-4 md:min-h-[100%]">
+              <div className="my-auto w-full max-w-[520px] text-black">
+                <p className="mb-4 text-xs uppercase tracking-[0.5em] text-black/50 font-light">
+                  {t.universeKicker}
+                </p>
 
-              <p className="mt-8 text-[18px] leading-[1.6] text-black/72 font-light">
-                {t.universeText}
-              </p>
+                <h2 className="title-aura text-[clamp(32px,3vw,48px)] font-semibold leading-[1.15] tracking-[-0.02em]">
+                  {t.universeTitle}
+                </h2>
+
+                <p className="mt-5 max-w-[520px] text-[17px] leading-[1.6] text-black/72 font-light md:mt-8 md:text-[18px]">
+                  {t.universeText}
+                </p>
+              </div>
             </div>
           </div>
         </section>
@@ -391,16 +382,18 @@ export default function Home() {
             </div>
 
             <div className="order-1 md:order-2 md:col-span-8">
-              <div className="mobile-full-bleed parallax-shell relative h-[34vh] min-h-[260px] w-full overflow-hidden md:h-[78vh] md:rounded-[28px] md:[clip-path:inset(0_round_28px)]" data-parallax>
-                <div className="float-shell h-full w-full overflow-hidden md:rounded-[28px] md:[clip-path:inset(0_round_28px)]">
-                  <ImageSlot
-                    src="/images/home-collection-background.jpg"
-                    alt="NOW Perfume collection"
-                    fill
-                    sizes="(max-width: 768px) 100vw, 68vw"
-                    className="media-hover absolute inset-0 h-full w-full object-contain object-center md:rounded-[28px] md:shadow-[0_10px_30px_rgba(0,0,0,0.06)]"
-                    placeholderLabel="Image a ajouter"
-                  />
+              <div className="mobile-full-bleed parallax-shell relative h-[34vh] min-h-[260px] w-full md:h-[78vh]" data-parallax>
+                <div className="float-shell relative h-full w-full [&>div]:h-full [&>div]:w-full">
+                  <div className="relative overflow-hidden rounded-[18px]">
+                    <ImageSlot
+                      src="/images/home-collection-background.jpg"
+                      alt="NOW Perfume collection"
+                      fill
+                      sizes="(max-width: 768px) 100vw, 1400px"
+                      className="media-hover object-contain object-center"
+                      placeholderLabel="Image a ajouter"
+                    />
+                  </div>
                 </div>
               </div>
             </div>
@@ -417,26 +410,18 @@ export default function Home() {
 
           <div className="relative z-10 mx-auto grid w-full max-w-[1400px] grid-cols-1 items-center gap-6 px-5 py-0 md:grid-cols-12 md:gap-16 md:px-12 md:py-12 lg:gap-20">
             <div className="order-1 md:col-span-8">
-              <div className="mobile-full-bleed parallax-shell relative h-[34vh] min-h-[260px] w-full overflow-hidden md:h-[78vh] md:rounded-[28px] md:[clip-path:inset(0_round_28px)]" data-parallax>
-                <div className="float-shell h-full w-full overflow-hidden md:rounded-[28px] md:[clip-path:inset(0_round_28px)]">
-                  <div
-                    aria-hidden="true"
-                    className="absolute inset-0 hidden scale-105 blur-xl md:block"
-                    style={{
-                      backgroundImage: "url('/images/home-moods-background.jpg')",
-                      backgroundPosition: "center",
-                      backgroundSize: "cover",
-                    }}
-                  />
-                  <div aria-hidden="true" className="absolute inset-0 bg-white/18" />
-                  <ImageSlot
-                    src="/images/home-moods-background.jpg"
-                    alt="Spray Your Energy"
-                    fill
-                    sizes="(max-width: 768px) 100vw, 68vw"
-                    className="media-hover absolute inset-0 h-full w-full object-contain object-center md:rounded-[28px] md:shadow-[0_10px_30px_rgba(0,0,0,0.06)]"
-                    placeholderLabel="Image a ajouter"
-                  />
+              <div className="mobile-full-bleed parallax-shell relative h-[34vh] min-h-[260px] w-full md:h-[78vh]" data-parallax>
+                <div className="float-shell relative h-full w-full [&>div]:h-full [&>div]:w-full">
+                  <div className="relative overflow-hidden rounded-[18px]">
+                    <ImageSlot
+                      src="/images/home-moods-background.jpg"
+                      alt="Spray Your Energy"
+                      fill
+                      sizes="(max-width: 768px) 100vw, 1400px"
+                      className="media-hover object-contain object-center"
+                      placeholderLabel="Image a ajouter"
+                    />
+                  </div>
                 </div>
               </div>
             </div>

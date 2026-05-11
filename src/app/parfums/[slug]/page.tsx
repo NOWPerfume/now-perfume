@@ -15,14 +15,8 @@ type Lang = "fr" | "en";
 export default function PerfumePage() {
   const params = useParams();
   const slug = params.slug as string;
-  const [lang, setLang] = useState<Lang>(() => {
-    if (typeof window === "undefined") {
-      return "fr";
-    }
-
-    const saved = window.localStorage.getItem("now-lang");
-    return saved === "fr" || saved === "en" ? saved : "fr";
-  });
+  const [lang, setLang] = useState<Lang>("fr");
+  const [mounted, setMounted] = useState(false);
   const [expandedAccordion, setExpandedAccordion] = useState<string | null>(
     null
   );
@@ -37,19 +31,34 @@ export default function PerfumePage() {
   const slideTrackRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    window.localStorage.setItem("now-lang", lang);
-  }, [lang]);
+    setMounted(true);
+    const saved = window.localStorage.getItem("now-lang");
+    if (saved === "fr" || saved === "en") {
+      setLang(saved);
+    }
+  }, []);
 
-  const perfumes = PERFUMES[lang];
+  useEffect(() => {
+    if (!mounted) return;
+    window.localStorage.setItem("now-lang", lang);
+  }, [lang, mounted]);
+
+  const displayLang: Lang = mounted ? lang : "fr";
+  const perfumes = PERFUMES[displayLang];
   const perfume = perfumes.find((p) => p.id === slug);
-  const txt = lang === "fr" ? COPY.fr : COPY.en;
+  const txt = displayLang === "fr" ? COPY.fr : COPY.en;
 
   const handleComingSoonClick = () => {
     setComingSoonOpen(true);
   };
 
+  useEffect(() => {
+    if (!mounted) return;
+    console.log("ACTIVE LANG:", lang);
+  }, [lang, mounted]);
+
   if (!perfume) {
-    return <div>Perfume not found</div>;
+    return <div>{displayLang === "fr" ? "Parfum introuvable" : "Perfume not found"}</div>;
   }
 
   const toggleAccordion = (section: string) => {
@@ -100,8 +109,8 @@ export default function PerfumePage() {
   return (
     <main className="min-h-screen bg-white text-black">
       {/* Header - Always visible */}
-      <Header lang={lang} solid={true} />
-      <LanguageSwitcher lang={lang} setLang={setLang} />
+      <Header lang={displayLang} solid={true} />
+      <LanguageSwitcher lang={displayLang} setLang={setLang} mounted={mounted} />
 
       {/* HERO SECTION */}
       <section className={`relative min-h-[calc(100vh-88px)] bg-gradient-to-br px-6 py-10 md:px-8 md:py-12 ${perfume.colors.bg}`}>
@@ -246,7 +255,7 @@ export default function PerfumePage() {
                   {(txt as any).addToCartButton} — {perfume.price}€
                 </button>
                 <p className="text-xs text-black/50 mt-4 font-light">
-                  {lang === "fr" ? "Livraison gratuite dès 100€" : "Free shipping over 100€"}
+                  {displayLang === "fr" ? "Livraison gratuite dès 100€" : "Free shipping from €100"}
                 </p>
               </div>
             </div>
@@ -267,7 +276,7 @@ export default function PerfumePage() {
               <div className="flex items-center gap-3 mb-4">
                 <div className="h-px w-6" style={{ background: palette.sep }} />
                 <h2 className="text-sm uppercase tracking-[0.3em] font-semibold" style={{ color: palette.titleTint }}>
-                  {lang === "fr" ? "Description" : "Description"}
+                  {displayLang === "fr" ? "Description" : "Description"}
                 </h2>
               </div>
               <p className="text-base leading-7 text-black/70 whitespace-pre-line font-light">
@@ -340,7 +349,7 @@ export default function PerfumePage() {
           </div>
 
           <p className="mt-8 text-[11px] text-black/35 font-light tracking-wide" style={{ borderTop: `1px solid ${palette.sep}30`, paddingTop: '1rem' }}>
-            {lang === "fr" ? "* Ingrédient d'origine naturelle" : "* Formulated with ingredients of natural origin"}
+            {displayLang === "fr" ? "* Ingrédient d'origine naturelle" : "* Formulated with ingredients of natural origin"}
           </p>
         </div>
       </section>
@@ -370,7 +379,7 @@ export default function PerfumePage() {
                   </p>
                 </div>
                 <p className="text-sm leading-7 text-black/50 font-light">
-                  {lang === "fr"
+                  {displayLang === "fr"
                     ? "Les listes d'ingrédients sont régulièrement mises à jour. Avant d'utiliser un produit NOW Perfume, veuillez vous référer à la liste d'ingrédients sur son emballage."
                     : "Ingredient lists are regularly updated. Before using a NOW Perfume product, please refer to the ingredient list on its packaging."}
                 </p>
@@ -384,10 +393,10 @@ export default function PerfumePage() {
       <section className="bg-white px-6 py-12 pb-16 md:px-8 md:py-20">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-3xl md:text-4xl font-light text-black mb-4 tracking-tight">
-            {lang === "fr" ? "Prêt à vivre cette expérience ?" : "Ready for this experience?"}
+            {displayLang === "fr" ? "Prêt à vivre cette expérience ?" : "Ready for this experience?"}
           </h2>
           <p className="text-xl text-black/60 mb-8 font-light">
-            {lang === "fr" ? "Rejoignez notre communauté de passionnés de parfums" : "Join our community of fragrance enthusiasts"}
+            {displayLang === "fr" ? "Rejoignez notre communauté de passionnés de parfums" : "Join our community of fragrance enthusiasts"}
           </p>
 
           <div className="mb-8">
@@ -395,9 +404,9 @@ export default function PerfumePage() {
               {txt.addToCart} — {perfume.price}€
             </button>
             <div className="text-sm text-black/50 space-y-1 font-light">
-              <p>{lang === "fr" ? "• Livraison gratuite dès 100€" : "• Free shipping over 100€"}</p>
-              <p>{lang === "fr" ? "• Retour sous 30 jours" : "• 30-day returns"}</p>
-              <p>{lang === "fr" ? "• Fabrication française" : "• Made in France"}</p>
+              <p>{displayLang === "fr" ? "• Livraison gratuite dès 100€" : "• Free shipping from €100"}</p>
+              <p>{displayLang === "fr" ? "• Retour sous 30 jours" : "• 30-day returns"}</p>
+              <p>{displayLang === "fr" ? "• Fabrication française" : "• Made in France"}</p>
             </div>
           </div>
 
@@ -422,7 +431,7 @@ export default function PerfumePage() {
 
       <section className="px-6 md:px-8 pb-8 md:pb-10 bg-white">
         <div className="max-w-4xl mx-auto">
-          <SiteFooter lang={lang} />
+          <SiteFooter lang={displayLang} />
         </div>
       </section>
 
@@ -436,13 +445,13 @@ export default function PerfumePage() {
             onClick={(event) => event.stopPropagation()}
           >
             <p className="text-xs uppercase tracking-[0.2em] text-black/45">
-              {lang === "fr" ? "Disponible prochainement" : "Coming soon"}
+              {displayLang === "fr" ? "Disponible prochainement" : "Coming soon"}
             </p>
             <h3 className="mt-2 text-xl font-light text-black">
-              {lang === "fr" ? "Disponible prochainement" : "Coming soon"}
+              {displayLang === "fr" ? "Disponible prochainement" : "Coming soon"}
             </h3>
             <p className="mt-2 text-sm text-black/70">
-              {lang === "fr"
+              {displayLang === "fr"
                 ? "Les parfums NOW Perfume arrivent bientôt. Inscris-toi pour être informé en avant-première."
                 : "NOW Perfume fragrances are launching soon. Sign up to be notified first."}
             </p>
@@ -459,14 +468,14 @@ export default function PerfumePage() {
                 value={comingSoonEmail}
                 onChange={(event) => setComingSoonEmail(event.target.value)}
                 required
-                placeholder={lang === "fr" ? "Votre e-mail" : "Your email"}
+                placeholder={displayLang === "fr" ? "Votre e-mail" : "Your email"}
                 className="w-full rounded-full border border-black/15 px-4 py-3 text-sm text-black outline-none focus:border-black/35"
               />
               <button
                 type="submit"
                 className="mt-3 w-full rounded-full bg-black px-4 py-3 text-sm uppercase tracking-[0.14em] text-white transition hover:bg-black/85"
               >
-                {lang === "fr" ? "Accéder en avant-première" : "Get early access"}
+                {displayLang === "fr" ? "Accéder en avant-première" : "Get early access"}
               </button>
             </form>
           </div>
@@ -498,7 +507,7 @@ export default function PerfumePage() {
             <button
               className="absolute top-5 right-5 z-10 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition"
               onClick={e => { e.stopPropagation(); setLightboxSrc(null); setLightboxZoom(1); setLightboxOffset({ x: 0, y: 0 }); }}
-              aria-label="Fermer"
+              aria-label={displayLang === "fr" ? "Fermer" : "Close"}
             >
               <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M2 2l14 14M16 2L2 16" stroke="white" strokeWidth="2" strokeLinecap="round"/></svg>
             </button>
@@ -506,7 +515,7 @@ export default function PerfumePage() {
             <button
               className="absolute left-4 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition"
               onClick={e => { e.stopPropagation(); goTo(lightboxIndex - 1); }}
-              aria-label="Précédent"
+              aria-label={displayLang === "fr" ? "Précédent" : "Previous"}
             >
               <svg width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M9 2L5 7l4 5" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
             </button>
@@ -514,7 +523,7 @@ export default function PerfumePage() {
             <button
               className="absolute right-4 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition"
               onClick={e => { e.stopPropagation(); goTo(lightboxIndex + 1); }}
-              aria-label="Suivant"
+              aria-label={displayLang === "fr" ? "Suivant" : "Next"}
             >
               <svg width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M5 2l4 5-4 5" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
             </button>
@@ -524,7 +533,7 @@ export default function PerfumePage() {
                 className="absolute bottom-6 right-6 z-10 px-3 py-1.5 rounded-full bg-white/10 hover:bg-white/20 text-white text-xs transition"
                 onClick={e => { e.stopPropagation(); setLightboxZoom(1); setLightboxOffset({ x: 0, y: 0 }); }}
               >
-                Réinitialiser
+                {displayLang === "fr" ? "Réinitialiser" : "Reset"}
               </button>
             )}
             {/* Image */}
@@ -572,7 +581,7 @@ export default function PerfumePage() {
             {/* Zoom hint */}
             {lightboxZoom === 1 && (
               <p className="absolute bottom-14 left-1/2 -translate-x-1/2 text-white/40 text-xs pointer-events-none">
-                Scroll pour zoomer
+                {lang === "fr" ? "Scroll pour zoomer" : "Scroll to zoom"}
               </p>
             )}
           </div>

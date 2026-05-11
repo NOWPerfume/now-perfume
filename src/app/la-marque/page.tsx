@@ -43,30 +43,30 @@ const CONTENT = {
     heroTitle: "The Brand",
     heroLead:
       "NOW Perfume creates a new generation of unisex fragrances, designed to match every energy and every moment.",
-    manifestoTitle: "Manifeste",
+    manifestoTitle: "Manifesto",
     manifestoText:
-      "NOW n’est pas qu’un nom. C’est une posture : celle de vivre le parfum dans le présent, avec légèreté, avec intention, avec optimisme.",
-    stateTitle: "Un État D’Esprit",
-    stateText1: "Nous imaginons le parfum comme un état d’esprit.",
+      "NOW is more than a name. It is a mindset: experiencing fragrance in the present, with lightness, intention, and optimism.",
+    stateTitle: "A State of Mind",
+    stateText1: "We imagine fragrance as a state of mind.",
     stateText2:
-      "Une manière de se reconnecter à soi, d’accompagner une énergie, de prolonger un moment. Chaque fragrance est pensée pour être portée librement, dans l’instant, au bon endroit, au bon moment.",
+      "A way to reconnect with yourself, accompany an energy, and extend a moment. Each fragrance is designed to be worn freely, in the now, in the right place, at the right time.",
     stateText3:
-      "NOW développe des parfums unisexes, conçus pour s’adapter à chacun et évoluer avec les émotions.",
-    matterTitle: "La Matière",
+      "NOW develops unisex fragrances, designed to adapt to everyone and evolve with emotions.",
+    matterTitle: "The Craft",
     matterText1:
-      "Nos créations s’appuient sur des ingrédients d’origine naturelle, sélectionnés avec exigence.",
+      "Our creations are built around natural-origin ingredients, selected with high standards.",
     matterText2:
-      "Certaines matières premières sont issues de filières responsables, biologiques ou upcyclées. Chaque parfum est développé avec la maison de parfumerie Robertet, autour d’une idée essentielle : traduire une émotion en odeur, avec précision et sensibilité.",
+      "Some raw materials come from responsible, organic, or upcycled sources. Each perfume is developed with Robertet around one essential idea: translating emotion into scent with precision and sensitivity.",
     matterText3:
-      "De l’intention au flacon, une approche exigeante au service d’une expérience sensorielle totale.",
+      "From intention to bottle, a demanding approach in service of a complete sensory experience.",
     experienceTitle: "Moment and Place",
     experienceText1:
-      "NOW Perfume s’intègre dans les lieux où l’énergie existe déjà — clubs, studios de sport, hôtels, lounges, spas.",
+      "NOW Perfume integrates into places where energy already exists — clubs, fitness studios, hotels, lounges, spas.",
     experienceText2:
-      "Notre technologie de diffusion permet de découvrir une fragrance dans son contexte réel, au moment juste.",
+      "Our diffusion technology allows people to discover a fragrance in its real context, at the right moment.",
     experienceText3:
-      "Plus qu’une marque, NOW propose une nouvelle manière de vivre le parfum.",
-    experienceText4: "L’instant devient signature.",
+      "More than a brand, NOW proposes a new way to experience fragrance.",
+    experienceText4: "The moment becomes a signature.",
   },
 } as const;
 
@@ -159,12 +159,12 @@ export default function LaMarquePage() {
         <div className="mx-auto grid max-w-[1320px] items-center gap-6 lg:grid-cols-2 lg:gap-10">
           <div data-reveal className="reveal-item order-2 lg:order-1 max-w-[560px]">
             <h2 className="title-aura mb-5 text-[clamp(32px,3vw,48px)] font-semibold leading-[1.15] tracking-[-0.02em] text-black">
-              Un état d'esprit
+              {t.stateTitle}
             </h2>
-            <p className="text-[18px] leading-[1.6] text-black/62 font-light">NOW n’est pas qu’un nom. C’est une manière d’être.</p>
-            <p className="mt-3 text-[18px] leading-[1.6] text-black/56 font-light">Nous imaginons le parfum comme un état d’esprit — une façon de se reconnecter à soi, d’accompagner une énergie, de prolonger un moment.</p>
-            <p className="mt-3 text-[18px] leading-[1.6] text-black/56 font-light">Chaque fragrance est pensée pour être portée librement, dans l’instant, au bon endroit, au bon moment.</p>
-            <p className="mt-3 text-[18px] leading-[1.6] text-black/56 font-light">NOW développe des parfums unisexes, conçus pour s’adapter à chacun et évoluer avec les émotions.</p>
+            <p className="text-[18px] leading-[1.6] text-black/62 font-light">{t.manifestoText}</p>
+            <p className="mt-3 text-[18px] leading-[1.6] text-black/56 font-light">{t.stateText1}</p>
+            <p className="mt-3 text-[18px] leading-[1.6] text-black/56 font-light">{t.stateText2}</p>
+            <p className="mt-3 text-[18px] leading-[1.6] text-black/56 font-light">{t.stateText3}</p>
           </div>
 
           <div
@@ -176,7 +176,7 @@ export default function LaMarquePage() {
               <div className="relative aspect-[4/5] max-h-[600px] overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.06)] md:rounded-[28px]">
               <ImageSlot
                 src="/images/brand-philosophy.jpg"
-                alt="UN ÉTAT D’ESPRIT"
+                alt={lang === "fr" ? "Un état d'esprit" : "A state of mind"}
                 fill
                 sizes="(max-width: 1024px) 100vw, 50vw"
                 className="absolute inset-0 h-full w-full object-cover object-center"
@@ -197,7 +197,7 @@ export default function LaMarquePage() {
               <div className="relative aspect-[4/5] max-h-[600px] overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.06)] md:rounded-[28px]">
                 <ImageSlot
                   src="/images/brand-natural.jpg"
-                  alt="LA MATIÈRE"
+                  alt={lang === "fr" ? "La matière" : "The craft"}
                   fill
                   sizes="(max-width: 1024px) 100vw, 50vw"
                   className="absolute inset-0 h-full w-full object-cover object-center"
@@ -237,7 +237,7 @@ export default function LaMarquePage() {
               <div className="relative aspect-[4/5] max-h-[600px] overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.06)] md:rounded-[28px]">
                 <ImageSlot
                   src="/assets/images/brand/brand-machine-wall.jpg"
-                  alt="L’instant et le lieu"
+                  alt={lang === "fr" ? "L'instant et le lieu" : "Moment and place"}
                   fill
                   sizes="(max-width: 1024px) 100vw, 50vw"
                   className="absolute inset-0 h-full w-full object-cover object-center"

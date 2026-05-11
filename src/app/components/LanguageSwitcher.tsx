@@ -7,6 +7,7 @@ type Lang = "fr" | "en";
 type LanguageSwitcherProps = {
   lang: Lang;
   setLang: (lang: Lang) => void;
+  mounted?: boolean;
 };
 
 export default function LanguageSwitcher({ lang, setLang }: LanguageSwitcherProps) {

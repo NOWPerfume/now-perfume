@@ -3,7 +3,7 @@ import FragranceExperience from "./FragranceExperience";
 
 export const metadata: Metadata = {
   robots: { index: false, follow: false },
-  title: "NOW Perfume — Trouve ton énergie",
+  title: "NOW Perfume — Find Your Energy",
 };
 
 export default function FragrancePage() {
