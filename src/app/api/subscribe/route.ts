@@ -21,13 +21,13 @@ export async function POST(request: NextRequest) {
   try {
     body = await request.json();
   } catch {
-    return NextResponse.json({ error: "Invalid request body" }, { status: 400 });
+    return NextResponse.json({ success: false, error: "Invalid request body" }, { status: 400 });
   }
 
   const { email } = body as { email?: string };
 
   if (!email || !isValidEmail(email)) {
-    return NextResponse.json({ error: "Invalid email address" }, { status: 400 });
+    return NextResponse.json({ success: false, error: "Invalid email address" }, { status: 400 });
   }
 
   const normalizedEmail = email.trim().toLowerCase();
@@ -40,16 +40,34 @@ export async function POST(request: NextRequest) {
   }
 
   try {
-    await resend.contacts.create({
-      audienceId: process.env.RESEND_AUDIENCE_ID!,
+    const { data, error } = await resend.contacts.create({
+      audienceId,
       email: normalizedEmail,
       unsubscribed: false,
     });
+
+    if (error) {
+      const message = JSON.stringify(error).toLowerCase();
+      // Contact already exists — treat as success
+      if (message.includes("already exists") || message.includes("duplicate")) {
+        console.log("Newsletter contact already exists in Resend Audience:", normalizedEmail);
+        return NextResponse.json({ success: true });
+      }
+
+      console.error("[subscribe] Resend contacts.create error:", error);
+      return NextResponse.json({ success: false, error: "Failed to subscribe" }, { status: 500 });
+    }
+
+    if (!data) {
+      console.error("[subscribe] Resend contacts.create returned no data");
+      return NextResponse.json({ success: false, error: "Failed to subscribe" }, { status: 500 });
+    }
+
     console.log("Added to audience:", normalizedEmail);
-  } catch (err: unknown) {
-    const message = err instanceof Error ? err.message : String(err);
+  } catch (err) {
+    const message = err instanceof Error ? err.message.toLowerCase() : String(err).toLowerCase();
     // Contact already exists — treat as success
-    if (message.toLowerCase().includes("already exists") || message.toLowerCase().includes("duplicate")) {
+    if (message.includes("already exists") || message.includes("duplicate")) {
       console.log("Newsletter contact already exists in Resend Audience:", normalizedEmail);
       return NextResponse.json({ success: true });
     }
