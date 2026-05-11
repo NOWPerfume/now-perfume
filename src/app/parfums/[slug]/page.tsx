@@ -498,9 +498,14 @@ export default function PerfumePage() {
                 <p className="mt-2 text-xs text-red-600">{comingSoonError}</p>
               )}
               {comingSoonDone ? (
-                <p className="mt-3 text-center text-sm text-green-700">
-                  {displayLang === "fr" ? "Merci, ton inscription est confirmée !" : "Thank you, you're on the list!"}
-                </p>
+                <div className="mt-3 space-y-1">
+                  <p className="text-sm font-medium text-black">
+                    {displayLang === "fr" ? "Merci, ton inscription est confirmée." : "Thank you, your subscription is confirmed."}
+                  </p>
+                  <p className="text-xs text-black/55">
+                    {displayLang === "fr" ? "Tu recevras bientôt les nouvelles de NOW Perfume." : "You'll soon receive updates from NOW Perfume."}
+                  </p>
+                </div>
               ) : (
                 <button
                   type="submit"
@@ -508,7 +513,7 @@ export default function PerfumePage() {
                   className="mt-3 w-full rounded-full bg-black px-4 py-3 text-sm uppercase tracking-[0.14em] text-white transition hover:bg-black/85 disabled:opacity-60"
                 >
                   {comingSoonSubmitting
-                    ? (displayLang === "fr" ? "Envoi..." : "Sending...")
+                    ? (displayLang === "fr" ? "Inscription..." : "Submitting...")
                     : (displayLang === "fr" ? "Accéder en avant-première" : "Get early access")}
                 </button>
               )}

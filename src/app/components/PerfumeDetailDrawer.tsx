@@ -23,6 +23,9 @@ export default function PerfumeDetailDrawer({
   );
   const [comingSoonOpen, setComingSoonOpen] = useState(false);
   const [comingSoonEmail, setComingSoonEmail] = useState("");
+  const [comingSoonSubmitting, setComingSoonSubmitting] = useState(false);
+  const [comingSoonDone, setComingSoonDone] = useState(false);
+  const [comingSoonError, setComingSoonError] = useState<string | null>(null);
   const txt = lang === "fr" ? COPY.fr : COPY.en;
   const handleComingSoonClick = () => {
     setComingSoonOpen(true);
@@ -251,26 +254,69 @@ export default function PerfumeDetailDrawer({
             </p>
             <form
               className="mt-4"
-              onSubmit={(event) => {
+              onSubmit={async (event) => {
                 event.preventDefault();
-                setComingSoonOpen(false);
-                setComingSoonEmail("");
+                setComingSoonError(null);
+                setComingSoonSubmitting(true);
+                try {
+                  const res = await fetch("/api/subscribe", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                      email: comingSoonEmail.trim().toLowerCase(),
+                      source: "drawer",
+                      lang,
+                      perfume: perfume?.name,
+                    }),
+                  });
+                  if (!res.ok) throw new Error();
+                  setComingSoonDone(true);
+                  setComingSoonEmail("");
+                } catch {
+                  setComingSoonError(
+                    lang === "fr"
+                      ? "Une erreur est survenue. Réessaie dans un instant."
+                      : "Something went wrong. Please try again in a moment."
+                  );
+                } finally {
+                  setComingSoonSubmitting(false);
+                }
               }}
             >
-              <input
-                type="email"
-                value={comingSoonEmail}
-                onChange={(event) => setComingSoonEmail(event.target.value)}
-                required
-                placeholder={lang === "fr" ? "Votre e-mail" : "Your email"}
-                className="w-full rounded-full border border-black/15 px-4 py-3 text-sm text-black outline-none focus:border-black/35"
-              />
-              <button
-                type="submit"
-                className="mt-3 w-full rounded-full bg-black px-4 py-3 text-sm uppercase tracking-[0.14em] text-white transition hover:bg-black/85"
-              >
-                {lang === "fr" ? "Accéder en avant-première" : "Get early access"}
-              </button>
+              {comingSoonDone ? (
+                <div className="mt-2 space-y-1">
+                  <p className="text-sm font-medium text-black">
+                    {lang === "fr" ? "Merci, ton inscription est confirmée." : "Thank you, your subscription is confirmed."}
+                  </p>
+                  <p className="text-xs text-black/55">
+                    {lang === "fr" ? "Tu recevras bientôt les nouvelles de NOW Perfume." : "You'll soon receive updates from NOW Perfume."}
+                  </p>
+                </div>
+              ) : (
+                <>
+                  <input
+                    type="email"
+                    value={comingSoonEmail}
+                    onChange={(event) => setComingSoonEmail(event.target.value)}
+                    required
+                    disabled={comingSoonSubmitting}
+                    placeholder={lang === "fr" ? "Votre e-mail" : "Your email"}
+                    className="w-full rounded-full border border-black/15 px-4 py-3 text-sm text-black outline-none focus:border-black/35 disabled:opacity-50"
+                  />
+                  {comingSoonError && (
+                    <p className="mt-2 text-xs text-red-600">{comingSoonError}</p>
+                  )}
+                  <button
+                    type="submit"
+                    disabled={comingSoonSubmitting}
+                    className="mt-3 w-full rounded-full bg-black px-4 py-3 text-sm uppercase tracking-[0.14em] text-white transition hover:bg-black/85 disabled:opacity-60"
+                  >
+                    {comingSoonSubmitting
+                      ? (lang === "fr" ? "Inscription..." : "Submitting...")
+                      : (lang === "fr" ? "Accéder en avant-première" : "Get early access")}
+                  </button>
+                </>
+              )}
             </form>
           </div>
         </div>

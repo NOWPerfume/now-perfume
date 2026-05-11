@@ -428,7 +428,7 @@ export default function ExperiencePage() {
                 transition: "opacity 0.2s",
               }}
             >
-              {submitting ? "…" : "Recevoir en avant-première"}
+              {submitting ? "Inscription..." : "Recevoir en avant-première"}
             </button>
           </form>
 
