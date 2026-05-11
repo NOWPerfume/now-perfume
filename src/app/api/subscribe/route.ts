@@ -33,39 +33,19 @@ export async function POST(request: NextRequest) {
   const normalizedEmail = email.trim().toLowerCase();
   const resend = new Resend(apiKey);
 
-  let audienceId = process.env.RESEND_AUDIENCE_ID;
-
+  const audienceId = process.env.RESEND_AUDIENCE_ID;
   if (!audienceId) {
-    // Auto-discover the first available audience when no explicit ID is configured.
-    const { data: audiencesResponse, error: audiencesError } = await resend.audiences.list();
-    if (audiencesError) {
-      console.error("[subscribe] Resend audiences.list error:", audiencesError);
-      return NextResponse.json({ success: false, error: "Unable to list Resend audiences" }, { status: 502 });
-    }
-
-    const audienceCandidates =
-      Array.isArray(audiencesResponse)
-        ? audiencesResponse
-        : Array.isArray((audiencesResponse as { data?: unknown })?.data)
-          ? ((audiencesResponse as { data: unknown[] }).data)
-          : [];
-
-    const firstAudience = audienceCandidates[0] as { id?: string } | undefined;
-    audienceId = firstAudience?.id;
-  }
-
-  if (!audienceId) {
-    console.error("[subscribe] No Resend audience available");
-    return NextResponse.json({ success: false, error: "No Resend audience available" }, { status: 503 });
+    console.error("[subscribe] Missing RESEND_AUDIENCE_ID");
+    return NextResponse.json({ success: false, error: "Missing RESEND_AUDIENCE_ID" }, { status: 503 });
   }
 
   try {
     await resend.contacts.create({
-      audienceId,
+      audienceId: process.env.RESEND_AUDIENCE_ID!,
       email: normalizedEmail,
       unsubscribed: false,
     });
-    console.log("Newsletter saved to Resend Audience:", normalizedEmail);
+    console.log("Added to audience:", normalizedEmail);
   } catch (err: unknown) {
     const message = err instanceof Error ? err.message : String(err);
     // Contact already exists — treat as success
