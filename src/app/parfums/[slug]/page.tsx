@@ -27,6 +27,9 @@ export default function PerfumePage() {
   const [lightboxOffset, setLightboxOffset] = useState({ x: 0, y: 0 });
   const [comingSoonOpen, setComingSoonOpen] = useState(false);
   const [comingSoonEmail, setComingSoonEmail] = useState("");
+  const [comingSoonSubmitting, setComingSoonSubmitting] = useState(false);
+  const [comingSoonDone, setComingSoonDone] = useState(false);
+  const [comingSoonError, setComingSoonError] = useState<string | null>(null);
   const lightboxDragRef = useRef<{ startX: number; startY: number; ox: number; oy: number } | null>(null);
   const slideTrackRef = useRef<HTMLDivElement>(null);
 
@@ -457,10 +460,29 @@ export default function PerfumePage() {
             </p>
             <form
               className="mt-4"
-              onSubmit={(event) => {
+              onSubmit={async (event) => {
                 event.preventDefault();
-                setComingSoonOpen(false);
-                setComingSoonEmail("");
+                setComingSoonError(null);
+                setComingSoonSubmitting(true);
+                try {
+                  const res = await fetch("/api/subscribe", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                      email: comingSoonEmail.trim().toLowerCase(),
+                      source: "product",
+                      lang: displayLang,
+                      perfume: perfume?.name,
+                    }),
+                  });
+                  if (!res.ok) throw new Error("Failed");
+                  setComingSoonDone(true);
+                  setComingSoonEmail("");
+                } catch {
+                  setComingSoonError(displayLang === "fr" ? "Une erreur est survenue. Réessayez." : "Something went wrong. Please try again.");
+                } finally {
+                  setComingSoonSubmitting(false);
+                }
               }}
             >
               <input
@@ -468,15 +490,28 @@ export default function PerfumePage() {
                 value={comingSoonEmail}
                 onChange={(event) => setComingSoonEmail(event.target.value)}
                 required
+                disabled={comingSoonSubmitting || comingSoonDone}
                 placeholder={displayLang === "fr" ? "Votre e-mail" : "Your email"}
-                className="w-full rounded-full border border-black/15 px-4 py-3 text-sm text-black outline-none focus:border-black/35"
+                className="w-full rounded-full border border-black/15 px-4 py-3 text-sm text-black outline-none focus:border-black/35 disabled:opacity-50"
               />
-              <button
-                type="submit"
-                className="mt-3 w-full rounded-full bg-black px-4 py-3 text-sm uppercase tracking-[0.14em] text-white transition hover:bg-black/85"
-              >
-                {displayLang === "fr" ? "Accéder en avant-première" : "Get early access"}
-              </button>
+              {comingSoonError && (
+                <p className="mt-2 text-xs text-red-600">{comingSoonError}</p>
+              )}
+              {comingSoonDone ? (
+                <p className="mt-3 text-center text-sm text-green-700">
+                  {displayLang === "fr" ? "Merci, ton inscription est confirmée !" : "Thank you, you're on the list!"}
+                </p>
+              ) : (
+                <button
+                  type="submit"
+                  disabled={comingSoonSubmitting}
+                  className="mt-3 w-full rounded-full bg-black px-4 py-3 text-sm uppercase tracking-[0.14em] text-white transition hover:bg-black/85 disabled:opacity-60"
+                >
+                  {comingSoonSubmitting
+                    ? (displayLang === "fr" ? "Envoi..." : "Sending...")
+                    : (displayLang === "fr" ? "Accéder en avant-première" : "Get early access")}
+                </button>
+              )}
             </form>
           </div>
         </div>

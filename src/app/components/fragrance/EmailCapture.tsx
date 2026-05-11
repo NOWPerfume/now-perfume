@@ -9,11 +9,16 @@ type EmailCaptureProps = {
   onSuccess: (email: string) => void;
 };
 
-async function submitEmailLead(payload: { email: string; fragrance: string }) {
-  // Placeholder: plug your provider here (Brevo / Klaviyo / Resend / Supabase).
-  // Keep this function as the single integration point to avoid touching UI code later.
-  console.info("Newsletter placeholder payload", payload);
-  return Promise.resolve({ ok: true });
+async function submitEmailLead(payload: { email: string; fragrance: string; locale: string }) {
+  const response = await fetch("/api/subscribe", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email: payload.email, source: "fragrance", lang: payload.locale, perfume: payload.fragrance }),
+  });
+  if (!response.ok) {
+    throw new Error("Subscribe failed");
+  }
+  return response.json();
 }
 
 function isValidEmail(email: string) {
@@ -65,7 +70,7 @@ export default function EmailCapture({ fragrance, locale, onSuccess }: EmailCapt
 
     setIsSubmitting(true);
     try {
-      await submitEmailLead({ email: normalizedEmail, fragrance: fragrance.name });
+      await submitEmailLead({ email: normalizedEmail, fragrance: fragrance.name, locale });
       onSuccess(normalizedEmail);
     } catch {
       setError(copy.submitError);

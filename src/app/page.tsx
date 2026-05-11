@@ -257,7 +257,7 @@ export default function Home() {
         <section
           ref={heroRef}
           data-section="hero"
-          className="relative fade-in-section flex h-[100dvh] min-h-[100dvh] snap-start items-center justify-center overflow-hidden px-4 pt-16 pb-10 md:snap-always md:py-24"
+          className="relative fade-in-section flex h-[100dvh] min-h-[100dvh] snap-start items-center justify-center overflow-hidden px-4 md:snap-always"
         >
           <div className="absolute inset-0 [&>div]:h-full [&>div]:w-full">
             <div className="relative h-full w-full overflow-hidden">
@@ -273,38 +273,40 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="relative z-10 flex w-full max-w-5xl flex-col items-center px-4 text-center text-black md:px-6" style={{ paddingTop: "clamp(4rem, 14vh, 8rem)", paddingBottom: "clamp(3rem, 10vh, 6rem)" }}>
-            <h1 className="sr-only">{t.heroTitle}</h1>
+          <div className="absolute inset-0 z-10 flex items-center justify-center px-4 md:px-6">
+            <div className="flex h-full w-full max-w-5xl flex-col items-center justify-center text-center text-black">
+              <h1 className="sr-only">{t.heroTitle}</h1>
 
-            <div className="mb-4 w-[155px] md:mb-6 md:w-[260px]">
-              <Image
-                src="/logo-now.PNG"
-                alt="NOW Perfume"
-                width={520}
-                height={246}
-                priority
-                className="h-auto w-full object-contain invert"
-              />
+              <div className="mb-4 w-[155px] md:mb-6 md:w-[260px]">
+                <Image
+                  src="/logo-now.PNG"
+                  alt="NOW Perfume"
+                  width={520}
+                  height={246}
+                  priority
+                  className="h-auto w-full object-contain invert"
+                />
+              </div>
+
+              <p className="mb-4 text-[10px] uppercase tracking-[0.38em] text-black/62 font-light md:mb-6 md:text-[11px] md:tracking-[0.5em]">
+                {t.heroKicker}
+              </p>
+
+              <p className="mx-auto max-w-[88vw] text-[clamp(1.75rem,7.5vw,2.9rem)] leading-[1.1] tracking-[-0.03em] font-light text-black md:max-w-4xl md:text-5xl lg:text-6xl">
+                {t.heroText1}
+              </p>
+
+              <p className="mx-auto mt-4 max-w-[80vw] text-[15px] leading-relaxed text-black/70 font-light md:mt-6 md:max-w-2xl md:text-xl">
+                {t.heroText2}
+              </p>
+
+              <Link
+                href="/parfums"
+                className="mt-6 inline-block rounded-full bg-black px-8 py-3 text-sm font-medium uppercase tracking-[0.16em] text-white shadow-lg transition hover:bg-black/85 active:scale-[0.98] md:mt-8"
+              >
+                {t.heroButton}
+              </Link>
             </div>
-
-            <p className="mb-4 text-[10px] uppercase tracking-[0.38em] text-black/62 font-light md:mb-6 md:text-[11px] md:tracking-[0.5em]">
-              {t.heroKicker}
-            </p>
-
-            <p className="mx-auto max-w-[88vw] text-[clamp(1.75rem,7.5vw,2.9rem)] leading-[1.1] tracking-[-0.03em] font-light text-black md:max-w-4xl md:text-5xl lg:text-6xl">
-              {t.heroText1}
-            </p>
-
-            <p className="mx-auto mt-4 max-w-[80vw] text-[15px] leading-relaxed text-black/70 font-light md:mt-6 md:max-w-2xl md:text-xl">
-              {t.heroText2}
-            </p>
-
-            <Link
-              href="/parfums"
-              className="mt-6 inline-block rounded-full bg-black px-8 py-3 text-sm font-medium uppercase tracking-[0.16em] text-white shadow-lg transition hover:bg-black/85 active:scale-[0.98] md:mt-8"
-            >
-              {t.heroButton}
-            </Link>
           </div>
         </section>
 
@@ -312,11 +314,11 @@ export default function Home() {
         <section
           ref={universeRef}
           data-section="universe"
-          className="relative fade-in-section flex min-h-0 snap-start items-center justify-center overflow-hidden bg-[radial-gradient(circle_at_12%_18%,rgba(255,220,120,0.12),transparent_42%),radial-gradient(circle_at_88%_74%,rgba(191,223,138,0.11),transparent_48%),linear-gradient(180deg,#fdfbf7_0%,#fbfaf5_100%)] py-12 md:h-[calc(100dvh-88px)] md:min-h-[calc(100dvh-88px)] md:snap-always"
+          className="relative fade-in-section flex h-[calc(100dvh-88px)] min-h-[calc(100dvh-88px)] snap-start items-center justify-center overflow-hidden bg-[radial-gradient(circle_at_12%_18%,rgba(255,220,120,0.12),transparent_42%),radial-gradient(circle_at_88%_74%,rgba(191,223,138,0.11),transparent_48%),linear-gradient(180deg,#fdfbf7_0%,#fbfaf5_100%)] md:snap-always"
         >
           <div className="absolute -left-16 top-14 h-64 w-64 rounded-full bg-[#d7e8b3]/18 blur-3xl" />
 
-          <div className="relative z-10 mx-auto grid w-full max-w-[1400px] grid-cols-1 items-center gap-6 px-5 py-0 md:grid-cols-12 md:gap-16 md:px-12 md:py-12 lg:gap-20">
+          <div className="relative z-10 mx-auto grid h-full w-full max-w-[1400px] grid-cols-1 place-content-center items-center gap-6 px-5 py-0 md:grid-cols-12 md:gap-16 md:px-12 md:py-0 lg:gap-20">
             <div className="order-1 md:col-span-8">
               <div className="mobile-full-bleed parallax-shell relative h-[34vh] min-h-[260px] w-full md:h-[78vh]" data-parallax>
                 <div className="float-shell relative h-full w-full [&>div]:h-full [&>div]:w-full">
@@ -356,11 +358,11 @@ export default function Home() {
         <section
           ref={collectionRef}
           data-section="collection"
-          className="relative fade-in-section flex min-h-0 snap-start items-center justify-center overflow-hidden bg-[radial-gradient(circle_at_12%_18%,rgba(255,220,120,0.14),transparent_42%),radial-gradient(circle_at_88%_74%,rgba(191,223,138,0.11),transparent_48%),linear-gradient(180deg,#fdfbf7_0%,#fbfaf5_100%)] py-12 md:h-[calc(100dvh-88px)] md:min-h-[calc(100dvh-88px)] md:snap-always"
+          className="relative fade-in-section flex h-[calc(100dvh-88px)] min-h-[calc(100dvh-88px)] snap-start items-center justify-center overflow-hidden bg-[radial-gradient(circle_at_12%_18%,rgba(255,220,120,0.14),transparent_42%),radial-gradient(circle_at_88%_74%,rgba(191,223,138,0.11),transparent_48%),linear-gradient(180deg,#fdfbf7_0%,#fbfaf5_100%)] md:snap-always"
         >
           <div className="absolute -right-16 top-14 h-64 w-64 rounded-full bg-[#f2ce86]/18 blur-3xl" />
 
-          <div className="relative z-10 mx-auto grid w-full max-w-[1400px] grid-cols-1 items-center gap-6 px-5 py-0 md:grid-cols-12 md:gap-16 md:px-12 md:py-12 lg:gap-20">
+          <div className="relative z-10 mx-auto grid h-full w-full max-w-[1400px] grid-cols-1 place-content-center items-center gap-6 px-5 py-0 md:grid-cols-12 md:gap-16 md:px-12 md:py-0 lg:gap-20">
             <div className="order-2 md:order-1 md:col-span-4 flex flex-col justify-center">
               <div className="w-full max-w-[560px] text-black">
                 <p className="mb-3 text-xs uppercase tracking-[0.5em] text-black/50 font-light">
@@ -404,11 +406,11 @@ export default function Home() {
         <section
           ref={sprayRef}
           data-section="spray"
-          className="relative fade-in-section flex min-h-0 snap-start items-center justify-center bg-[radial-gradient(circle_at_10%_18%,rgba(191,223,138,0.14),transparent_44%),radial-gradient(circle_at_90%_76%,rgba(255,220,120,0.13),transparent_50%),linear-gradient(180deg,#fcfaf6_0%,#f9f7f2_100%)] py-12 pb-16 md:h-[calc(100dvh-88px)] md:min-h-[calc(100dvh-88px)] md:snap-always"
+          className="relative fade-in-section flex h-[calc(100dvh-88px)] min-h-[calc(100dvh-88px)] snap-start items-center justify-center bg-[radial-gradient(circle_at_10%_18%,rgba(191,223,138,0.14),transparent_44%),radial-gradient(circle_at_90%_76%,rgba(255,220,120,0.13),transparent_50%),linear-gradient(180deg,#fcfaf6_0%,#f9f7f2_100%)] md:snap-always"
         >
           <div className="absolute -left-16 bottom-10 h-64 w-64 rounded-full bg-[#d7e8b3]/18 blur-3xl" />
 
-          <div className="relative z-10 mx-auto grid w-full max-w-[1400px] grid-cols-1 items-center gap-6 px-5 py-0 md:grid-cols-12 md:gap-16 md:px-12 md:py-12 lg:gap-20">
+          <div className="relative z-10 mx-auto grid h-full w-full max-w-[1400px] grid-cols-1 place-content-center items-center gap-6 px-5 py-0 md:grid-cols-12 md:gap-16 md:px-12 md:py-0 lg:gap-20">
             <div className="order-1 md:col-span-8">
               <div className="mobile-full-bleed parallax-shell relative h-[34vh] min-h-[260px] w-full md:h-[78vh]" data-parallax>
                 <div className="float-shell relative h-full w-full [&>div]:h-full [&>div]:w-full">
