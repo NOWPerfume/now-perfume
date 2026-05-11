@@ -450,9 +450,6 @@ export default function PerfumePage() {
             <p className="text-xs uppercase tracking-[0.2em] text-black/45">
               {displayLang === "fr" ? "Disponible prochainement" : "Coming soon"}
             </p>
-            <h3 className="mt-2 text-xl font-light text-black">
-              {displayLang === "fr" ? "Disponible prochainement" : "Coming soon"}
-            </h3>
             <p className="mt-2 text-sm text-black/70">
               {displayLang === "fr"
                 ? "Les parfums NOW Perfume arrivent bientôt. Inscris-toi pour être informé en avant-première."
