@@ -238,9 +238,17 @@ export default function PerfumeDetailDrawer({
           onClick={() => setComingSoonOpen(false)}
         >
           <div
-            className="w-full max-w-md rounded-2xl bg-white p-6 shadow-2xl"
+            className="relative w-full max-w-md rounded-2xl bg-white p-6 shadow-2xl"
             onClick={(event) => event.stopPropagation()}
           >
+            <button
+              type="button"
+              aria-label={lang === "fr" ? "Fermer" : "Close"}
+              onClick={() => setComingSoonOpen(false)}
+              className="absolute right-4 top-4 text-xl leading-none text-black/50 transition hover:text-black"
+            >
+              ×
+            </button>
             <p className="text-xs uppercase tracking-[0.2em] text-black/45">
               {lang === "fr" ? "Disponible prochainement" : "Coming soon"}
             </p>

@@ -54,7 +54,17 @@ export async function POST(request: NextRequest) {
         return NextResponse.json({ success: true });
       }
 
-      console.error("[subscribe] Resend contacts.create error:", error);
+      if (
+        (message.includes("audience") && message.includes("not found")) ||
+        message.includes("invalid audience") ||
+        message.includes("invalid audience_id")
+      ) {
+        console.error("Subscribe error:", error);
+        console.error("[subscribe] Invalid RESEND_AUDIENCE_ID");
+        return NextResponse.json({ success: false, error: "Invalid RESEND_AUDIENCE_ID" }, { status: 500 });
+      }
+
+      console.error("Subscribe error:", error);
       return NextResponse.json({ success: false, error: "Failed to subscribe" }, { status: 500 });
     }
 
@@ -71,7 +81,18 @@ export async function POST(request: NextRequest) {
       console.log("Newsletter contact already exists in Resend Audience:", normalizedEmail);
       return NextResponse.json({ success: true });
     }
-    console.error("[subscribe] Resend contacts.create error:", err);
+
+    if (
+      (message.includes("audience") && message.includes("not found")) ||
+      message.includes("invalid audience") ||
+      message.includes("invalid audience_id")
+    ) {
+      console.error("Subscribe error:", err);
+      console.error("[subscribe] Invalid RESEND_AUDIENCE_ID");
+      return NextResponse.json({ success: false, error: "Invalid RESEND_AUDIENCE_ID" }, { status: 500 });
+    }
+
+    console.error("Subscribe error:", err);
     return NextResponse.json({ success: false, error: "Failed to subscribe" }, { status: 500 });
   }
 
