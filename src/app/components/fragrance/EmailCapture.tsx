@@ -15,10 +15,11 @@ async function submitEmailLead(payload: { email: string; fragrance: string; loca
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ email: payload.email, source: "fragrance", lang: payload.locale, perfume: payload.fragrance }),
   });
-  if (!response.ok) {
+  const data = (await response.json()) as { success?: boolean; error?: string };
+  if (!response.ok || data.success !== true) {
     throw new Error("Subscribe failed");
   }
-  return response.json();
+  return data;
 }
 
 function isValidEmail(email: string) {

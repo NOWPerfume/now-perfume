@@ -176,7 +176,8 @@ export default function ExperiencePage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email: email.trim(), source: "qr-experience" }),
       });
-      if (!res.ok) throw new Error();
+      const data = (await res.json()) as { success?: boolean; error?: string };
+      if (!res.ok || data.success !== true) throw new Error();
       goTo("thanks");
     } catch {
       setSubmitError("Une erreur est survenue. Réessaie.");

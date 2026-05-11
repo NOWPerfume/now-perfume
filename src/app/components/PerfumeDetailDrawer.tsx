@@ -269,7 +269,8 @@ export default function PerfumeDetailDrawer({
                       perfume: perfume?.name,
                     }),
                   });
-                  if (!res.ok) throw new Error();
+                  const data = (await res.json()) as { success?: boolean; error?: string };
+                  if (!res.ok || data.success !== true) throw new Error();
                   setComingSoonDone(true);
                   setComingSoonEmail("");
                 } catch {

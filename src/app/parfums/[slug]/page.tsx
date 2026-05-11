@@ -475,7 +475,8 @@ export default function PerfumePage() {
                       perfume: perfume?.name,
                     }),
                   });
-                  if (!res.ok) throw new Error("Failed");
+                  const data = (await res.json()) as { success?: boolean; error?: string };
+                  if (!res.ok || data.success !== true) throw new Error("Failed");
                   setComingSoonDone(true);
                   setComingSoonEmail("");
                 } catch {

@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
 
+export const runtime = "nodejs";
+
 function isValidEmail(email: string) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
@@ -8,6 +10,9 @@ function isValidEmail(email: string) {
 export async function POST(request: NextRequest) {
   const apiKey = process.env.RESEND_API_KEY;
   if (!apiKey) {
+    if (process.env.VERCEL_ENV === "production") {
+      console.error("RESEND_API_KEY missing in production");
+    }
     console.error("[subscribe] Missing RESEND_API_KEY");
     return NextResponse.json({ success: false, error: "Missing RESEND_API_KEY" }, { status: 503 });
   }
@@ -28,26 +33,30 @@ export async function POST(request: NextRequest) {
   const normalizedEmail = email.trim().toLowerCase();
   const resend = new Resend(apiKey);
 
-  // Auto-discover the first available audience so configuration stays minimal.
-  const { data: audiencesResponse, error: audiencesError } = await resend.audiences.list();
-  if (audiencesError) {
-    console.error("[subscribe] Resend audiences.list error:", audiencesError);
-    return NextResponse.json({ success: false, error: "Unable to list Resend audiences" }, { status: 502 });
-  }
-
-  const audienceCandidates =
-    Array.isArray(audiencesResponse)
-      ? audiencesResponse
-      : Array.isArray((audiencesResponse as { data?: unknown })?.data)
-        ? ((audiencesResponse as { data: unknown[] }).data)
-        : [];
-
-  const firstAudience = audienceCandidates[0] as { id?: string } | undefined;
-  const audienceId = firstAudience?.id;
+  let audienceId = process.env.RESEND_AUDIENCE_ID;
 
   if (!audienceId) {
-    console.error("[subscribe] Missing RESEND_AUDIENCE_ID");
-    return NextResponse.json({ success: false, error: "Missing RESEND_AUDIENCE_ID" }, { status: 503 });
+    // Auto-discover the first available audience when no explicit ID is configured.
+    const { data: audiencesResponse, error: audiencesError } = await resend.audiences.list();
+    if (audiencesError) {
+      console.error("[subscribe] Resend audiences.list error:", audiencesError);
+      return NextResponse.json({ success: false, error: "Unable to list Resend audiences" }, { status: 502 });
+    }
+
+    const audienceCandidates =
+      Array.isArray(audiencesResponse)
+        ? audiencesResponse
+        : Array.isArray((audiencesResponse as { data?: unknown })?.data)
+          ? ((audiencesResponse as { data: unknown[] }).data)
+          : [];
+
+    const firstAudience = audienceCandidates[0] as { id?: string } | undefined;
+    audienceId = firstAudience?.id;
+  }
+
+  if (!audienceId) {
+    console.error("[subscribe] No Resend audience available");
+    return NextResponse.json({ success: false, error: "No Resend audience available" }, { status: 503 });
   }
 
   try {
