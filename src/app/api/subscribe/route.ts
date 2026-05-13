@@ -8,6 +8,9 @@ function isValidEmail(email: string) {
 }
 
 export async function POST(request: NextRequest) {
+  console.log("RESEND_API_KEY exists:", !!process.env.RESEND_API_KEY);
+  console.log("RESEND_AUDIENCE_ID:", process.env.RESEND_AUDIENCE_ID);
+
   const apiKey = process.env.RESEND_API_KEY;
   if (!apiKey) {
     if (process.env.VERCEL_ENV === "production") {
@@ -31,6 +34,8 @@ export async function POST(request: NextRequest) {
   }
 
   const normalizedEmail = email.trim().toLowerCase();
+  console.log("Trying to add contact:", normalizedEmail);
+
   const resend = new Resend(apiKey);
 
   const audienceId = process.env.RESEND_AUDIENCE_ID;
@@ -59,12 +64,23 @@ export async function POST(request: NextRequest) {
         message.includes("invalid audience") ||
         message.includes("invalid audience_id")
       ) {
-        console.error("Subscribe error:", error);
+        console.error("Resend subscribe error:", error);
         console.error("[subscribe] Invalid RESEND_AUDIENCE_ID");
         return NextResponse.json({ success: false, error: "Invalid RESEND_AUDIENCE_ID" }, { status: 500 });
       }
 
-      console.error("Subscribe error:", error);
+      if (
+        message.includes("restricted") ||
+        message.includes("only send emails") ||
+        message.includes("unauthorized") ||
+        message.includes("forbidden")
+      ) {
+        console.error("Resend subscribe error:", error);
+        console.error("[subscribe] RESEND_API_KEY lacks Contacts/Audience permissions");
+        return NextResponse.json({ success: false, error: "RESEND_API_KEY lacks Contacts permissions" }, { status: 500 });
+      }
+
+      console.error("Resend subscribe error:", error);
       return NextResponse.json({ success: false, error: "Failed to subscribe" }, { status: 500 });
     }
 
@@ -87,12 +103,23 @@ export async function POST(request: NextRequest) {
       message.includes("invalid audience") ||
       message.includes("invalid audience_id")
     ) {
-      console.error("Subscribe error:", err);
+      console.error("Resend subscribe error:", err);
       console.error("[subscribe] Invalid RESEND_AUDIENCE_ID");
       return NextResponse.json({ success: false, error: "Invalid RESEND_AUDIENCE_ID" }, { status: 500 });
     }
 
-    console.error("Subscribe error:", err);
+    if (
+      message.includes("restricted") ||
+      message.includes("only send emails") ||
+      message.includes("unauthorized") ||
+      message.includes("forbidden")
+    ) {
+      console.error("Resend subscribe error:", err);
+      console.error("[subscribe] RESEND_API_KEY lacks Contacts/Audience permissions");
+      return NextResponse.json({ success: false, error: "RESEND_API_KEY lacks Contacts permissions" }, { status: 500 });
+    }
+
+    console.error("Resend subscribe error:", err);
     return NextResponse.json({ success: false, error: "Failed to subscribe" }, { status: 500 });
   }
 
