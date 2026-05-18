@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, startTransition } from "react";
 import EmailCapture from "@/app/components/fragrance/EmailCapture";
 import EnergyCard from "@/app/components/fragrance/EnergyCard";
 import ProgressDots from "@/app/components/fragrance/ProgressDots";
@@ -79,7 +79,7 @@ export default function FragranceExperience() {
   useEffect(() => {
     const saved = window.localStorage.getItem("now-lang");
     if (saved === "fr" || saved === "en") {
-      setLocale(saved);
+      startTransition(() => setLocale(saved));
     }
   }, []);
 

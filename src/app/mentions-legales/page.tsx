@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, startTransition } from "react";
 import Header from "@/app/components/Header";
 import SiteFooter from "@/app/components/SiteFooter";
 import LanguageSwitcher from "@/app/components/LanguageSwitcher";
@@ -75,7 +75,7 @@ export default function MentionsLegalesPage() {
   useEffect(() => {
     const saved = window.localStorage.getItem("now-lang");
     if (saved === "fr" || saved === "en") {
-      setLang(saved);
+      startTransition(() => setLang(saved as Lang));
     }
   }, []);
 

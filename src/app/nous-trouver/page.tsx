@@ -13,12 +13,12 @@ const CONTENT = {
     title: "Nous trouver",
     subtitle: "Découvrez NOW Perfume dans des lieux sélectionnés — clubs, studios de sport, hôtels, lounges, spas, espaces de travail, etc.",
     supporting: "clubs, studios de sport, hôtels, lounges, spas, espaces de travail, etc.",
-    heroExperienceLine: "Une expérience olfactive à vivre sur place.",
+    heroExperienceLine: "Une rencontre olfactive, vécue dans l'instant.",
     cta1: "Voir les lieux",
     cta2: "Devenir partenaire",
     intro: {
-      title: "Le concept",
-      text: "NOW Perfume s'installe dans des lieux où le parfum prolonge une ambiance, une émotion, un moment. Une présence pensée pour enrichir l'expérience client de manière sensorielle, contemporaine et mémorable."
+      title: "L'idée",
+      text: "NOW Perfume prend place dans des lieux où le parfum prolonge une atmosphère, une émotion, un moment. Une présence sensorielle pensée pour rendre l'instant mémorable."
     },
     venues: {
       title: "Lieux d'installation",
@@ -36,8 +36,8 @@ const CONTENT = {
       text: "NOW Perfume permet de découvrir une fragrance dans l'instant, au cœur d'un lieu, d'une ambiance et d'une émotion. Chaque installation est pensée comme une extension naturelle de l'expérience du lieu."
     },
     contact: {
-      title: "Faire découvrir NOW Perfume dans votre lieu",
-      text: "Vous souhaitez intégrer NOW Perfume dans votre établissement ? Contactez-nous pour imaginer une installation adaptée à votre univers.",
+      title: "Accueillir NOW Perfume dans votre univers",
+      text: "Vous souhaitez accueillir NOW Perfume dans votre espace ? Écrivons ensemble une expérience sensorielle à votre image.",
       cta: "Nous contacter",
       cta2: "Demander une présentation",
       email: "hello@nowperfume.fr"
@@ -72,8 +72,8 @@ const CONTENT = {
       ]
     },
     final: {
-      title: "Découvrir NOW Perfume dans l'instant",
-      text: "Une nouvelle façon de faire vivre le parfum dans des lieux où l'émotion, l'énergie et l'expérience se rencontrent.",
+      title: "Vivre le parfum dans l'instant",
+      text: "Une nouvelle façon de vivre le parfum là où l'émotion, l'énergie et l'atmosphère convergent.",
       cta: "Nous contacter"
     }
   },
@@ -81,12 +81,12 @@ const CONTENT = {
     title: "Find Us",
     subtitle: "Discover NOW Perfume in selected locations — clubs, fitness studios, hotels, lounges, spas, workspaces, etc.",
     supporting: "clubs, fitness studios, hotels, lounges, spas, workspaces, etc.",
-    heroExperienceLine: "A fragrance experience to live on-site.",
+    heroExperienceLine: "A fragrance encounter, lived in the moment.",
     cta1: "See locations",
     cta2: "Become a partner",
     intro: {
-      title: "The concept",
-      text: "NOW Perfume is installed in places where fragrance extends an atmosphere, an emotion, a moment. A presence designed to enrich the customer experience in a sensory, contemporary and memorable way."
+      title: "The Idea",
+      text: "NOW Perfume inhabits places where fragrance extends an atmosphere, an emotion, a moment. A sensory presence designed to make the instant memorable."
     },
     venues: {
       title: "Installation locations",
@@ -104,8 +104,8 @@ const CONTENT = {
       text: "NOW Perfume allows you to discover a fragrance in the moment, at the heart of a place, an atmosphere and an emotion. Each installation is designed as a natural extension of the place's experience."
     },
     contact: {
-      title: "Introduce NOW Perfume in your venue",
-      text: "Would you like to integrate NOW Perfume into your establishment? Contact us to imagine an installation adapted to your universe.",
+      title: "Bring NOW Perfume into your world",
+      text: "Would you like to bring NOW Perfume into your space? Let's create a sensory experience that's uniquely yours.",
       cta: "Contact us",
       cta2: "Request a presentation",
       email: "hello@nowperfume.fr"
@@ -136,8 +136,8 @@ const CONTENT = {
       ]
     },
     final: {
-      title: "Discover NOW Perfume in the moment",
-      text: "A new way to bring fragrance to life in places where emotion, energy and experience meet.",
+      title: "Feel fragrance in the moment",
+      text: "A new way to encounter fragrance — where emotion, energy, and atmosphere converge.",
       cta: "Contact us"
     }
   }
@@ -153,6 +153,7 @@ export default function NousTrouverPage() {
     return saved === "fr" || saved === "en" ? saved : "fr";
   });
   const [showMap, setShowMap] = useState(false);
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
   const content = CONTENT[lang];
 
   useEffect(() => {
@@ -323,17 +324,42 @@ export default function NousTrouverPage() {
           <h2 className="text-[clamp(28px,3vw,40px)] font-semibold text-black mb-12 text-center tracking-[-0.02em] leading-[1.15]">
             {content.faq.title}
           </h2>
-          <div className="space-y-6">
-            {content.faq.items.map((item, index) => (
-              <div key={index} className="rounded-2xl p-6 border border-white/45 bg-white/62 shadow-[0_14px_30px_rgba(0,0,0,0.08)] backdrop-blur-[10px]">
-                <h3 className="text-lg font-light text-black mb-3 tracking-tight">
-                  {item.q}
-                </h3>
-                <p className="text-black/70 leading-7 font-light">
-                  {item.a}
-                </p>
-              </div>
-            ))}
+          <div className="divide-y divide-black/8 border-y border-black/8">
+            {content.faq.items.map((item, index) => {
+              const isOpen = openFaq === index;
+              return (
+                <div key={index}>
+                  <button
+                    onClick={() => setOpenFaq(isOpen ? null : index)}
+                    className="flex w-full items-center justify-between gap-6 py-5 text-left"
+                    aria-expanded={isOpen}
+                  >
+                    <span className="text-[16px] md:text-[17px] font-light text-black tracking-tight leading-snug">
+                      {item.q}
+                    </span>
+                    <span
+                      className={`shrink-0 flex items-center justify-center w-7 h-7 rounded-full border border-black/15 bg-white/60 transition-transform duration-300 ${
+                        isOpen ? "rotate-180" : "rotate-0"
+                      }`}
+                      aria-hidden
+                    >
+                      <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                        <path d="M2 4l4 4 4-4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                    </span>
+                  </button>
+                  <div
+                    className={`overflow-hidden transition-all duration-300 ease-in-out ${
+                      isOpen ? "max-h-[400px] opacity-100 pb-5" : "max-h-0 opacity-0"
+                    }`}
+                  >
+                    <p className="text-[15px] md:text-[16px] text-black/65 leading-7 font-light">
+                      {item.a}
+                    </p>
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>

@@ -31,7 +31,6 @@ export default function PerfumePage() {
   const [comingSoonDone, setComingSoonDone] = useState(false);
   const [comingSoonError, setComingSoonError] = useState<string | null>(null);
   const lightboxDragRef = useRef<{ startX: number; startY: number; ox: number; oy: number } | null>(null);
-  const slideTrackRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setMounted(true);
@@ -255,7 +254,7 @@ export default function PerfumePage() {
                   {perfume.format}
                 </p>
                 <button onClick={handleComingSoonClick} className={`${perfume.colors.accent} inline-block text-white px-8 py-3.5 rounded-full text-sm font-medium uppercase tracking-[0.18em] hover:opacity-85 active:scale-[0.98] transition-all shadow-md hover:shadow-lg`}>
-                  {(txt as any).addToCartButton} — {perfume.price}€
+                  {txt.addToCartButton} — {perfume.price}€
                 </button>
                 <p className="text-xs text-black/50 mt-4 font-light">
                   {displayLang === "fr" ? "Livraison gratuite dès 100€" : "Free shipping from €100"}

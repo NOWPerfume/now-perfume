@@ -129,30 +129,30 @@ export default function Home() {
   const copy = useMemo(
     () => ({
       fr: {
-        heroKicker: "Clubs, studios de sport, hôtels, lounges, spas, etc.",
+        heroKicker: "Clubs, hôtels, studios, spas — partout où l'instant compte",
         heroTitle: "NOW Perfume",
-        heroText1: "Découvrez les parfums au cœur du moment.",
+        heroText1: "Le parfum, vécu dans l'instant.",
         heroText2:
-          "Une expérience parfum pensée pour accompagner l’émotion, l’énergie et l’instant.",
-        heroButton: "Découvrir la collection",
+          "Une expérience sensorielle née pour amplifier l'émotion, l'énergie, l'instant.",
+        heroButton: "Explorer la collection",
 
-        universeKicker: "Feel-good universe",
-        universeTitle: "Des parfums naturels pour chaque énergie",
+        universeKicker: "Un univers sensoriel",
+        universeTitle: "Des fragrances vivantes, pour chaque humeur",
         universeText:
-          "Un univers playful, coloré et premium, inspiré par des boissons feel-good, des ingrédients naturels et l’énergie du moment.",
+          "Un univers coloré, sensoriel et joyeux — inspiré des boissons qui font du bien, des matières naturelles et de l'énergie du présent.",
 
         collectionKicker: "LA COLLECTION",
-        collectionTitle: "Cinq parfums inspirés de boissons iconiques :",
+        collectionTitle: "Cinq signatures olfactives, inspirées de boissons iconiques.",
         collectionText:
-          "un ginger shot vibrant, un smoothie tropical solaire, un thé matcha intense, un latte réconfortant et une infusion florale délicate.",
+          "un ginger shot vibrant, un smoothie tropical éclatant, un matcha profond et boisé, un latte enveloppant et une infusion florale lumineuse.",
         collectionClosing:
-          "Une collection fraîche, playful et contemporaine, pensée autour d’ingrédients d’origine naturelle, de sensations et de l’énergie du moment.",
+          "Une collection légère et contemporaine, construite autour de matières naturelles, de sensations vraies et de l'énergie du présent.",
 
-        sprayKicker: "5 parfums 5 énergies",
+        sprayKicker: "Cinq énergies. Un seul instant.",
         sprayTitle: "Spray Your Energy.",
         sprayText:
-          "Desire, Happiness, Power, Cocooning et Love. Cinq parfums, cinq énergies, une nouvelle manière de vivre le parfum dans l’instant.",
-        cta: "Découvrir nos parfums",
+          "Desire, Happiness, Power, Cocooning, Love. Cinq humeurs, cinq fragrances — une nouvelle façon de ressentir le parfum dans l'instant.",
+        cta: "Explorer nos fragrances",
 
         footerAbout: "À propos",
         footerContact: "Contact",
@@ -165,30 +165,30 @@ export default function Home() {
         languageLabel: "Langue",
       },
       en: {
-        heroKicker: "Clubs, fitness studios, hotels, lounges, spas, etc.",
+        heroKicker: "Clubs, hotels, studios, spas — wherever the moment matters",
         heroTitle: "NOW Perfume",
-        heroText1: "Discover fragrance in the heart of the moment.",
+        heroText1: "Fragrance, felt in the moment.",
         heroText2:
-          "A fragrance experience designed to accompany emotion, energy and the moment.",
-        heroButton: "Discover the collection",
+          "A sensory experience born to amplify emotion, energy, and the moment.",
+        heroButton: "Explore the collection",
 
-        universeKicker: "Feel-good universe",
-        universeTitle: "Healthy-inspired fragrances for every mood",
+        universeKicker: "A sensory universe",
+        universeTitle: "Living fragrances, for every mood",
         universeText:
-          "A playful, colorful and premium universe inspired by feel-good drinks, natural ingredients and the energy of the moment.",
+          "A colorful, sensory, joyful universe — inspired by feel-good drinks, natural ingredients, and the aliveness of now.",
 
         collectionKicker: "THE COLLECTION",
-        collectionTitle: "Five fragrances inspired by iconic drinks:",
+        collectionTitle: "Five olfactive signatures, born from iconic drinks.",
         collectionText:
-          "a vibrant ginger shot, a radiant tropical smoothie, an intense matcha tea, a comforting latte, and a delicate floral infusion.",
+          "a vibrant ginger shot, a sun-drenched tropical smoothie, a deep woody matcha, an enveloping latte, and a luminous floral infusion.",
         collectionClosing:
-          "A fresh, playful and contemporary collection built around natural-origin ingredients, sensations, and the energy of the moment.",
+          "A light, contemporary collection — built on natural materials, genuine sensations, and the energy of the present.",
 
-        sprayKicker: "5 perfumes 5 energies",
+        sprayKicker: "Five energies. One moment.",
         sprayTitle: "Spray Your Energy.",
         sprayText:
-          "Desire, Happiness, Power, Cocooning and Love. Five perfumes, five energies, a new way to experience fragrance in the moment.",
-        cta: "Discover our perfumes",
+          "Desire, Happiness, Power, Cocooning, Love. Five moods, five fragrances — a new way to feel fragrance in the moment.",
+        cta: "Explore our fragrances",
 
         footerAbout: "About",
         footerContact: "Contact",
@@ -314,11 +314,11 @@ export default function Home() {
         <section
           ref={universeRef}
           data-section="universe"
-          className="relative fade-in-section flex h-[calc(100dvh-88px)] min-h-[calc(100dvh-88px)] snap-start items-center justify-center overflow-hidden bg-[radial-gradient(circle_at_12%_18%,rgba(255,220,120,0.12),transparent_42%),radial-gradient(circle_at_88%_74%,rgba(191,223,138,0.11),transparent_48%),linear-gradient(180deg,#fdfbf7_0%,#fbfaf5_100%)] md:snap-always"
+          className="relative fade-in-section flex snap-start items-center justify-center overflow-hidden py-14 bg-[radial-gradient(circle_at_12%_18%,rgba(255,220,120,0.12),transparent_42%),radial-gradient(circle_at_88%_74%,rgba(191,223,138,0.11),transparent_48%),linear-gradient(180deg,#fdfbf7_0%,#fbfaf5_100%)] md:h-[calc(100dvh-88px)] md:min-h-[calc(100dvh-88px)] md:py-0 md:snap-always"
         >
           <div className="absolute -left-16 top-14 h-64 w-64 rounded-full bg-[#d7e8b3]/18 blur-3xl" />
 
-          <div className="relative z-10 mx-auto grid h-full w-full max-w-[1400px] grid-cols-1 place-content-center items-center gap-6 px-5 py-0 md:grid-cols-12 md:gap-16 md:px-12 md:py-0 lg:gap-20">
+          <div className="relative z-10 mx-auto grid w-full max-w-[1400px] grid-cols-1 items-center gap-8 px-6 py-0 md:h-full md:grid-cols-12 md:place-content-center md:gap-14 md:px-10 lg:gap-16 lg:px-12">
             <div className="order-1 md:col-span-8">
               <div className="mobile-full-bleed parallax-shell relative h-[34vh] min-h-[260px] w-full md:h-[78vh]" data-parallax>
                 <div className="float-shell relative h-full w-full [&>div]:h-full [&>div]:w-full">
@@ -327,7 +327,7 @@ export default function Home() {
                       src="/images/home-universe-v2.jpg"
                       alt="NOW Perfume universe"
                       fill
-                      sizes="(max-width: 768px) 100vw, 1400px"
+                      sizes="(max-width: 768px) 100vw, 900px"
                       className="media-hover object-contain object-center"
                       placeholderLabel="Image a ajouter"
                     />
@@ -337,8 +337,8 @@ export default function Home() {
             </div>
 
             <div className="order-2 flex flex-col justify-center md:col-span-4 md:min-h-[100%]">
-              <div className="my-auto w-full max-w-[520px] text-black">
-                <p className="mb-4 text-xs uppercase tracking-[0.5em] text-black/50 font-light">
+              <div className="my-auto w-full max-w-[440px] text-black">
+                <p className="mb-4 text-[10px] uppercase tracking-[0.3em] text-black/50 font-light md:text-xs md:tracking-[0.5em]">
                   {t.universeKicker}
                 </p>
 
@@ -358,14 +358,14 @@ export default function Home() {
         <section
           ref={collectionRef}
           data-section="collection"
-          className="relative fade-in-section flex h-[calc(100dvh-88px)] min-h-[calc(100dvh-88px)] snap-start items-center justify-center overflow-hidden bg-[radial-gradient(circle_at_12%_18%,rgba(255,220,120,0.14),transparent_42%),radial-gradient(circle_at_88%_74%,rgba(191,223,138,0.11),transparent_48%),linear-gradient(180deg,#fdfbf7_0%,#fbfaf5_100%)] md:snap-always"
+          className="relative fade-in-section flex snap-start items-center justify-center overflow-hidden py-14 bg-[radial-gradient(circle_at_12%_18%,rgba(255,220,120,0.14),transparent_42%),radial-gradient(circle_at_88%_74%,rgba(191,223,138,0.11),transparent_48%),linear-gradient(180deg,#fdfbf7_0%,#fbfaf5_100%)] md:h-[calc(100dvh-88px)] md:min-h-[calc(100dvh-88px)] md:py-0 md:snap-always"
         >
           <div className="absolute -right-16 top-14 h-64 w-64 rounded-full bg-[#f2ce86]/18 blur-3xl" />
 
-          <div className="relative z-10 mx-auto grid h-full w-full max-w-[1400px] grid-cols-1 place-content-center items-center gap-6 px-5 py-0 md:grid-cols-12 md:gap-16 md:px-12 md:py-0 lg:gap-20">
-            <div className="order-2 md:order-1 md:col-span-4 flex flex-col justify-center">
-              <div className="w-full max-w-[560px] text-black">
-                <p className="mb-3 text-xs uppercase tracking-[0.5em] text-black/50 font-light">
+          <div className="relative z-10 mx-auto grid w-full max-w-[1400px] grid-cols-1 items-center gap-8 px-6 py-0 md:h-full md:grid-cols-12 md:place-content-center md:gap-14 md:px-10 lg:gap-16 lg:px-12">
+            <div className="order-2 md:order-1 md:col-span-4 flex flex-col justify-center pt-10 md:pt-20 lg:pt-28">
+              <div className="w-full max-w-[440px] text-black">
+                <p className="mb-3 text-[10px] uppercase tracking-[0.3em] text-black/50 font-light md:text-xs md:tracking-[0.5em]">
                   {t.collectionKicker}
                 </p>
 
@@ -383,15 +383,15 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="order-1 md:order-2 md:col-span-8">
-              <div className="mobile-full-bleed parallax-shell relative h-[34vh] min-h-[260px] w-full md:h-[78vh]" data-parallax>
+            <div className="order-1 md:order-2 md:col-span-8 pt-10 md:pt-20 lg:pt-28">
+              <div className="parallax-shell relative w-full aspect-[16/9] md:aspect-auto md:mobile-full-bleed md:h-[78vh]" data-parallax>
                 <div className="float-shell relative h-full w-full [&>div]:h-full [&>div]:w-full">
-                  <div className="relative overflow-hidden rounded-[18px]">
+                  <div className="relative rounded-[18px] md:overflow-hidden">
                     <ImageSlot
                       src="/images/home-collection-background.jpg"
                       alt="NOW Perfume collection"
                       fill
-                      sizes="(max-width: 768px) 100vw, 1400px"
+                      sizes="(max-width: 768px) 100vw, 900px"
                       className="media-hover object-contain object-center"
                       placeholderLabel="Image a ajouter"
                     />
@@ -406,11 +406,11 @@ export default function Home() {
         <section
           ref={sprayRef}
           data-section="spray"
-          className="relative fade-in-section flex h-[calc(100dvh-88px)] min-h-[calc(100dvh-88px)] snap-start items-center justify-center bg-[radial-gradient(circle_at_10%_18%,rgba(191,223,138,0.14),transparent_44%),radial-gradient(circle_at_90%_76%,rgba(255,220,120,0.13),transparent_50%),linear-gradient(180deg,#fcfaf6_0%,#f9f7f2_100%)] md:snap-always"
+          className="relative fade-in-section flex snap-start items-center justify-center py-14 bg-[radial-gradient(circle_at_10%_18%,rgba(191,223,138,0.14),transparent_44%),radial-gradient(circle_at_90%_76%,rgba(255,220,120,0.13),transparent_50%),linear-gradient(180deg,#fcfaf6_0%,#f9f7f2_100%)] md:h-[calc(100dvh-88px)] md:min-h-[calc(100dvh-88px)] md:py-0 md:snap-always"
         >
           <div className="absolute -left-16 bottom-10 h-64 w-64 rounded-full bg-[#d7e8b3]/18 blur-3xl" />
 
-          <div className="relative z-10 mx-auto grid h-full w-full max-w-[1400px] grid-cols-1 place-content-center items-center gap-6 px-5 py-0 md:grid-cols-12 md:gap-16 md:px-12 md:py-0 lg:gap-20">
+          <div className="relative z-10 mx-auto grid w-full max-w-[1400px] grid-cols-1 items-center gap-8 px-6 py-0 md:h-full md:grid-cols-12 md:place-content-center md:gap-14 md:px-10 lg:gap-16 lg:px-12">
             <div className="order-1 md:col-span-8">
               <div className="mobile-full-bleed parallax-shell relative h-[34vh] min-h-[260px] w-full md:h-[78vh]" data-parallax>
                 <div className="float-shell relative h-full w-full [&>div]:h-full [&>div]:w-full">
@@ -419,7 +419,7 @@ export default function Home() {
                       src="/images/home-moods-background.jpg"
                       alt="Spray Your Energy"
                       fill
-                      sizes="(max-width: 768px) 100vw, 1400px"
+                      sizes="(max-width: 768px) 100vw, 900px"
                       className="media-hover object-contain object-center"
                       placeholderLabel="Image a ajouter"
                     />
@@ -429,8 +429,8 @@ export default function Home() {
             </div>
 
             <div className="order-2 flex flex-col justify-center md:col-span-4 md:min-h-[100%]">
-              <div className="my-auto w-full max-w-[520px] text-black">
-                <p className="mb-4 text-xs uppercase tracking-[0.5em] text-black/50 font-light">
+              <div className="my-auto w-full max-w-[440px] text-black">
+                <p className="mb-4 text-[10px] uppercase tracking-[0.3em] text-black/50 font-light md:text-xs md:tracking-[0.5em]">
                   {t.sprayKicker}
                 </p>
 

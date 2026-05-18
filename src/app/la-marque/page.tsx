@@ -1,8 +1,7 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, startTransition } from "react";
 import Header from "@/app/components/Header";
-import Image from "next/image";
 import ImageSlot from "@/app/components/ImageSlot";
 import SiteFooter from "@/app/components/SiteFooter";
 import LanguageSwitcher from "@/app/components/LanguageSwitcher";
@@ -11,61 +10,61 @@ type Lang = "fr" | "en";
 
 const CONTENT = {
   fr: {
-    heroTitle: "La marque",
+    heroTitle: "Notre vision",
     heroLead:
-      "NOW Perfume crée une nouvelle génération de parfums unisexes, pensés pour s'accorder à chaque énergie et à chaque moment.",
+      "NOW Perfume réinvente la façon de vivre le parfum — unisexe, sensoriel, ancré dans l'instant.",
     manifestoTitle: "Manifeste",
     manifestoText:
-      "NOW n’est pas qu’un nom. C’est une posture : celle de vivre le parfum dans le présent, avec légèreté, avec intention, avec optimisme.",
-    stateTitle: "Un État D’Esprit",
-    stateText1: "Nous imaginons le parfum comme un état d’esprit.",
+      "NOW n'est pas qu'un nom. C'est une conviction : que le parfum peut réveiller une émotion, habiter un instant, accompagner une énergie.",
+    stateTitle: "Un état d'esprit",
+    stateText1: "Nous imaginons le parfum comme une expérience sensorielle vivante.",
     stateText2:
-      "Une manière de se reconnecter à soi, d’accompagner une énergie, de prolonger un moment. Chaque fragrance est pensée pour être portée librement, dans l’instant, au bon endroit, au bon moment.",
+      "Une manière de se reconnecter à soi, d'amplifier une énergie, de prolonger un moment qui compte. Chaque fragrance est conçue pour être portée librement — dans l'instant, là où elle fait sens.",
     stateText3:
-      "NOW développe des parfums unisexes, conçus pour s’adapter à chacun et évoluer avec les émotions.",
-    matterTitle: "La Matière",
+      "Des fragrances unisexes, vivantes, qui évoluent avec chaque humeur.",
+    matterTitle: "La matière",
     matterText1:
-      "Nos créations s’appuient sur des ingrédients d’origine naturelle, sélectionnés avec exigence.",
+      "Nos créations s'appuient sur des ingrédients d'origine naturelle, sélectionnés avec exigence.",
     matterText2:
-      "Certaines matières premières sont issues de filières responsables, biologiques ou upcyclées. Chaque parfum est développé avec la maison de parfumerie Robertet, autour d’une idée essentielle : traduire une émotion en odeur, avec précision et sensibilité.",
+      "Certaines matières premières sont issues de filières responsables ou biologiques. Chaque parfum est co-créé avec la maison Robertet autour d'une idée fondamentale : traduire une émotion en odeur, avec précision et sensibilité.",
     matterText3:
-      "De l’intention au flacon, une approche exigeante au service d’une expérience sensorielle totale.",
+      "De l'intention au flacon — une exigence constante, au service d'une expérience olfactive qui se ressent autant qu'elle se porte.",
     experienceTitle: "L’instant et le lieu",
     experienceText1:
-      "NOW Perfume s’intègre dans les lieux où l’énergie existe déjà — clubs, studios de sport, hôtels, lounges, spas, etc.",
+      "NOW Perfume prend place dans les lieux où l'énergie existe déjà — clubs, studios de sport, hôtels, lounges, spas.",
     experienceText2:
-      "Notre technologie de diffusion permet de découvrir une fragrance dans son contexte réel, au moment juste.",
+      "Nos dispositifs de diffusion permettent de découvrir une fragrance dans son contexte naturel — au moment exact où elle prend sens, dans le lieu exact où elle résonne.",
     experienceText3:
-      "Plus qu’une marque, NOW propose une nouvelle manière de vivre le parfum.",
+      "NOW réinvente la relation au parfum — en le faisant vivre là où l'émotion et l'atmosphère convergent.",
     experienceText4: "L’instant devient signature.",
   },
   en: {
-    heroTitle: "The Brand",
+    heroTitle: "Our Vision",
     heroLead:
-      "NOW Perfume creates a new generation of unisex fragrances, designed to match every energy and every moment.",
+      "NOW Perfume reimagines the way fragrance is experienced — unisex, sensory, rooted in the now.",
     manifestoTitle: "Manifesto",
     manifestoText:
-      "NOW is more than a name. It is a mindset: experiencing fragrance in the present, with lightness, intention, and optimism.",
+      "NOW is more than a name. It is a conviction: that fragrance can awaken an emotion, inhabit a moment, accompany an energy.",
     stateTitle: "A State of Mind",
-    stateText1: "We imagine fragrance as a state of mind.",
+    stateText1: "We imagine fragrance as a living sensory experience.",
     stateText2:
-      "A way to reconnect with yourself, accompany an energy, and extend a moment. Each fragrance is designed to be worn freely, in the now, in the right place, at the right time.",
+      "A way to reconnect with yourself, amplify an energy, extend a moment that matters. Each fragrance is made to be worn freely — in the moment, wherever it resonates.",
     stateText3:
-      "NOW develops unisex fragrances, designed to adapt to everyone and evolve with emotions.",
+      "Unisex fragrances, alive, evolving with every mood.",
     matterTitle: "The Craft",
     matterText1:
-      "Our creations are built around natural-origin ingredients, selected with high standards.",
+      "Our creations are built around natural-origin ingredients, selected with rigorous standards.",
     matterText2:
-      "Some raw materials come from responsible, organic, or upcycled sources. Each perfume is developed with Robertet around one essential idea: translating emotion into scent with precision and sensitivity.",
+      "Some raw materials come from responsible or organic sources. Each fragrance is co-created with Robertet around one fundamental idea: translating emotion into scent, with precision and sensitivity.",
     matterText3:
-      "From intention to bottle, a demanding approach in service of a complete sensory experience.",
+      "From intention to bottle — an unwavering commitment, in service of an olfactive experience as felt as it is worn.",
     experienceTitle: "Moment and Place",
     experienceText1:
-      "NOW Perfume integrates into places where energy already exists — clubs, fitness studios, hotels, lounges, spas.",
+      "NOW Perfume inhabits places where energy already exists — clubs, fitness studios, hotels, lounges, spas.",
     experienceText2:
-      "Our diffusion technology allows people to discover a fragrance in its real context, at the right moment.",
+      "Our diffusion devices allow a fragrance to be discovered in its natural context — at the exact moment it resonates, in the exact place it belongs.",
     experienceText3:
-      "More than a brand, NOW proposes a new way to experience fragrance.",
+      "NOW reimagines the relationship to fragrance — bringing it alive where emotion and atmosphere already converge.",
     experienceText4: "The moment becomes a signature.",
   },
 } as const;
@@ -106,7 +105,7 @@ export default function LaMarquePage() {
   useEffect(() => {
     const saved = window.localStorage.getItem("now-lang");
     if (saved === "fr" || saved === "en") {
-      setLang(saved);
+      startTransition(() => setLang(saved as Lang));
     }
   }, []);
 

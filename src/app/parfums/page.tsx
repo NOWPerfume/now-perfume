@@ -93,8 +93,8 @@ export default function ParfumsPage() {
           <div className="mt-10 pt-8 border-t border-black/10 text-center">
             <p className="text-sm text-black/60 max-w-2xl mx-auto leading-relaxed font-light">
               {lang === "fr"
-                ? "Cliquez sur l'une de nos cinq signatures pour en découvrir chaque détail : notes principales, pyramide olfactive, inspiration et ingrédients."
-                : "Click on any of our five signatures to discover every detail: key notes, olfactive pyramid, inspiration and ingredients."}
+                ? "Explorez chaque signature pour découvrir ses notes, son inspiration et sa pyramide olfactive."
+                : "Explore each signature to discover its notes, inspiration, and olfactive pyramid."}
             </p>
           </div>
         </div>

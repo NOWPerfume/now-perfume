@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "NOW Perfume",
-  description: "Expérience parfumée et immersive NOW Perfume",
+  description: "NOW Perfume — fragrances immersives, inspirées de boissons iconiques. Cinq eaux de parfum unisexes, vécues dans l'instant.",
   icons: {
     icon: "/favicon-now.jpg",
   },

@@ -111,6 +111,10 @@ export default function Header({ lang, solid }: HeaderProps) {
             <Link href="/la-marque" className="transition hover:opacity-60">
               {lang === "fr" ? "La marque" : "The Brand"}
             </Link>
+
+            <Link href="/journal" className="transition hover:opacity-60">
+              Journal
+            </Link>
           </nav>
 
           {/* ICONES DROITE */}
@@ -254,6 +258,9 @@ export default function Header({ lang, solid }: HeaderProps) {
               </Link>
               <Link href="/la-marque" onClick={() => setMobileMenuOpen(false)} className="transition hover:opacity-60">
                 {lang === "fr" ? "La marque" : "The Brand"}
+              </Link>
+              <Link href="/journal" onClick={() => setMobileMenuOpen(false)} className="transition hover:opacity-60">
+                Journal
               </Link>
             </div>
           </div>

@@ -26,7 +26,6 @@ const MEGA_MENU_BOTTLE_ADJUSTMENTS: Record<string, BottleFrameAdjust> = {
 
 export default function PerfumeMegaMenu({
   perfumes,
-  lang,
   isOpen = false,
 }: PerfumeMegaMenuProps) {
   const baseClass = isOpen

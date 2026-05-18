@@ -105,6 +105,62 @@ body::before {
   }
 }
 
+/* Journal atmospheric bubble drift — NOW Perfume palette */
+@keyframes bubbleDriftA {
+  0%, 100% { transform: translate(0px, 0px) scale(1); }
+  20%  { transform: translate(-26px, -38px) scale(1.04); }
+  45%  { transform: translate(22px, -14px) scale(0.97); }
+  70%  { transform: translate(-10px, 30px) scale(1.02); }
+}
+
+@keyframes bubbleDriftB {
+  0%, 100% { transform: translate(0px, 0px) scale(1); }
+  25%  { transform: translate(30px, -22px) scale(1.05); }
+  55%  { transform: translate(-20px, 34px) scale(0.96); }
+  80%  { transform: translate(14px, -10px) scale(1.02); }
+}
+
+@keyframes bubbleDriftC {
+  0%, 100% { transform: translate(0px, 0px) scale(1); }
+  30%  { transform: translate(-22px, 26px) scale(1.05); }
+  60%  { transform: translate(28px, 10px) scale(0.97); }
+  85%  { transform: translate(-10px, -26px) scale(1.03); }
+}
+
+@keyframes bubbleGlowA {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.42; }
+}
+
+@keyframes bubbleGlowB {
+  0%, 100% { opacity: 0.85; }
+  55% { opacity: 0.32; }
+}
+
+@keyframes heroPan {
+  0%, 100% { transform: scale(1.06) translate3d(0px, 0px, 0px); }
+  50%       { transform: scale(1.10) translate3d(-1.2%, -0.7%, 0px); }
+}
+
+.journal-bubble-a { animation: bubbleDriftA 34s ease-in-out infinite, bubbleGlowA 12s ease-in-out infinite; }
+.journal-bubble-b { animation: bubbleDriftB 27s ease-in-out infinite -6s, bubbleGlowB 16s ease-in-out infinite 2s; }
+.journal-bubble-c { animation: bubbleDriftC 22s ease-in-out infinite -3s, bubbleGlowA 19s ease-in-out infinite 8s; }
+
+@keyframes journalReveal {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.journal-article-reveal {
+  animation: journalReveal 0.95s cubic-bezier(0.22, 0.8, 0.36, 1) both 0.08s;
+}
+
+.journal-hero-pan {
+  animation: heroPan 24s ease-in-out infinite;
+  transform-origin: center center;
+  will-change: transform;
+}
+
 .reveal-item {
   opacity: 0;
   transform: translateY(30px);
@@ -154,11 +210,17 @@ body::before {
   .parallax-shell,
   .float-shell,
   .media-hover,
-  .parallax-shell:hover .media-hover {
+  .parallax-shell:hover .media-hover,
+  .journal-bubble-a,
+  .journal-bubble-b,
+  .journal-bubble-c,
+  .journal-article-reveal,
+  .journal-hero-pan {
     animation: none;
     transform: none;
     transition: none;
     filter: none;
+    opacity: 1;
   }
 }
 
@@ -171,5 +233,139 @@ body::before {
     max-width: none;
     margin-left: -50vw;
     margin-right: -50vw;
+  }
+}
+
+/* ── Journal article prose ── */
+.prose-journal p {
+  font-size: 18px;
+  line-height: 1.80;
+  color: rgba(0, 0, 0, 0.62);
+  font-weight: 300;
+  margin-bottom: 1.4em;
+}
+
+.prose-journal h2 {
+  font-size: clamp(17px, 1.7vw, 22px);
+  font-weight: 500;
+  letter-spacing: -0.014em;
+  line-height: 1.28;
+  color: #000;
+  margin-top: 3.2em;
+  margin-bottom: 1em;
+  padding-top: 1.4em;
+  padding-bottom: 0.4em;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+  border-bottom: none;
+}
+
+.prose-journal h3 {
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.3;
+  color: #000;
+  margin-top: 2em;
+  margin-bottom: 0.7em;
+}
+
+.prose-journal a {
+  color: #000;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: rgba(0, 0, 0, 0.3);
+}
+
+.prose-journal a:hover {
+  text-decoration-color: rgba(0, 0, 0, 0.8);
+}
+
+.prose-journal ul {
+  padding-left: 0;
+  list-style: none;
+  margin-bottom: 1.6em;
+}
+
+.prose-journal ul li {
+  position: relative;
+  padding-left: 1.4em;
+  margin-bottom: 0.6em;
+  font-size: 18px;
+  line-height: 1.75;
+  color: rgba(0, 0, 0, 0.65);
+  font-weight: 300;
+}
+
+.prose-journal ul li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.68em;
+  width: 5px;
+  height: 5px;
+  border-radius: 9999px;
+  background: rgba(0, 0, 0, 0.25);
+}
+
+.prose-journal ol {
+  padding-left: 1.5em;
+  margin-bottom: 1.6em;
+  color: rgba(0, 0, 0, 0.65);
+  font-weight: 300;
+  font-size: 18px;
+  line-height: 1.75;
+}
+
+.prose-journal ol li {
+  margin-bottom: 0.5em;
+}
+
+.prose-journal blockquote {
+  position: relative;
+  margin: 3.6em auto;
+  padding: 2.4em 2rem;
+  max-width: 580px;
+  border: none;
+  text-align: center;
+  font-style: italic;
+  font-size: clamp(16px, 1.55vw, 21px);
+  line-height: 1.52;
+  color: rgba(0, 0, 0, 0.50);
+  font-weight: 300;
+  letter-spacing: -0.014em;
+}
+
+.prose-journal blockquote::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2.5rem;
+  height: 1px;
+  background: rgba(0, 0, 0, 0.12);
+}
+
+.prose-journal blockquote::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2.5rem;
+  height: 1px;
+  background: rgba(0, 0, 0, 0.12);
+}
+
+.prose-journal strong {
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.84);
+}
+
+@media (max-width: 767px) {
+  .prose-journal p,
+  .prose-journal ul,
+  .prose-journal ol {
+    font-size: 16px;
   }
 }
