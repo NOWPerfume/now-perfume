@@ -604,73 +604,157 @@ export const ARTICLES: Article[] = [
     slug: "hospitality-fragrance-experience",
     heroImage: "/images/journal/hotels-fragrance-experience.jpg",
     category: "Hôtellerie",
-    readingTime: 5,
+    readingTime: 7,
     title: {
-      fr: "Comment les hôtels utilisent le parfum pour façonner l'expérience",
-      en: "How hotels use fragrance to shape experience",
+      fr: "L'expérience parfum dans l'hôtellerie de luxe",
+      en: "The fragrance experience in luxury hospitality",
     },
     excerpt: {
-      fr: "La signature olfactive d'un hôtel est devenue aussi stratégique que son architecture. Voici pourquoi.",
-      en: "A hotel's olfactory signature has become as strategic as its architecture. Here is why.",
+      fr: "L'hôtellerie de luxe réinvente le rituel sensoriel. Découvrez comment la découverte du parfum devient l'expérience la plus personnelle et la plus mémorable d'un séjour d'exception.",
+      en: "Luxury hospitality is reinventing the sensory ritual. Discover how fragrance discovery becomes the most personal and most memorable experience of an exceptional stay.",
     },
     content: {
       fr: `
-<p>L'arrivée dans un grand hôtel est une chorégraphie sensorielle. La hauteur du plafond. La qualité de la lumière. Le son discret du lobby. Et quelque chose que l'on ne sait pas nommer, mais que l'on sent immédiatement : ce lieu a une âme. Ce quelque chose est, presque toujours, olfactif.</p>
+<p>Il y a des instants dans un séjour d'exception qui débordent le service. Des moments où l'on ne vous offre pas une prestation supplémentaire, mais une rencontre — une rencontre avec soi-même, avec une émotion, avec une fragrance qui pourrait devenir la vôtre. C'est ce que NOW Perfume introduit dans les espaces les plus raffinés du monde : une expérience de découverte du parfum, profondément personnelle, physique et inoubliable.</p>
 
-<p>La signature parfum hôtelière n'est plus un luxe. C'est un investissement stratégique documenté, que les groupes hôteliers les plus sophistiqués du monde ont intégré à leur identité de marque au même titre que leur architecture ou leur identité visuelle.</p>
+<p>Pas une fragrance dans l'air. Une fragrance sur soi.</p>
 
-<h2>L'économie de la fidélisation sensorielle</h2>
+<h2>Au-delà du service : le rituel sensoriel personnel</h2>
 
-<p>Une étude publiée dans le <em>Journal of Business Research</em> a mesuré l'impact des signatures olfactives sur les comportements des clients hôteliers. Les résultats sont sans ambiguïté : les hôtels diffusant une fragrance signature cohérente obtiennent des scores d'intention de retour supérieurs de 22 % à ceux ne pratiquant pas de branding olfactif. La satisfaction globale et la note attribuée à la "qualité de l'atmosphère" progressent dans des proportions similaires.</p>
+<p>Le luxe contemporain ne se définit plus par l'accumulation de prestations. Il se définit par la qualité des instants vécus — par la capacité d'un espace à créer des moments qui resteront gravés dans la mémoire émotionnelle bien après le départ. Et parmi tous les rituels que l'hospitalité d'exception peut offrir, la découverte du parfum occupe une place singulière.</p>
 
-<p>Le mécanisme sous-jacent est neurologique. La fragrance crée ce que les chercheurs appellent un "environmental cue" — un signal contextuel qui déclenche automatiquement la mémoire associée à l'établissement. À chaque retour, l'odeur familière active instantanément l'ensemble du réseau mémoriel lié à l'expérience passée dans cet hôtel : confort, service, moments vécus. Le client se sent chez lui avant même d'avoir déposé ses bagages.</p>
+<p>L'expérience NOW Perfume est fondamentalement différente de tout ce que l'hôtellerie a proposé jusqu'à présent. Elle est personnelle. Le client s'approche, explore, choisit, et vaporise une Eau de Parfum directement sur sa peau. Ce n'est pas une atmosphère collective. C'est une expérience individuelle. Une fragrance que l'on porte. Que l'on ressent sur soi. Que l'on emporte dans la nuit.</p>
 
-<h2>Les grandes signatures hôtelières</h2>
+<h2>Le moment de la découverte</h2>
 
-<p>Plusieurs groupes hôteliers ont élevé leur approche olfactive au rang d'art. Marriott International a développé une identité parfum distincte pour chacune de ses marques — du bois frais et épuré d'un Courtyard au bois sombre et ambre d'un W Hotel. Four Seasons fait appel à des nez indépendants pour créer des signatures propres à chaque propriété, reflétant la géographie et le caractère singulier de chaque lieu.</p>
+<p>Au cœur de l'expérience NOW Perfume se trouve un geste simple et universel : la rencontre entre une personne et un parfum. Le client approche le terminal NOW Perfume — installé dans le lobby de l'hôtel, au bar du lounge, à l'entrée du spa, ou dans un espace dédié. Il est invité à explorer une sélection de fragrances organisées non par famille olfactive, mais par état émotionnel : énergie, sérénité, désir, puissance, légèreté.</p>
 
-<p>The Westin Hotels &amp; Resorts a rendu célèbre son accord "White Tea" — un mélange de thé blanc, de menthe et de cèdre devenu tellement associé à la marque que les clients l'achètent en chandeliers ou en diffuseurs d'intérieur pour recréer "l'effet Westin" chez eux. C'est la conversion de l'expérience en fidélité.</p>
+<p>Il choisit non pas un nom, mais une humeur. Une intention. Un état intérieur qu'il souhaite amplifier ou explorer pour les heures qui viennent. Et il vaporise. Directement sur le poignet. Sur la nuque. Sur la peau.</p>
 
-<h2>Le brief olfactif comme outil de branding</h2>
+<p>Ce geste — si simple, si intime — transforme entièrement la nature de l'expérience. Ce n'est plus une dégustation olfactive abstraite. C'est une déclaration personnelle. Un choix d'identité. Une fragrance qui devient sienne le temps d'une soirée, d'une nuit, d'un souvenir.</p>
 
-<p>Un brief parfum hôtelier ne commence pas par "sentir bon." Il commence par une série de questions stratégiques. Quelle émotion notre établissement veut-il susciter en priorité ? Calme et raffinement ? Énergie et modernité ? Chaleur et intimité ? Quelle est notre clientèle cible et quels accords olfactifs résonnent avec ses références culturelles ? Comment notre signature doit-elle évoluer au fil de la journée — de l'accueil matinal au silence de minuit ?</p>
+<blockquote>"Le parfum que l'on porte sur soi n'est pas un accessoire. C'est une présence. Une émotion que l'on choisit d'habiter."</blockquote>
 
-<p>Ces questions transforment le parfum d'une décision décorative en un outil de positionnement stratégique. Et dans un secteur hôtelier où la différenciation est de plus en plus difficile sur les dimensions traditionnelles — service, prix, localisation — l'identité sensorielle devient un avantage concurrentiel durable.</p>
+<h2>Pourquoi l'hôtellerie de luxe est le territoire naturel de cette expérience</h2>
 
-<h2>La prochaine étape</h2>
+<p>Les espaces d'hospitalité premium — hôtels cinq étoiles, clubs privés, spas de destination, lounges haut de gamme, résidences de luxe — partagent une caractéristique fondamentale : ils accueillent des personnes dans des états émotionnels amplifiés. À l'arrivée, il y a l'anticipation et l'ouverture. Après un soin, il y a le bien-être exacerbé et les sens en éveil. Dans un lounge nocturne, il y a l'énergie sociale, la séduction, le désir d'être pleinement là.</p>
 
-<p>La prochaine frontière de la fragrance hôtelière est la personnalisation dynamique. Des systèmes de diffusion connectés permettent déjà d'ajuster la signature olfactive selon l'heure, l'occupation des espaces, les événements en cours. Un cocktail de bienvenue appelle une fragrance différente d'un brunch dominical. Un spa en journée se parfume autrement qu'un restaurant du soir.</p>
+<p>Ces moments sont des fenêtres émotionnelles exceptionnelles — des instants où la découverte d'une Eau de Parfum prend une résonance particulièrement profonde. C'est précisément pourquoi l'expérience NOW Perfume trouve ici sa place naturelle. Elle ne crée pas une atmosphère — elle offre une expérience individuelle. Elle ne parfume pas un lieu — elle permet à une personne de choisir sa fragrance pour le moment exact qu'elle est en train de vivre.</p>
 
-<p>Le parfum hôtelier du futur ne sera pas une note fixe. Ce sera une composition vivante — aussi attentive à l'instant que l'est un bon service.</p>
+<h2>Les espaces qui accueillent l'expérience</h2>
+
+<p>L'expérience de découverte du parfum est conçue pour les environnements où l'émotion est déjà présente et où l'excellence est une attente naturelle.</p>
+
+<p><strong>Les hôtels de luxe</strong> constituent l'écrin idéal. Dans un lobby, après un dîner gastronomique, au bar ou près de la conciergerie — chaque point de contact peut devenir un moment de découverte parfum. Le client repart avec, sur lui, la fragrance qu'il a choisie. Cette fragrance encode le souvenir de l'établissement d'une manière que nulle autre attention ne pourrait égaler.</p>
+
+<p><strong>Les spas et espaces de bien-être</strong> offrent le contexte émotionnel le plus propice à la découverte du parfum. Après un soin, les sens sont exacerbés, le corps est détendu, l'esprit est ouvert et réceptif. Proposer à cet instant précis une invitation à explorer et choisir une Eau de Parfum transforme la fin du rituel bien-être en une expérience sensorielle complète et mémorable.</p>
+
+<p><strong>Les clubs et lounges premium</strong> convoquent une autre dimension émotionnelle : l'énergie sociale, la séduction, le désir d'être. Dans ce territoire, choisir sa fragrance pour la nuit devient un acte de préparation rituelle — l'équivalent olfactif de choisir sa tenue. Une intention portée sur la peau.</p>
+
+<p><strong>Les espaces de wellness et fitness haut de gamme</strong> accueillent leurs membres dans un état physique et mental amplifié. Une expérience de découverte du parfum à ce moment précis propose quelque chose de rare : une transition sensorielle entre l'effort physique et la vie sociale — un passage d'un état à un autre, incarné dans une fragrance choisie.</p>
+
+<h2>Pay-per-spray : l'expérience dans sa forme la plus pure</h2>
+
+<p>Le modèle NOW Perfume repose sur un principe d'une élégance absolue : le paiement à la vaporisation. Chaque spray est une expérience complète — immédiate, accessible, sans engagement. Le client ne paie pas pour un flacon entier. Il paie pour le moment : le moment de la découverte, le moment du choix, le moment de porter une Eau de Parfum de qualité dans le contexte exact où cela prend tout son sens.</p>
+
+<p>Ce modèle redéfinit l'accessibilité du parfum de luxe. Il permet à chaque client, quelle que soit son intention d'achat, de vivre une expérience parfumée authentique — sans la pression commerciale d'un comptoir traditionnel, sans le format contraignant d'un flacon entier. L'expérience pour elle-même. Le parfum pour ce qu'il est : un rituel émotionnel, pas une transaction.</p>
+
+<blockquote>"Le parfum véritable se découvre sur soi, dans le moment exact où l'on est prêt à le rencontrer."</blockquote>
+
+<h2>L'émotion comme mémoire durable</h2>
+
+<p>Il y a une raison neurologique profonde pour laquelle les expériences vécues dans des contextes émotionnellement chargés restent en mémoire bien plus longtemps que les souvenirs ordinaires. Le bulbe olfactif est directement connecté à l'hippocampe et à l'amygdale — les structures cérébrales de la mémoire épisodique et de l'émotion. Une fragrance découverte dans un moment fort — une arrivée dans un palace, une soirée d'exception, un instant de bien-être profond — encode ce moment avec une intensité que peu d'autres sens peuvent atteindre.</p>
+
+<p>Pour un hôtel, un club ou un spa, cela représente quelque chose de précieux et d'unique : la possibilité que chaque client reparte avec, sur sa peau, une fragrance indissociablement liée à l'expérience vécue dans cet espace. Le parfum devient l'empreinte mémorielle de l'établissement — portée sur soi, rappelée chaque fois que cette fragrance sera rencontrée à nouveau, des mois ou des années plus tard.</p>
+
+<h2>Questions sur l'expérience NOW Perfume en hôtellerie</h2>
+
+<p><strong>L'expérience NOW Perfume est-elle adaptée à tous les types d'établissements ?</strong><br>Elle est conçue pour les espaces où l'excellence et la singularité sont des valeurs fondamentales : hôtels de luxe et boutique-hôtels, spas et espaces de bien-être premium, clubs privés et lounges, résidences hôtelières et espaces de réception haut de gamme.</p>
+
+<p><strong>Comment l'expérience se déroule-t-elle concrètement pour le client ?</strong><br>Le client s'approche du terminal NOW Perfume, explore une sélection de fragrances organisées par humeur émotionnelle, choisit celle qui correspond à son état du moment, et vaporise l'Eau de Parfum directement sur sa peau. Le paiement s'effectue immédiatement, par carte ou application, pour chaque spray. Simple. Immédiat. Mémorable.</p>
+
+<p><strong>En quoi cette expérience est-elle différente d'un parfum d'ambiance ?</strong><br>Elle est fondamentalement différente. NOW Perfume n'est pas une technologie de parfumage d'espace. C'est une expérience de découverte du parfum : le client vaporise une Eau de Parfum sur sa propre peau et repart avec cette fragrance portée sur lui. C'est une expérience personnelle, physique et mémorable — pas une atmosphère collective.</p>
+
+<p><strong>Quel impact cela crée-t-il sur l'expérience client globale ?</strong><br>Les moments de découverte sensorielle authentique figurent parmi les plus mémorables de l'expérience hôtelière. Proposer une expérience de découverte du parfum ajoute une dimension émotionnelle rare, différencie l'établissement, et crée des souvenirs durables que les clients associeront à leur séjour — et raconteront.</p>
+
+<h2>Le parfum comme promesse d'hospitalité</h2>
+
+<p>La grande hospitalité a toujours su que le luxe véritable n'est pas dans le visible. Il est dans ce que l'on ressent — dans la chaleur d'un accueil, dans la précision d'une attention, dans la capacité d'un espace à faire sentir à chacun qu'il est attendu, qu'il est dans un lieu fait pour lui.</p>
+
+<p>NOW Perfume prolonge cette promesse dans la dimension olfactive, mais d'une manière profondément différente de tout ce qui a existé jusqu'alors : non pas en parfumant l'air que l'on respire, mais en permettant à chaque personne de choisir la fragrance qu'elle va porter. Sur sa peau. Dans son moment. Dans sa mémoire.</p>
+
+<p>C'est la vision de NOW Perfume : faire de la découverte du parfum l'un des rituels sensoriels les plus beaux et les plus personnels de l'hôtellerie de luxe. L'avenir de la découverte du parfum, vécu en immersion, dans les espaces où les émotions les plus intenses naissent naturellement.</p>
       `.trim(),
       en: `
-<p>Arriving at a great hotel is a sensory choreography. The height of the ceiling. The quality of the light. The discreet sounds of the lobby. And something that cannot be named, but is felt immediately: this place has a soul. That something is, almost always, olfactory.</p>
+<p>There are moments in an exceptional stay that transcend service. Instants where what is offered is not simply an additional amenity, but an encounter — an encounter with oneself, with an emotion, with a fragrance that could become yours. This is what NOW Perfume brings to the world's most refined spaces: a deeply personal, physical, and unforgettable fragrance discovery experience.</p>
 
-<p>Hotel fragrance signatures are no longer a luxury. They are a documented strategic investment that the world's most sophisticated hotel groups have integrated into their brand identity at the same level as architecture or visual identity.</p>
+<p>Not a fragrance in the air. A fragrance on skin.</p>
 
-<h2>The economics of sensory loyalty</h2>
+<h2>Beyond service: the personal sensory ritual</h2>
 
-<p>A study published in the <em>Journal of Business Research</em> measured the impact of olfactory signatures on hotel guests' behaviors. The results leave no ambiguity: hotels diffusing a coherent scent signature achieve return intention scores 22% higher than those not practicing olfactory branding. Overall satisfaction and ratings awarded to "atmosphere quality" progress by similar proportions.</p>
+<p>Contemporary luxury is no longer defined by the accumulation of amenities. It is defined by the quality of lived moments — by a space's capacity to create instants that remain inscribed in emotional memory long after departure. And among all the rituals luxury hospitality can offer, fragrance discovery occupies a singular place.</p>
 
-<p>The underlying mechanism is neurological. Fragrance creates what researchers call an "environmental cue" — a contextual signal that automatically triggers the memory associated with the establishment. On each return, the familiar scent instantly activates the entire memory network linked to past experience at that hotel: comfort, service, lived moments. The guest feels at home before they have even put down their luggage.</p>
+<p>The NOW Perfume experience is fundamentally different from anything hospitality has offered before. It is personal. The guest approaches, explores, chooses, and sprays an Eau de Parfum directly onto their skin. This is not a collective atmosphere. It is an individual experience. A fragrance one wears. One feels on oneself. One carries into the night.</p>
 
-<h2>The great hotel signatures</h2>
+<h2>The moment of discovery</h2>
 
-<p>Several hotel groups have elevated their olfactory approach to art. Marriott International has developed a distinctive fragrance identity for each of its brands — from the clean fresh wood of a Courtyard to the dark amber woods of a W Hotel. Four Seasons engages independent noses to create signatures specific to each property, reflecting the geography and singular character of each location.</p>
+<p>At the heart of the NOW Perfume experience lies a simple and universal gesture: the encounter between a person and a fragrance. The guest approaches the NOW Perfume terminal — installed in a hotel lobby, at a lounge bar, at the entrance to a spa, or in a dedicated space. They are invited to explore a selection of fragrances organized not by olfactory family, but by emotional state: energy, serenity, desire, power, lightness.</p>
 
-<p>The Westin Hotels &amp; Resorts made famous its "White Tea" accord — a blend of white tea, mint, and cedar so associated with the brand that guests purchase it as candles or home diffusers to recreate "the Westin effect" at home. This is the conversion of experience into loyalty.</p>
+<p>They choose not a name, but a mood. An intention. An inner state they wish to amplify or explore for the hours ahead. And they spray. Directly on the wrist. On the neck. On the skin.</p>
 
-<h2>The olfactory brief as branding tool</h2>
+<p>This gesture — so simple, so intimate — completely transforms the nature of the experience. It is no longer an abstract olfactory tasting. It is a personal declaration. A choice of identity. A fragrance that becomes one's own for an evening, a night, a memory.</p>
 
-<p>A hotel fragrance brief does not begin with "smell good." It begins with a series of strategic questions. What emotion does our establishment primarily want to evoke? Calm and refinement? Energy and modernity? Warmth and intimacy? Who is our target clientele, and which olfactory accords resonate with their cultural references? How should our signature evolve through the day — from morning arrival to midnight silence?</p>
+<blockquote>"The fragrance one wears on skin is not an accessory. It is a presence. An emotion one chooses to inhabit."</blockquote>
 
-<p>These questions transform fragrance from a decorative decision into a strategic positioning tool. And in a hospitality sector where differentiation on traditional dimensions — service, price, location — is increasingly difficult, sensory identity becomes a durable competitive advantage.</p>
+<h2>Why luxury hospitality is the natural territory of this experience</h2>
 
-<h2>The next step</h2>
+<p>Premium hospitality spaces — five-star hotels, private clubs, destination spas, high-end lounges, luxury residences — share a fundamental characteristic: they welcome people in heightened emotional states. At arrival, there is anticipation and openness. After a treatment, there is amplified well-being and awakened senses. In an evening lounge, there is social energy, seduction, the desire to be fully present.</p>
 
-<p>The next frontier of hotel fragrance is dynamic personalization. Connected diffusion systems already allow adjusting the olfactory signature according to the hour, space occupancy, and ongoing events. A welcome cocktail calls for a different fragrance than a Sunday brunch. A spa in the afternoon is scented differently than an evening restaurant.</p>
+<p>These moments are exceptional emotional windows — instants where encountering an Eau de Parfum resonates with particular depth. This is precisely why the NOW Perfume experience finds its natural place in these settings. It does not create an atmosphere — it offers an individual experience. It does not scent a venue — it allows a person to choose their fragrance for the exact moment they are living.</p>
 
-<p>The hotel fragrance of the future will not be a fixed note. It will be a living composition — as attentive to the moment as good service itself.</p>
+<h2>The spaces that invite this experience</h2>
+
+<p>The fragrance discovery experience is designed for environments where emotion is already present and where excellence is a natural expectation.</p>
+
+<p><strong>Luxury hotels</strong> are the ideal setting. In a lobby, after a gastronomic dinner, at the bar or concierge desk — every touchpoint can become a fragrance discovery moment. The guest leaves wearing the fragrance they chose. That fragrance encodes the memory of the establishment in a way no other attention could match.</p>
+
+<p><strong>Spas and wellness spaces</strong> offer the most propitious emotional context for fragrance discovery. After a treatment, the senses are heightened, the body is relaxed, the mind is open and receptive. Offering at this precise moment an invitation to explore and choose an Eau de Parfum transforms the end of the wellness ritual into a complete and memorable sensory experience.</p>
+
+<p><strong>Clubs and premium lounges</strong> engage another emotional dimension: social energy, seduction, the desire to be. In this territory, choosing one's fragrance for the night becomes an act of ritual preparation — the olfactory equivalent of choosing an outfit. An intention worn on skin.</p>
+
+<p><strong>Premium wellness and fitness spaces</strong> welcome their members in amplified physical and mental states. A fragrance discovery experience at this precise moment offers something rare: a sensory transition between physical effort and social life — a passage from one state to another, embodied in a chosen fragrance.</p>
+
+<h2>Pay-per-spray: the experience in its purest form</h2>
+
+<p>The NOW Perfume model rests on a principle of absolute elegance: payment per spray. Each spray is a complete experience — immediate, accessible, without commitment. The guest does not pay for an entire bottle. They pay for the moment: the moment of discovery, the moment of choice, the moment of wearing a quality Eau de Parfum in the exact context where it takes its full meaning.</p>
+
+<p>This model redefines the accessibility of luxury fragrance. It allows every guest, regardless of purchase intention, to live an authentic fragrance experience — without the commercial pressure of a traditional counter, without the constraining format of a full bottle. The experience for its own sake. Fragrance for what it truly is: an emotional ritual, not a transaction.</p>
+
+<blockquote>"True fragrance is discovered on oneself, at the exact moment one is ready to encounter it."</blockquote>
+
+<h2>Emotion as lasting memory</h2>
+
+<p>There is a profound neurological reason why experiences lived in emotionally charged contexts remain in memory far longer than ordinary memories. The olfactory bulb is directly connected to the hippocampus and amygdala — the brain structures of episodic memory and emotion. A fragrance discovered in a powerful moment — an arrival at a palace, an exceptional evening, a moment of profound well-being — encodes that moment with an intensity few other senses can match.</p>
+
+<p>For a hotel, a club, or a spa, this represents something precious and unique: the possibility that every guest leaves wearing a fragrance indissociably linked to the experience lived in that space. The fragrance becomes the memory imprint of the establishment — worn on skin, recalled each time that fragrance is encountered again, months or years later.</p>
+
+<h2>Frequently asked questions about the NOW Perfume experience in hospitality</h2>
+
+<p><strong>Is the NOW Perfume experience suited to all types of establishments?</strong><br>It is designed for spaces where excellence and singularity are fundamental values: luxury hotels and boutique hotels, premium spas and wellness spaces, private clubs and lounges, hotel residences, and high-end reception venues.</p>
+
+<p><strong>How does the experience unfold for the guest in practice?</strong><br>The guest approaches the NOW Perfume terminal, explores a selection of fragrances organized by emotional mood, chooses the one that corresponds to their current state, and sprays the Eau de Parfum directly onto their skin. Payment is made immediately — by card or app — for each spray. Simple. Immediate. Memorable.</p>
+
+<p><strong>How is this experience different from an ambient fragrance system?</strong><br>Fundamentally different. NOW Perfume is not a space-scenting technology. It is a fragrance discovery experience: the guest sprays an Eau de Parfum onto their own skin and leaves wearing that fragrance. It is a personal, physical, and memorable experience — not a collective atmosphere.</p>
+
+<p><strong>What impact does this create on the overall guest experience?</strong><br>Authentic sensory discovery moments rank among the most memorable in the hospitality experience. Offering a fragrance discovery experience adds a rare emotional dimension, differentiates the establishment, and creates lasting memories that guests will associate with their stay — and share.</p>
+
+<h2>Fragrance as a hospitality promise</h2>
+
+<p>The finest hospitality has always known that true luxury is not in the visible. It is in what one feels — in the warmth of a welcome, in the precision of an attention, in a space's capacity to make each person feel expected, to feel that this place was made for them.</p>
+
+<p>NOW Perfume extends this promise into the olfactory dimension, but in a way profoundly different from anything that has existed before: not by perfuming the air one breathes, but by allowing each person to choose the fragrance they will carry. On their skin. In their moment. In their memory.</p>
+
+<p>This is NOW Perfume's vision: to make fragrance discovery one of the most beautiful and most personal sensory rituals in luxury hospitality. The future of fragrance discovery, lived in full immersion, in the spaces where the most intense emotions arise naturally.</p>
       `.trim(),
     },
   },
