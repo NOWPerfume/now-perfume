@@ -424,7 +424,7 @@ export const PERFUMES: Record<Lang, Perfume[]> = {
 
 export const COPY = {
   fr: {
-    pageTitle: "Cinq signatures, cinq émotions.",
+    pageTitle: "Spray the Moment.\nFeel the Emotion.",
     intro: "Inspirées de boissons iconiques, pensées pour accompagner l'énergie du moment.",
     notesLabel: "Notes principales",
     pyramidLabel: "Pyramide olfactive",
@@ -439,7 +439,7 @@ export const COPY = {
     nextPerfume: "Parfum suivant",
   },
   en: {
-    pageTitle: "Five signatures, five emotions.",
+    pageTitle: "Spray the Moment.\nFeel the Emotion.",
     intro: "Inspired by iconic drinks, designed to capture the energy of the moment.",
     notesLabel: "Main notes",
     pyramidLabel: "Olfactive pyramid",

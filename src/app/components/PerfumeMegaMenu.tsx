@@ -16,12 +16,12 @@ type BottleFrameAdjust = {
 };
 
 const MEGA_MENU_BOTTLE_ADJUSTMENTS: Record<string, BottleFrameAdjust> = {
-  "ginger-aphrodisiac": { scale: 1.08, y: 1 },
-  "maracuja-samba": { scale: 1.16, y: -2 },
-  "matcha-star": { scale: 1.12, y: -1 },
-  "vanilla-chill": { scale: 1.1, y: 0 },
-  "rosa-boom": { scale: 1.11, y: -1 },
-  default: { scale: 1.1, y: 0 },
+  "ginger-aphrodisiac": { scale: 1.08, y: 0 },
+  "maracuja-samba": { scale: 1.08, y: 0 },
+  "matcha-star": { scale: 1.08, y: 0 },
+  "vanilla-chill": { scale: 1.08, y: 0 },
+  "rosa-boom": { scale: 1.08, y: 0 },
+  default: { scale: 1.08, y: 0 },
 };
 
 export default function PerfumeMegaMenu({
@@ -47,12 +47,12 @@ export default function PerfumeMegaMenu({
                 href={`/parfums/${perfume.id}`}
                 className="group/item flex flex-col items-center gap-4 rounded-[32px] border border-white/70 bg-white/95 px-4 py-6 text-center shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
               >
-                <div className="relative flex h-32 w-24 items-center justify-center overflow-hidden rounded-xl border border-black/10">
+                <div className="relative flex h-32 w-24 items-end justify-center overflow-hidden rounded-xl border border-black/10">
                   <div
                     className="absolute inset-0"
                     style={{
-                      transform: `translateY(${frameAdjust.y}%) scale(${frameAdjust.scale})`,
-                      transformOrigin: "center center",
+                      transform: `scale(${frameAdjust.scale})`,
+                      transformOrigin: "bottom center",
                     }}
                   >
                     <ImageSlot
@@ -60,7 +60,7 @@ export default function PerfumeMegaMenu({
                       alt={`${perfume.name} bottle`}
                       fill
                       sizes="96px"
-                      className="object-contain object-center"
+                      className="object-contain object-bottom"
                       placeholderLabel="Image a ajouter"
                     />
                   </div>

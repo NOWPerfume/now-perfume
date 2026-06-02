@@ -52,7 +52,7 @@ export default function ParfumsPage() {
               fill
               priority
               sizes="100vw"
-              className="h-full w-full object-cover object-center scale-[1.08] transition-transform duration-700"
+              className="h-full w-full object-contain object-center"
               placeholderLabel="Image a ajouter"
             />
           </div>
@@ -60,7 +60,7 @@ export default function ParfumsPage() {
             {lang === "fr" ? "Collection NOW" : "NOW Collection"}
           </p>
 
-          <h1 className="title-aura text-3xl md:text-5xl lg:text-6xl font-light leading-tight tracking-[-0.02em] mb-6 text-black [text-shadow:0_2px_10px_rgba(255,255,255,0.3)]">
+          <h1 className="title-aura whitespace-pre-line text-3xl md:text-5xl lg:text-6xl font-light leading-tight tracking-[-0.02em] mb-6 text-black [text-shadow:0_2px_10px_rgba(255,255,255,0.3)]">
             {txt.pageTitle}
           </h1>
 

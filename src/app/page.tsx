@@ -277,6 +277,7 @@ export default function Home() {
             <div className="flex h-full w-full max-w-5xl flex-col items-center justify-center text-center text-black">
               <h1 className="sr-only">{t.heroTitle}</h1>
 
+              {/* HERO_LOGO_NOW_BLACK_ACTIVE */}
               <div className="mb-4 w-[155px] md:mb-6 md:w-[260px]">
                 <Image
                   src="/logo-now.PNG"
@@ -284,7 +285,7 @@ export default function Home() {
                   width={520}
                   height={246}
                   priority
-                  className="h-auto w-full object-contain invert"
+                  className="h-auto w-full object-contain"
                 />
               </div>
 
