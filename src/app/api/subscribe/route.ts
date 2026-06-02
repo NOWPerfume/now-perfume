@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from "next/server";
-import { Resend } from "resend";
 
 export const runtime = "nodejs";
 
@@ -8,16 +7,9 @@ function isValidEmail(email: string) {
 }
 
 export async function POST(request: NextRequest) {
-  console.log("RESEND_API_KEY exists:", !!process.env.RESEND_API_KEY);
-  console.log("RESEND_AUDIENCE_ID:", process.env.RESEND_AUDIENCE_ID);
-
-  const apiKey = process.env.RESEND_API_KEY;
-  if (!apiKey) {
-    if (process.env.VERCEL_ENV === "production") {
-      console.error("RESEND_API_KEY missing in production");
-    }
-    console.error("[subscribe] Missing RESEND_API_KEY");
-    return NextResponse.json({ success: false, error: "Missing RESEND_API_KEY" }, { status: 503 });
+  if (!process.env.BREVO_API_KEY) {
+    console.error("[subscribe] Missing BREVO_API_KEY");
+    return NextResponse.json({ success: false, error: "Missing BREVO_API_KEY" }, { status: 503 });
   }
 
   let body: unknown;
@@ -34,94 +26,37 @@ export async function POST(request: NextRequest) {
   }
 
   const normalizedEmail = email.trim().toLowerCase();
-  console.log("Trying to add contact:", normalizedEmail);
 
-  const resend = new Resend(apiKey);
-
-  const audienceId = process.env.RESEND_AUDIENCE_ID;
-  if (!audienceId) {
-    console.error("[subscribe] Missing RESEND_AUDIENCE_ID");
-    return NextResponse.json({ success: false, error: "Missing RESEND_AUDIENCE_ID" }, { status: 503 });
-  }
-
-  try {
-    const { data, error } = await resend.contacts.create({
-      audienceId,
+  const res = await fetch("https://api.brevo.com/v3/contacts", {
+    method: "POST",
+    headers: {
+      "api-key": process.env.BREVO_API_KEY,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
       email: normalizedEmail,
-      unsubscribed: false,
-    });
+      listIds: [3],
+      updateEnabled: true,
+    }),
+  });
 
-    if (error) {
-      const message = JSON.stringify(error).toLowerCase();
-      // Contact already exists — treat as success
-      if (message.includes("already exists") || message.includes("duplicate")) {
-        console.log("Newsletter contact already exists in Resend Audience:", normalizedEmail);
-        return NextResponse.json({ success: true });
-      }
-
-      if (
-        (message.includes("audience") && message.includes("not found")) ||
-        message.includes("invalid audience") ||
-        message.includes("invalid audience_id")
-      ) {
-        console.error("Resend subscribe error:", error);
-        console.error("[subscribe] Invalid RESEND_AUDIENCE_ID");
-        return NextResponse.json({ success: false, error: "Invalid RESEND_AUDIENCE_ID" }, { status: 500 });
-      }
-
-      if (
-        message.includes("restricted") ||
-        message.includes("only send emails") ||
-        message.includes("unauthorized") ||
-        message.includes("forbidden")
-      ) {
-        console.error("Resend subscribe error:", error);
-        console.error("[subscribe] RESEND_API_KEY lacks Contacts/Audience permissions");
-        return NextResponse.json({ success: false, error: "RESEND_API_KEY lacks Contacts permissions" }, { status: 500 });
-      }
-
-      console.error("Resend subscribe error:", error);
-      return NextResponse.json({ success: false, error: "Failed to subscribe" }, { status: 500 });
-    }
-
-    if (!data) {
-      console.error("[subscribe] Resend contacts.create returned no data");
-      return NextResponse.json({ success: false, error: "Failed to subscribe" }, { status: 500 });
-    }
-
-    console.log("Added to audience:", normalizedEmail);
-  } catch (err) {
-    const message = err instanceof Error ? err.message.toLowerCase() : String(err).toLowerCase();
-    // Contact already exists — treat as success
-    if (message.includes("already exists") || message.includes("duplicate")) {
-      console.log("Newsletter contact already exists in Resend Audience:", normalizedEmail);
-      return NextResponse.json({ success: true });
-    }
-
-    if (
-      (message.includes("audience") && message.includes("not found")) ||
-      message.includes("invalid audience") ||
-      message.includes("invalid audience_id")
-    ) {
-      console.error("Resend subscribe error:", err);
-      console.error("[subscribe] Invalid RESEND_AUDIENCE_ID");
-      return NextResponse.json({ success: false, error: "Invalid RESEND_AUDIENCE_ID" }, { status: 500 });
-    }
-
-    if (
-      message.includes("restricted") ||
-      message.includes("only send emails") ||
-      message.includes("unauthorized") ||
-      message.includes("forbidden")
-    ) {
-      console.error("Resend subscribe error:", err);
-      console.error("[subscribe] RESEND_API_KEY lacks Contacts/Audience permissions");
-      return NextResponse.json({ success: false, error: "RESEND_API_KEY lacks Contacts permissions" }, { status: 500 });
-    }
-
-    console.error("Resend subscribe error:", err);
-    return NextResponse.json({ success: false, error: "Failed to subscribe" }, { status: 500 });
+  // 201 = created, 204 = already exists (with updateEnabled)
+  if (res.status === 201 || res.status === 204) {
+    return NextResponse.json({ success: true });
   }
 
-  return NextResponse.json({ success: true });
+  // Brevo returns 400 with "Contact already exist" when contact exists without updateEnabled
+  if (res.status === 400) {
+    const data = (await res.json()) as { message?: string; code?: string };
+    const msg = (data.message ?? "").toLowerCase();
+    if (msg.includes("already exist") || msg.includes("duplicate") || data.code === "duplicate_parameter") {
+      return NextResponse.json({ success: true, message: "Already subscribed" });
+    }
+    console.error("[subscribe] Brevo 400 error:", data);
+    return NextResponse.json({ success: false, error: data.message ?? "Bad request" }, { status: 400 });
+  }
+
+  const errorData = (await res.json().catch(() => ({}))) as { message?: string };
+  console.error("[subscribe] Brevo error:", res.status, errorData);
+  return NextResponse.json({ success: false, error: errorData.message ?? "Failed to subscribe" }, { status: 500 });
 }
